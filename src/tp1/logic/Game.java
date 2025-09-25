@@ -1,19 +1,69 @@
 package tp1.logic;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import tp1.logic.gameobjects.*;
+import tp1.view.Messages;
+
 public class Game {
 
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
+	
+	private int remainingTime;
+	private int points;
+	private int lives;
+	
+	private int nLevel;
+	
+	private Mario mario;
+	
+	private GameObjectContainer gameObjects;
 
 	//TODO fill your code
 	
 	public Game(int nLevel) {
 		// TODO Auto-generated constructor stub
+		this.remainingTime = 100;
+		this.points = 0;
+		this.lives = 3;
+		if (nLevel == 0) {
+			initLevel0();
+		}
 	}
 	
 	public String positionToString(int col, int row) {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println(""+col+" "+row);
+		
+		if (this.gameObjects.getMario().getPosition().getCol() == col && this.gameObjects.getMario().getPosition().getRow() == row) {
+			return this.gameObjects.getMario().getIcon();
+		}
+		
+		if (this.gameObjects.getExitDoor().getPosition().getCol() == col && this.gameObjects.getMario().getPosition().getRow() == row) {
+			return this.gameObjects.getExitDoor().getIcon();
+		}
+		
+		if (this.gameObjects.getLand()[col][row] != null){
+			return this.gameObjects.getLand()[col][row].getIcon();
+		}
+		
+		ArrayList<Goomba> goombas = gameObjects.getGoombas();
+		// leer posiciones goomba
+		System.out.println(goombas.size());
+		
+		for (int i = 0; i < goombas.size(); i++) {
+			System.out.println("Goomba "+ i);
+			if(goombas.get(i).getPos().getCol() == col && goombas.get(i).getPos().getRow() == row) {
+				System.out.println("hay goomba");
+				return goombas.get(i).getIcon();
+			}
+		}
+		
+		
+		return Messages.EMPTY;
+		
 	}
 
 	public boolean playerWins() {
@@ -23,17 +73,17 @@ public class Game {
 
 	public int remainingTime() {
 		// TODO Auto-generated method stub
-		return 100;
+		return this.remainingTime;
 	}
 
 	public int points() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.points;
 	}
 
 	public int numLives() {
 		// TODO Auto-generated method stub
-		return 3;
+		return this.lives;
 	}
 
 	@Override
@@ -47,7 +97,7 @@ public class Game {
 		return false;
 	}
 	
-	/*
+	
 	private void initLevel0() {
 		this.nLevel = 0;
 		this.remainingTime = 100;
@@ -89,6 +139,7 @@ public class Game {
 		gameObjects.add(this.mario);
 
 		gameObjects.add(new Goomba(this, new Position(0, 19)));
+		gameObjects.add(new Goomba(this, new Position(12, 4)));
 	}
-	*/
+	
 }
