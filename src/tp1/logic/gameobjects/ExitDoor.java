@@ -11,13 +11,20 @@ public class ExitDoor {
 		this.pos = pos;
 	}
 
-	public Position getPosition() {
-		return pos;
-	}
 	
 	public String getIcon() {
 		return Messages.EXIT_DOOR;
 	}
+	
+	public int getCol() {
+		return pos.getCol();
+	}
+	
+	public int getRow() {
+		return pos.getRow();
+	}
+	
+	
 	
 	
 	/*

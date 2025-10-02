@@ -8,6 +8,8 @@ public class Goomba {
 
 	private Position pos;
 	private Game game;
+	private boolean avanza= true;
+	private boolean dead;
 	
 	public Goomba(Position pos){
 		this.pos = pos;
@@ -19,14 +21,44 @@ public class Goomba {
 		this.pos = position;
 	}
 
-	public Position getPos() {
-		return pos;
+	public int getCol() {
+		return pos.getCol();
+	}
+	
+	public int getRow() {
+		return pos.getRow();
 	}
 	
 	public String getIcon() {
 		return Messages.GOOMBA;
 	}
-
+	
+	public void update() {
+		
+		if(game.isSolid(pos)) {
+			this.avanza = false;
+		}
+		
+		
+		Position pisa = new Position(pos.getRow(), pos.getCol()-1);
+		if (game.isSolid(pisa)) {
+			if (this.avanza) {
+				this.pos = new Position(pos.getRow()-1, pos.getCol());
+			} else {
+				this.pos = new Position(pos.getRow()+1, pos.getCol());
+			}
+			
+		} else {
+			// caida hasta final del tablero
+			// ¿como encuentro final del tablero?
+		}
+		
+	}
+	
+	public boolean isDead() {
+		return this.dead;
+	}
+	
 	/*
 	public void setPos(Position pos) {
 		this.pos = pos;

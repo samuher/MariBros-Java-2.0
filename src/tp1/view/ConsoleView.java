@@ -86,7 +86,7 @@ public class ConsoleView extends GameView {
 			str.append(VERTICAL_DELIMITER);
 
 			for (int col = 0; col < Game.DIM_X; col++) {
-				str.append(consoleCell(game.positionToString(col, row)));
+				str.append(consoleCell(game.positionToString(row, col))); // cambiado para coincidir con mapa por defecto
 				//str.append(VERTICAL_DELIMITER);
 			}
 			str.append(VERTICAL_DELIMITER);
@@ -98,7 +98,7 @@ public class ConsoleView extends GameView {
 		str.append(LATERAL_TAB);
 		str.append(LOWER_ROW_BORDER);
 		str.append(colLine(Game.DIM_X));
-
+		System.out.println("esto se esta ejecutando");
 		return str.toString();
 	}
 
@@ -134,6 +134,11 @@ public class ConsoleView extends GameView {
 	public void showGame() {
 		System.out.println(this.toString());
 	}
+	/*
+	@Override
+	public void setGame(int nLevel) {
+		this.game = new Game(nLevel);
+	}*/
 
 	@Override
 	public void showEndMessage() {
@@ -160,9 +165,14 @@ public class ConsoleView extends GameView {
 	public String[] getPrompt() {
 		System.out.print(Messages.PROMPT);
 		String line = scanner.nextLine();
-		String[] words = line.trim().split("\\s+");
+		
+        System.out.println(line.toString());
+        String[] words = line.trim().split("\\s+");
 
-        System.out.println(Messages.DEBUG.formatted(line));		
+        System.out.println(Messages.DEBUG.formatted(line));	
+        
+        
+        
 
 		return words;
 	}

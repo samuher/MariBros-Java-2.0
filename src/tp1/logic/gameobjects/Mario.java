@@ -14,8 +14,9 @@ public class Mario {
 	
 	private Position pos;
 	private boolean big;
-	private boolean right;
-	private boolean left;
+	private boolean right = false;
+	private boolean left = false;
+	private boolean stop = true;
 	private Game game;
 	
 	
@@ -23,10 +24,12 @@ public class Mario {
 		// TODO Auto-generated constructor stub
 		this.game = game;
 		this.pos = position;
+		
 	}
 
 	public void update() {
 		//TODO fill your code
+		//actualiza a Mario ( y quizas su entorno)
 	}
 	
 	public String getIcon() {
@@ -35,12 +38,38 @@ public class Mario {
 			ret 
 		}
 		*/
+		// devuelve el icono, segun su direccion
 		
+		if (this.stop) {
+			return Messages.MARIO_STOP; 
+		} else if (this.right) {
+			return Messages.MARIO_RIGHT;
+		} else if (this.left) {
+			return Messages.MARIO_LEFT;
+		}
+		System.out.println("Eror direccion Mario");
 		
 		return Messages.MARIO_STOP;
 	}
 	
-	public Position getPosition() {
-		return this.pos;
+	public String toString() {
+		// devuelve una representación de Mario, ej: Mario grande situado en la posicion (1,2), parado
+		return null;
+		
 	}
+	
+	public boolean isInPosition (Position p) {
+		return (p.getCol() == this.pos.getCol() && p.getRow() == this.pos.getRow());
+	}
+	
+	public int getCol() {
+		return pos.getCol();
+	}
+	
+	public int getRow() {
+		return pos.getRow();
+	}
+	
+	
+	
 }

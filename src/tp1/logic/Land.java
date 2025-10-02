@@ -14,9 +14,14 @@ public class Land {
 		return Messages.LAND;
 	}
 	
-	public Position getPosition() {
-		return this.pos;
+	public int getCol() {
+		return this.pos.getCol();
 	}
+	
+	public int getRow() {
+		return this.pos.getRow();
+	}
+	
 	
 	/*
 	public void add(Goomba goomba) {

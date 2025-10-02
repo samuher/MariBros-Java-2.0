@@ -1,23 +1,28 @@
 package tp1.logic;
 
 import tp1.logic.gameobjects.*;
+import tp1.view.Messages;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameObjectContainer {
 	//TODO fill your code
-	private Land[][] land;
+	private List<Land> landList;
 	private Mario mario;
 	private ExitDoor exit;
-	ArrayList<Goomba> goombas = new ArrayList<>();
+	private List<Goomba> goombas;
 	private int contador;
 	
 	public GameObjectContainer(){
-		land = new Land[Game.DIM_X][Game.DIM_Y];
+		landList = new ArrayList<>();
+		goombas = new ArrayList<>();
+		// land = new Land[Game.DIM_X][Game.DIM_Y];
+		
 	}
 	
 	public void add(Land land) {
-		this.land[land.getPosition().getCol()][land.getPosition().getRow()]= land;
+		this.landList.add(land);
 	}
 	
 	public void add(Goomba goomba) {
@@ -29,21 +34,54 @@ public class GameObjectContainer {
 	public void add(Mario mario) {
 		this.mario = mario;
 	}
-	
+	/*
 	public Land[][] getLand(){
-		return this.land;
+		return this.landList;
+	}*/
+	
+	public void update() {
+		//llamar a los metodos update de los objetos del tableroa
+		// primero se actualiza mario y luego los goombas
+		this.mario.update();
+		//this.goombas.removeIf(Goomba :: isDead);
+		for (Goomba goomba : goombas ) {
+			goomba.update();
+		}
 	}
 	
-	public ArrayList<Goomba> getGoombas(){
-		return this.goombas;
+	public String positionToString(Position pos) {
+		int col = pos.getCol();
+		int row = pos.getRow();
+		for (Land land : landList) {
+			if (land.getCol() == col && land.getRow() == row) {
+				return land.getIcon();			}
+		}
+		
+		for (Goomba goomba : goombas ) {
+			if (goomba.getCol() == col && goomba.getRow() == row) {
+				return goomba.getIcon();
+			}
+		}
+		
+		if (mario.getCol() == col && mario.getRow() == row) {
+			return mario.getIcon();
+		}
+		
+		if (exit.getCol() == col && exit.getRow() == row) {
+			return exit.getIcon();
+		}
+		return Messages.EMPTY;
 	}
 	
-	public Mario getMario() {
-		return this.mario;
+	public boolean isSolid(Position pos) {
+		int col = pos.getCol();
+		int row = pos.getRow();
+		for (Land land : landList) {
+			if (land.getCol() == col && land.getRow() == row) {
+				return true;}
+		}
+		return false;
 	}
 	
-	public ExitDoor getExitDoor() {
-		return this.exit;
-	}
 	
 }
