@@ -57,6 +57,7 @@ public class GameObjectContainer {
 		for (Goomba goomba : goombas ) {
 			if (goomba.isDead()) {
 				goombas.remove(goomba);
+				return;
 			}
 		}
 	}

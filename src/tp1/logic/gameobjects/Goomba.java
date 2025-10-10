@@ -71,7 +71,7 @@ public class Goomba {
 	
 	public boolean receiveInteraction(Mario other) {
 		this.dead = true;
-		return false;
+		return true;
 	}
 	
 

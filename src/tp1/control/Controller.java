@@ -81,6 +81,15 @@ public class Controller {
 		} else if (prompt[0].equals("r")){
 			game.reset();
 		}
+				
+		if (prompt[0].equals("r")) {
+			if (prompt.length > 0) {
+				System.out.println("Cargando nuevo nivel " + prompt[1]);
+				game.reset(Integer.parseInt(prompt[1]));
+			}
+		}		
+				
+				
 		//System.out.println("tamaño " + prompt.length);
 		
 		}

@@ -46,9 +46,11 @@ public void update() {
 					continue;
 				}
 				//this.pos = this.pos.moved(dir);
-				if (dir == Action.LEFT ||dir == Action.RIGHT ) {
-					this.left = !this.left;
-					this.right = !this.right;
+				if (dir == Action.LEFT) {
+					this.left = true;
+					this.stop = false;
+				} else if (dir == Action.RIGHT){
+					this.right = true;
 					this.stop = false;
 				} else if (dir == Action.DOWN) {
 					this.left = false;

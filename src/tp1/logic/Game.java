@@ -49,8 +49,8 @@ public class Game {
 	
 	public void reset(int nLevel) {
 		this.remainingTime = 100;
-		this.points = 0;
-		this.lives = 3;
+		//this.points = 0;
+		//this.lives = 3;
 		switch (nLevel) {
 		case 0 -> initLevel0();
 		case 1 -> initLevel1();
@@ -119,8 +119,9 @@ public class Game {
 	
 	public void marioDead() {
 		lives--;
+		reset();
 		if (this.lives == 0) {
-			reset();
+			finish();
 			System.out.println(Messages.GAME_OVER);
 		}
 	}
