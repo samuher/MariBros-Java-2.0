@@ -98,7 +98,7 @@ public class ConsoleView extends GameView {
 		str.append(LATERAL_TAB);
 		str.append(LOWER_ROW_BORDER);
 		str.append(colLine(Game.DIM_X));
-		System.out.println("esto se esta ejecutando");
+		//System.out.println("esto se esta ejecutando");
 		return str.toString();
 	}
 
@@ -166,7 +166,7 @@ public class ConsoleView extends GameView {
 		System.out.print(Messages.PROMPT);
 		String line = scanner.nextLine();
 		
-        System.out.println(line.toString());
+        //System.out.println(line.toString());
         String[] words = line.trim().split("\\s+");
 
         System.out.println(Messages.DEBUG.formatted(line));	

@@ -30,11 +30,11 @@ public class Game {
 		this.remainingTime = 100;
 		this.points = 0;
 		this.lives = 3;
-		System.out.println("creando game");
+		//System.out.println("creando game");
 		this.nLevel = nLevel;
 		switch (nLevel) {
 		case 0 -> initLevel0();
-		case 1 -> {initLevel1(); System.out.println("init level1w");}
+		case 1 -> {initLevel1();}
 		}
 	}
 	
@@ -177,7 +177,7 @@ public class Game {
 	}
 	
 	private void initLevel1() {
-		System.out.println("level 1");
+		//System.out.println("level 1");
 		this.nLevel = 0;
 		this.remainingTime = 100;
 		

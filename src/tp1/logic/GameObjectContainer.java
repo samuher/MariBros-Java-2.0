@@ -45,7 +45,7 @@ public class GameObjectContainer {
 		this.mario.update();
 		this.mario.interactWith(exit);
 		//this.goombas.removeIf(Goomba :: isDead);
-		System.out.println("update");
+		//System.out.println("update");
 		for (Goomba goomba : goombas ) {
 			goomba.update();
 		}

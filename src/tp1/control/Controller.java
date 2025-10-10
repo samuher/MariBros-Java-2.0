@@ -32,25 +32,22 @@ public class Controller {
 		boolean help = false;
 		
 		while (!game.isFinished()) {
-		view.showWelcome();
+		
 		
 		//TODO fill your code: The main loop that displays the game, asks the user for input, and executes the action.
 		
 		if (!help) {
+			view.showWelcome();
 			view.showGame();
 		} 
 		
 		String[] prompt = view.getPrompt();
 
-		System.out.println(prompt[0]);
+		//System.out.println(prompt[0]);
 		
 		// comando action
 		
 		if (prompt[0].equals("a")|| prompt[0].toLowerCase().equals("action")) {
-			System.out.println("Ejecutamos acciones");
-			// convierte cada accion en objectos action
-			// añadir esos objetos action a una Action List en mario con game.addAction
-			//ActionList list = new ActionList();
 			for (int i = 1; i < prompt.length; i++) {
 				if (prompt[i].equals("l")|| prompt[i].toLowerCase().equals("left")) {
 					game.addAction(Action.LEFT);
@@ -73,26 +70,29 @@ public class Controller {
 		if (prompt[0].equals("r")) {
 			game.reset();
 			if (prompt.length > 1) {
-				System.out.println("Cargando nuevo nivel " + prompt[1]);
+				//System.out.println("Cargando nuevo nivel " + prompt[1]);
 				game.reset(Integer.parseInt(prompt[1]));
 			}
 		}		
 				
-				
-		//System.out.println("tamaño " + prompt.length);
-		
-		switch (prompt[0]) {
+		switch (prompt[0].toLowerCase()) {
 		case "h", "help" -> {
-			for (String linea : Messages.HELP_LINES) {
-				System.out.println(linea);
-			}
+			if (prompt.length > 1) {
+				System.out.printf(Messages.ERROR + "\n",Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
+				help = true;
+				//return;
+			} else {
+				System.out.println(Messages.HELP);
+			
 			help = true;
+			}
+			
+			
 		}
 		case "u", "update" -> {game.update();}
 		case "e", "exit" -> {game.finish();}
-		default -> System.out.println("Comando no recononcido");
+		default -> System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_COMMAND, prompt[0]));
 		}
-		
 		
 		}
 		view.showEndMessage();
