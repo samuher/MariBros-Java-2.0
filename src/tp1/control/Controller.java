@@ -7,6 +7,7 @@ import tp1.logic.Action;
 import tp1.logic.ActionList;
 import tp1.logic.Game;
 import tp1.view.GameView;
+import tp1.view.Messages;
 
 /**
  *  Accepts user input and coordinates the game execution logic
@@ -28,11 +29,16 @@ public class Controller {
 	 */
 	public void run() {
 		
+		boolean help = false;
+		
 		while (!game.isFinished()) {
 		view.showWelcome();
 		
 		//TODO fill your code: The main loop that displays the game, asks the user for input, and executes the action.
-		view.showGame();
+		
+		if (!help) {
+			view.showGame();
+		} 
 		
 		String[] prompt = view.getPrompt();
 
@@ -80,12 +86,12 @@ public class Controller {
 		}
 		
 		switch (prompt[0]) {
-		case "h", "help" -> System.out.println("Available commands:\r\n"
-				+ "   [a]ction [[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+: user performs actions\r\n"
-				+ "   [u]pdate | \"\": user does not perform any action\r\n"
-				+ "   [r]eset [numLevel]: reset the game to initial configuration if not numLevel else load the numLevel map\r\n"
-				+ "   [h]elp: print this help message\r\n"
-				+ "   [e]xit: exits the game");
+		case "h", "help" -> {
+			for (String linea : Messages.HELP_LINES) {
+				System.out.println(linea);
+			}
+			help = true;
+		}
 		case "a", "action" -> System.out.println("accion");
 		case "u", "update" -> {game.update();}
 		case "e", "exit" -> {game.finish();}

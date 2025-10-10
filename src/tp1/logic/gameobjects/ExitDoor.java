@@ -20,8 +20,9 @@ public class ExitDoor {
 		return (this.pos.equals(p));
 	}
 	
-	
-	
+	public boolean isInPosition(Mario m) {
+		return m.isInPosition(this.pos);
+	}
 	/*
 	public void setPos(Position pos) {
 		this.pos = pos;

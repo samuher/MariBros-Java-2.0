@@ -96,6 +96,10 @@ public class Game {
 		// TODO Auto-generated method stub
 		return this.points;
 	}
+	
+	public void addPoints(int points) {
+		this.points += points;
+	}
 
 	public int numLives() {
 		// TODO Auto-generated method stub
@@ -119,6 +123,11 @@ public class Game {
 			reset();
 			System.out.println(Messages.GAME_OVER);
 		}
+	}
+	
+	public void doInteractionsFrom(Mario m) {
+		// game ob -> goombas -> posicion = posicion mario
+		gameObjects.doInteractionsFrom(m);
 	}
 	
 	
@@ -209,5 +218,6 @@ public class Game {
 
 		gameObjects.add(new Goomba(this, new Position(0, 19)));
 	}
+
 	
 }

@@ -69,5 +69,10 @@ public class Goomba {
 		return this.dead;
 	}
 	
+	public boolean receiveInteraction(Mario other) {
+		this.dead = true;
+		return false;
+	}
+	
 
 }

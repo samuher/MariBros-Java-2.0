@@ -22,6 +22,7 @@ public class Mario {
 	private boolean left = false;
 	private boolean stop = true;
 	private boolean avanza = false;
+	private boolean cayendo = false;
 	private Game game;
 	
 	private ActionList actlist;
@@ -45,13 +46,9 @@ public void update() {
 					continue;
 				}
 				//this.pos = this.pos.moved(dir);
-				if (dir == Action.LEFT) {
-					this.left = true;
-					this.right = false;
-					this.stop = false;
-				} else if (dir == Action.RIGHT) {
-					this.left = false;
-					this.right = true;
+				if (dir == Action.LEFT ||dir == Action.RIGHT ) {
+					this.left = !this.left;
+					this.right = !this.right;
 					this.stop = false;
 				} else if (dir == Action.DOWN) {
 					this.left = false;
@@ -59,11 +56,12 @@ public void update() {
 					this.stop = true;
 					Position suelo = this.pos.moved(Action.DOWN);
 					caida(suelo);
+					//this.cayendo = true;
 				}
 				
 				this.pos = this.pos.moved(dir);
 			}
-			
+			game.doInteractionsFrom(this);
 			return;
 		}
 		
@@ -89,6 +87,7 @@ public void update() {
 		}
 		suelo = this.pos.moved(Action.DOWN);
 		caida(suelo);
+		game.doInteractionsFrom(this);
 		
 }
 	
@@ -121,6 +120,9 @@ public void update() {
 	public boolean isInPosition (Position p) {
 		return (this.pos.equals(p));
 	}
+	public boolean isInPosition (Goomba g) {
+		return g.isInPosition(this.pos);
+	}
 	
 	public void addAction(Action act) {
 		this.actlist.add(act);
@@ -139,17 +141,33 @@ public void update() {
 				suelo = this.pos.moved(Action.DOWN);
 				
 			}
+			this.cayendo = true;
 			return true;
 		}
+		//this.cayendo = false;
 		return false;
 		
 	}
 	
 	public boolean interactWith(ExitDoor other) {
-		return false;
-		
+		return other.isInPosition(this);
 	}
 	
-	
+	public boolean interactWith(Goomba goomba) {
+		
+		if(isInPosition(goomba)) {
+			game.addPoints(100);
+			goomba.receiveInteraction(this);
+			if (!cayendo) {
+				if (big) {
+					this.big = false;
+				} else {
+					game.marioDead();
+				}	
+			}
+		}
+		
+		return false;
+	}
 	
 }
