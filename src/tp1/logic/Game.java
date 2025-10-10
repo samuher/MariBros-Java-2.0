@@ -69,11 +69,16 @@ public class Game {
 	}
 
 	public void update() {
-		
+		remainingTime--;
+		gameObjects.update();
 	}
 	
 	public boolean isSolid(Position pos) {
 		return gameObjects.isSolid(pos);
+	}
+	
+	public void addAction(Action act) {
+		mario.addAction(act);
 	}
 	
 	
@@ -106,6 +111,14 @@ public class Game {
 	public boolean playerLoses() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void marioDead() {
+		lives--;
+		if (this.lives == 0) {
+			reset();
+			System.out.println(Messages.GAME_OVER);
+		}
 	}
 	
 	

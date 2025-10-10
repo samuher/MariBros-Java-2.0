@@ -44,44 +44,48 @@ public class GameObjectContainer {
 		// primero se actualiza mario y luego los goombas
 		this.mario.update();
 		//this.goombas.removeIf(Goomba :: isDead);
+		System.out.println("update");
 		for (Goomba goomba : goombas ) {
 			goomba.update();
 		}
 	}
 	
 	public String positionToString(Position pos) {
-		int col = pos.getCol();
-		int row = pos.getRow();
+		//int col = pos.getCol();
+		//int row = pos.getRow();
 		for (Land land : landList) {
-			if (land.getCol() == col && land.getRow() == row) {
+			if (land.isInPosition(pos)) {
 				return land.getIcon();			}
 		}
 		
 		for (Goomba goomba : goombas ) {
-			if (goomba.getCol() == col && goomba.getRow() == row) {
+			if (goomba.isInPosition(pos) && !goomba.isDead()) {
 				return goomba.getIcon();
+			}
+			if (goomba.isDead()) {
+				//System.out.println("No se imprime goomba esta muerto.");
 			}
 		}
 		
-		if (mario.getCol() == col && mario.getRow() == row) {
+		if (mario.isInPosition(pos)) {
 			return mario.getIcon();
 		}
 		
-		if (exit.getCol() == col && exit.getRow() == row) {
+		if (exit.isInPosition(pos)) {
 			return exit.getIcon();
 		}
 		return Messages.EMPTY;
 	}
 	
 	public boolean isSolid(Position pos) {
-		int col = pos.getCol();
-		int row = pos.getRow();
 		for (Land land : landList) {
-			if (land.getCol() == col && land.getRow() == row) {
+			if (land.isInPosition(pos)) {
 				return true;}
 		}
 		return false;
 	}
-	
-	
+
+	public boolean marioInExitDoor(Position p) {
+		return this.exit.equals(p);
+	}
 }

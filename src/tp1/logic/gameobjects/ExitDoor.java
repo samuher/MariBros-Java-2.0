@@ -16,14 +16,9 @@ public class ExitDoor {
 		return Messages.EXIT_DOOR;
 	}
 	
-	public int getCol() {
-		return pos.getCol();
+	public boolean isInPosition(Position p) {
+		return (this.pos.equals(p));
 	}
-	
-	public int getRow() {
-		return pos.getRow();
-	}
-	
 	
 	
 	

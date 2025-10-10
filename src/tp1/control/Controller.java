@@ -1,5 +1,10 @@
 package tp1.control;
 
+import java.util.Iterator;
+
+
+import tp1.logic.Action;
+import tp1.logic.ActionList;
 import tp1.logic.Game;
 import tp1.view.GameView;
 
@@ -32,6 +37,33 @@ public class Controller {
 		String[] prompt = view.getPrompt();
 
 		System.out.println(prompt[0]);
+		
+		// comando action
+		
+		if (prompt[0].equals("a")|| prompt[0].toLowerCase().equals("action")) {
+			System.out.println("Ejecutamos acciones");
+			// convierte cada accion en objectos action
+			// añadir esos objetos action a una Action List en mario con game.addAction
+			//ActionList list = new ActionList();
+			for (int i = 1; i < prompt.length; i++) {
+				if (prompt[i].equals("l")|| prompt[i].toLowerCase().equals("left")) {
+					game.addAction(Action.LEFT);
+				} else  if (prompt[i].equals("r")|| prompt[i].toLowerCase().equals("right")) {
+					game.addAction(Action.RIGHT);
+				} else if (prompt[i].equals("u")|| prompt[i].toLowerCase().equals("up")) {
+					game.addAction(Action.UP);
+				} else if (prompt[i].equals("d")|| prompt[i].toLowerCase().equals("down")) {
+					game.addAction(Action.DOWN);
+				} else if (prompt[i].equals("s")|| prompt[i].toLowerCase().equals("stop")) {
+					game.addAction(Action.STOP);
+				} else {
+					System.out.println(tp1.view.Messages.INVALID_COMMAND_PARAMETERS);;
+				}
+			}
+		}
+		
+		
+		
 		if (prompt[0].equals("r1")){
 			System.out.println("es r");
 			System.out.println("entra");
@@ -55,7 +87,7 @@ public class Controller {
 				+ "   [h]elp: print this help message\r\n"
 				+ "   [e]xit: exits the game");
 		case "a", "action" -> System.out.println("accion");
-		case "u", "update" -> {}
+		case "u", "update" -> {game.update();}
 		case "e", "exit" -> {game.finish();}
 		default -> System.out.println("Comando no recononcido");
 		}

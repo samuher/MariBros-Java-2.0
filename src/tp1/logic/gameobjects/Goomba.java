@@ -1,5 +1,6 @@
 package tp1.logic.gameobjects;
 
+import tp1.logic.Action;
 import tp1.logic.Game;
 import tp1.logic.Position;
 import tp1.view.Messages;
@@ -21,46 +22,52 @@ public class Goomba {
 		this.pos = position;
 	}
 
-	public int getCol() {
-		return pos.getCol();
-	}
-	
-	public int getRow() {
-		return pos.getRow();
+	public boolean isInPosition (Position p) {
+		return (this.pos.equals(p));
 	}
 	
 	public String getIcon() {
 		return Messages.GOOMBA;
 	}
 	
+	public boolean caida(Position suelo) {
+		if (!game.isSolid(suelo)) {
+			while (!game.isSolid(suelo)){
+				if (this.pos.isVacio(suelo)) {
+					this.dead = true;
+					return true;
+				}
+				this.pos = suelo;
+				//this.pos = this.pos.moved(Action.DOWN);
+				suelo = this.pos.moved(Action.DOWN);
+				
+			}
+			return true;
+		}
+		return false;
+		
+	}
+	
 	public void update() {
 		
-		if(game.isSolid(pos)) {
-			this.avanza = false;
-		}
-		
-		
-		Position pisa = new Position(pos.getRow(), pos.getCol()-1);
-		if (game.isSolid(pisa)) {
-			if (this.avanza) {
-				this.pos = new Position(pos.getRow()-1, pos.getCol());
-			} else {
-				this.pos = new Position(pos.getRow()+1, pos.getCol());
-			}
-			
+		Position suelo = this.pos.moved(Action.DOWN);
+		if (caida(suelo)) return;
+		Action dir = avanza ? Action.LEFT : Action.RIGHT;
+		Position lateral = this.pos.moved(dir);
+		if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
+			avanza = !avanza;
+			//dir = avanza ? Action.LEFT : Action.RIGHT;
+			//this.pos = this.pos.moved(dir);
 		} else {
-			// caida hasta final del tablero
-			// ¿como encuentro final del tablero?
+			this.pos = this.pos.moved(dir);
 		}
-		
+		suelo = this.pos.moved(Action.DOWN);
+		caida(suelo);
 	}
 	
 	public boolean isDead() {
 		return this.dead;
 	}
 	
-	/*
-	public void setPos(Position pos) {
-		this.pos = pos;
-	}*/
+
 }

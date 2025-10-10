@@ -14,13 +14,18 @@ public class Land {
 		return Messages.LAND;
 	}
 	
+	public boolean isInPosition(Position p) {
+		return (this.pos.equals(p));
+	}
+	
+	/*
 	public int getCol() {
 		return this.pos.getCol();
 	}
 	
 	public int getRow() {
 		return this.pos.getRow();
-	}
+	}*/
 	
 	
 	/*

@@ -7,8 +7,8 @@ package tp1.logic;
  */
 public class Position {
 
-	private int col;
-	private int row;
+	private final int col;
+	private final int row;
 
 	//TODO fill your code
 	
@@ -17,12 +17,27 @@ public class Position {
 		this.col = col;
 	}
 	
-	public int getCol() {
-		return this.col;
+	public boolean equals(Position p) {
+		return this.col == p.col && this.row == p.row;
 	}
 	
-	public int getRow() {
-		return this.row;
+	
+	public Position moved(Action a) {
+	    return new Position(this.row + a.getY(), this.col + a.getX());
 	}
+	
+	public boolean isVacio(Position p) {
+		return p.row >= Game.DIM_Y;
+	}
+	
+	public boolean isLateral(Position p) {
+		return p.col > Game.DIM_X || p.col < 0;
+	}
+
+	/*
+	public void move(Action a) {
+		this.row += a.getY();
+		this.col += a.getX();
+	}*/
 
 }
