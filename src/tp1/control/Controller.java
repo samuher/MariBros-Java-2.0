@@ -70,20 +70,9 @@ public class Controller {
 		
 		
 		
-		if (prompt[0].equals("r1")){
-			System.out.println("es r");
-			System.out.println("entra");
-				if (prompt[0].length() > 1 ) {
-			System.out.println("Cargando nuevo nivel " + prompt[0].charAt(1));
-			//view.setGame(1);
-			//view.setGame(new Game(1));
-			game.reset(1);
-		} else if (prompt[0].equals("r")){
-			game.reset();
-		}
-				
 		if (prompt[0].equals("r")) {
-			if (prompt.length > 0) {
+			game.reset();
+			if (prompt.length > 1) {
 				System.out.println("Cargando nuevo nivel " + prompt[1]);
 				game.reset(Integer.parseInt(prompt[1]));
 			}
@@ -92,8 +81,6 @@ public class Controller {
 				
 		//System.out.println("tamaño " + prompt.length);
 		
-		}
-		
 		switch (prompt[0]) {
 		case "h", "help" -> {
 			for (String linea : Messages.HELP_LINES) {
@@ -101,7 +88,6 @@ public class Controller {
 			}
 			help = true;
 		}
-		case "a", "action" -> System.out.println("accion");
 		case "u", "update" -> {game.update();}
 		case "e", "exit" -> {game.finish();}
 		default -> System.out.println("Comando no recononcido");
