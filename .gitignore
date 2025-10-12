@@ -31,3 +31,5 @@ replay_pid*
 # Other files
 *.bak
 /.metadata/
+
+tests/pr1/out1.txt
