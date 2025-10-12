@@ -29,7 +29,9 @@ public class Goomba {
 	public String getIcon() {
 		return Messages.GOOMBA;
 	}
-	
+	/*
+	 *
+	// para una caida infinita hasta encontrar suelo o vacio, no se ulitiza, test fallido.
 	public boolean caida(Position suelo) {
 		if (!game.isSolid(suelo)) {
 			while (!game.isSolid(suelo)){
@@ -37,7 +39,7 @@ public class Goomba {
 					this.dead = true;
 					return true;
 				}
-				this.pos = suelo;
+				//this.pos = suelo;
 				//this.pos = this.pos.moved(Action.DOWN);
 				suelo = this.pos.moved(Action.DOWN);
 				
@@ -46,6 +48,14 @@ public class Goomba {
 		}
 		return false;
 		
+	}
+	*/
+	
+	public boolean caida(Position suelo) {
+		if(!game.isSolid(suelo)) {
+			this.pos = suelo;
+		}
+		return false;
 	}
 	
 	public void update() {
@@ -61,8 +71,8 @@ public class Goomba {
 		} else {
 			this.pos = this.pos.moved(dir);
 		}
-		suelo = this.pos.moved(Action.DOWN);
-		caida(suelo);
+		//suelo = this.pos.moved(Action.DOWN);
+		//caida(suelo);
 	}
 	
 	public boolean isDead() {

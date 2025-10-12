@@ -171,8 +171,6 @@ public class ConsoleView extends GameView {
 
         System.out.println(Messages.DEBUG.formatted(line));	
         
-        
-        
 
 		return words;
 	}

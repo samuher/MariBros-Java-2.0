@@ -48,8 +48,8 @@ public class Game {
 	
 	
 	public void reset(int nLevel) {
-		this.remainingTime = 100;
-		//this.points = 0;
+		//this.remainingTime = 100;
+		this.points = 0;
 		//this.lives = 3;
 		switch (nLevel) {
 		case 0 -> initLevel0();
@@ -69,7 +69,7 @@ public class Game {
 	}
 
 	public void update() {
-		remainingTime--;
+		//remainingTime--;
 		gameObjects.update();
 	}
 	
@@ -133,7 +133,7 @@ public class Game {
 	
 	
 	private void initLevel0() {
-		this.nLevel = 0;
+		//this.nLevel = 0;
 		this.remainingTime = 100;
 		
 		// 1. Mapa
@@ -173,12 +173,12 @@ public class Game {
 		gameObjects.add(this.mario);
 
 		gameObjects.add(new Goomba(this, new Position(0, 19)));
-		gameObjects.add(new Goomba(this, new Position(12, 4)));
+		//gameObjects.add(new Goomba(this, new Position(12, 4)));
 	}
 	
 	private void initLevel1() {
 		//System.out.println("level 1");
-		this.nLevel = 0;
+		this.nLevel = 1;
 		this.remainingTime = 100;
 		
 		// 1. Mapa
@@ -218,7 +218,17 @@ public class Game {
 		gameObjects.add(this.mario);
 
 		gameObjects.add(new Goomba(this, new Position(0, 19)));
+		gameObjects.add(new Goomba(this, new Position(4,6)));
+		gameObjects.add(new Goomba(this, new Position(12,6)));
+		gameObjects.add(new Goomba(this, new Position(12,8)));
+		gameObjects.add(new Goomba(this, new Position(10,10)));
+		gameObjects.add(new Goomba(this, new Position(12,11)));
+		gameObjects.add(new Goomba(this, new Position(12,14)));
 	}
 
+	
+	public void tick() {
+		remainingTime--;
+	}
 	
 }
