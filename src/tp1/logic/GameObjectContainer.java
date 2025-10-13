@@ -107,4 +107,11 @@ public class GameObjectContainer {
 			m.interactWith(goomba);
 		}
 	}
+	
+	public boolean isGoombaPosition(Position p) {
+		for (Goomba goomba : goombas ) {
+			if (goomba.isInPosition(p)) return true;
+		}
+		return false;
+	}
 }

@@ -43,7 +43,7 @@ public class Game {
 	public void marioExited() {
 		this.wins = true;
 		this.points += this.remainingTime *10;
-		update();
+		System.out.println(Messages.MARIO_WINS);
 		finish();
 	}
 	
@@ -80,10 +80,6 @@ public class Game {
 
 	public void update() {
 		//remainingTime--;
-		if (this.finish) {
-			System.out.println(Messages.MARIO_WINS);
-		}
-		
 		gameObjects.update();
 	}
 	
@@ -251,6 +247,10 @@ public class Game {
 	
 	public boolean isMarioWins() {
 		return (this.finish && this.wins);
+	}
+	
+	public boolean isGoombaPosition(Position p) {
+		return gameObjects.isGoombaPosition(p);
 	}
 	
 }

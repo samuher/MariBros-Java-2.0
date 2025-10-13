@@ -65,7 +65,7 @@ public class Goomba {
 		if (caida(suelo)) return;
 		Action dir = avanza ? Action.LEFT : Action.RIGHT;
 		Position lateral = this.pos.moved(dir);
-		if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
+		if (lateral.isLateral(lateral) || game.isSolid(lateral) || game.isGoombaPosition(lateral)) {
 			avanza = !avanza;
 			//dir = avanza ? Action.LEFT : Action.RIGHT;
 			//this.pos = this.pos.moved(dir);

@@ -47,6 +47,7 @@ public void update() {
 	
 		if (!big) {
 			Action dir;
+			//movmiento no automatico
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
 					dir = actlist.nextAction();
@@ -100,13 +101,6 @@ public void update() {
 				this.right = true;
 				this.stop = false;
 			}
-			/*
-			suelo = this.pos.moved(Action.DOWN);
-			//caida(suelo);
-			if(!game.isSolid(suelo)) {
-				this.pos = suelo;
-			}
-			*/
 			game.doInteractionsFrom(this);
 			
 		} else { //big
@@ -140,16 +134,6 @@ public void update() {
 					} else if (dir == Action.DOWN) {
 						//this.stop = true; solo es true cuando ya tiene suelo debajo
 						Position suelo = this.pos.moved(Action.DOWN);
-						//System.out.println("¿se agachara?");
-						/*
-						if (game.isSolid(suelo)) {
-							this.stop = true;
-							this.left = false;
-							this.right = false;
-							System.out.println("se agacha");
-							//this.pos = suelo;
-							continue;
-						}else {*/
 							caida(suelo);
 							continue;
 						//}
