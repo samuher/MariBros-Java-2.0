@@ -129,6 +129,21 @@ public void update() {
 							this.downstop = true;
 							continue;
 						}
+						if (dir == Action.LEFT) {
+							this.right = true;
+							this.stop = false;
+							this.left = false;
+							this.avanza = false;
+							continue;
+						}
+						if (dir == Action.RIGHT) {
+							this.right = false;
+							this.stop = false;
+							this.left = true;
+							this.avanza = false;
+							continue;
+						}
+						
 						continue;
 					}
 					//this.pos = this.pos.moved(dir);
@@ -275,8 +290,8 @@ public void update() {
 				return true;
 			}
 			this.pos = suelo;
-			game.doInteractionsFrom(this);
 			this.cayendo = true;
+			game.doInteractionsFrom(this);
 			return true;
 		}
 		//this.cayendo = true;
