@@ -23,6 +23,7 @@ public class Game {
 	
 	private boolean finish = false;
 	private boolean wins = false;
+	private boolean looses = false;
 	private boolean gameover = false;
 
 	//TODO fill your code
@@ -43,8 +44,9 @@ public class Game {
 	public void marioExited() {
 		this.wins = true;
 		this.points += this.remainingTime *10;
-		System.out.println(Messages.MARIO_WINS);
+		this.remainingTime = 0;
 		finish();
+		
 	}
 	
 	public boolean isFinished() {
@@ -59,7 +61,7 @@ public class Game {
 	
 	public void reset(int nLevel) {
 		//this.remainingTime = 100;
-		this.points = 0;
+		//this.points = 0;
 		//this.lives = 3;
 		switch (nLevel) {
 		case 0 -> initLevel0();
@@ -98,7 +100,7 @@ public class Game {
 	
 	public boolean playerWins() {
 		// TODO Auto-generated method stub
-		return false;
+		return (this.finish && this.wins);
 	}
 
 	public int remainingTime() {
@@ -128,15 +130,18 @@ public class Game {
 
 	public boolean playerLoses() {
 		// TODO Auto-generated method stub
-		return false;
+		return this.looses;
 	}
 	
 	public void marioDead() {
 		lives--;
-		reset();
 		if (this.lives == 0) {
+			//finish();
+			//System.out.println(Messages.GAME_OVER);
+			this.looses = true;
 			finish();
-			System.out.println(Messages.GAME_OVER);
+		}else {
+			reset();
 		}
 	}
 	
@@ -253,4 +258,7 @@ public class Game {
 		return gameObjects.isGoombaPosition(p);
 	}
 	
+	public void cleanGoomba() {
+		gameObjects.clean();
+	}
 }

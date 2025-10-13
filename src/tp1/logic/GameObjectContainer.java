@@ -43,10 +43,11 @@ public class GameObjectContainer {
 		//llamar a los metodos update de los objetos del tableroa
 		// primero se actualiza mario y luego los goombas
 		this.mario.update();
-		if (this.mario.interactWith(exit)) {
+		if (this.mario.interactWith(exit) && !mario.isWin()) {
 			//System.out.println("ha tocado la puerta");
-			exit.openDoor();
+			//exit.openDoor();
 			mario.wins();
+			//update();
 		}
 		
 		//this.goombas.removeIf(Goomba :: isDead);
@@ -56,6 +57,7 @@ public class GameObjectContainer {
 		}
 		doInteractionsFrom(mario);
 		clean();
+		
 	}
 	
 	public void clean() {
@@ -74,23 +76,26 @@ public class GameObjectContainer {
 			if (land.isInPosition(pos)) {
 				return land.getIcon();			}
 		}
-		
+		String gom = "";
 		for (Goomba goomba : goombas ) {
 			if (goomba.isInPosition(pos) && !goomba.isDead()) {
-				return goomba.getIcon();
-			}
-			if (goomba.isDead()) {
-				//System.out.println("No se imprime goomba esta muerto.");
+				gom+= goomba.getIcon();
 			}
 		}
+		if (gom != "") return gom;
 		
+		
+		String marexit = "";
 		if (mario.isInPosition(pos)) {
-			return mario.getIcon();
+			marexit+= mario.getIcon();
 		}
 		
 		if (exit.isInPosition(pos)) {
-			return exit.getIcon();
+			marexit+= exit.getIcon();
 		}
+		if (marexit != "") return marexit; 
+		
+		
 		return Messages.EMPTY;
 	}
 	
@@ -103,8 +108,9 @@ public class GameObjectContainer {
 	}
 	
 	public void doInteractionsFrom(Mario m) {
+
 		for (Goomba goomba : goombas ) {
-			m.interactWith(goomba);
+			if(m.interactWith(goomba)) break;
 		}
 	}
 	

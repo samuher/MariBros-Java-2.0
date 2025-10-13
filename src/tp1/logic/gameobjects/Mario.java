@@ -23,6 +23,7 @@ public class Mario {
 	private boolean stop = false;
 	private boolean avanza = false;
 	private boolean cayendo = false;
+	private boolean downstop = false;
 	private Game game;
 	
 	private ActionList actlist;
@@ -44,7 +45,7 @@ public class Mario {
 	}*/
 
 public void update() {
-	
+		this.cayendo = false;
 		if (!big) {
 			Action dir;
 			//movmiento no automatico
@@ -58,26 +59,28 @@ public void update() {
 					if (dir == Action.LEFT) {
 						this.left = true;
 						this.stop = false;
+						this.downstop = true;
 					} else if (dir == Action.RIGHT){
 						this.right = true;
 						this.stop = false;
+						this.downstop = true;
 					} else 
 						if (dir == Action.DOWN) {
-						Position suelo = this.pos.moved(Action.DOWN);
-						if (game.isSolid(suelo)) {
-							this.stop = true;
-							this.left = false;
-							this.right = false;
-							continue;
-						}else {
+							Position suelo = this.pos.moved(Action.DOWN);
 							caida(suelo);
+							this.downstop = true;
 							continue;
+						//}
+						} else if (dir == Action.STOP) {
+							this.stop = true;
+							this.downstop = true;
 						}
 						
-					}
+					
 					this.pos = this.pos.moved(dir);
 				}
 				game.doInteractionsFrom(this);
+				this.avanza = false;
 				return;
 			}
 			
@@ -90,7 +93,9 @@ public void update() {
 				//dir = avanza ? Action.LEFT : Action.RIGHT;
 				//this.pos = this.pos.moved(dir);
 			} else {
-				this.pos = this.pos.moved(dir);
+				if (!this.downstop) {
+					this.pos = this.pos.moved(dir);
+				}
 			}
 			if (avanza) {
 				this.left = true;
@@ -102,6 +107,7 @@ public void update() {
 				this.stop = false;
 			}
 			game.doInteractionsFrom(this);
+		
 			
 		} else { //big
 			Action dir;
@@ -120,6 +126,7 @@ public void update() {
 							this.right = false;
 							//System.out.println("se agacha");
 							//this.pos = suelo;
+							this.downstop = true;
 							continue;
 						}
 						continue;
@@ -128,43 +135,55 @@ public void update() {
 					if (dir == Action.LEFT) {
 						this.left = true;
 						this.stop = false;
+						this.downstop = false;
 					} else if (dir == Action.RIGHT){
 						this.right = true;
 						this.stop = false;
+						this.downstop = false;
 					} else if (dir == Action.DOWN) {
 						//this.stop = true; solo es true cuando ya tiene suelo debajo
 						Position suelo = this.pos.moved(Action.DOWN);
 							caida(suelo);
+							
 							continue;
 						//}
+					} else if (dir == Action.STOP) {
+						this.stop = true;
+						this.downstop = true;
 					}
 					
 					this.pos = this.pos.moved(dir);
 				}
 				game.doInteractionsFrom(this);
+				this.avanza = false;
 				return;
 			}
 			
+			//automatico big
 			Position suelo = this.pos.moved(Action.DOWN);
 			dir = avanza ? Action.LEFT : Action.RIGHT;
 			Position lateral = this.pos.moved(dir);
+			if (caidaUnitaria(suelo)) return;
 			if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
 				avanza = !avanza;
 				//dir = avanza ? Action.LEFT : Action.RIGHT;
 				//this.pos = this.pos.moved(dir);
 			} else {
-				this.pos = this.pos.moved(dir);
+				if (!this.downstop) {
+					this.pos = this.pos.moved(dir);
+				}
+				
 			}
-			if (avanza) {
+			if (avanza && !this.downstop) {
 				this.left = true;
 				this.right = false;
 				this.stop = false;
-			} else {
+			} else if(!this.downstop){
 				this.left = false;
 				this.right = true;
 				this.stop = false;
 			}
-			if (caidaUnitaria(suelo)) return;
+			//if (caidaUnitaria(suelo)) return;
 			/*
 			suelo = this.pos.moved(Action.DOWN);
 			//caida(suelo);
@@ -212,8 +231,7 @@ public void update() {
 	
 	public boolean isInPosition (Goomba g) {
 		if(this.big) {
-			Position pb = this.pos;
-			pb = pb.moved(Action.UP);
+			Position pb = this.pos.moved(Action.UP);
 			return (g.isInPosition(pb)||g.isInPosition(this.pos));
 		}
 		return g.isInPosition(this.pos);
@@ -232,21 +250,36 @@ public void update() {
 		//caida infinita
 		 if (game.isSolid(suelo)) return false;
 		 while (!game.isSolid(suelo)) {
-		        if (this.pos.isVacio(suelo)) { game.marioDead(); return true; }
+		        if (this.pos.isVacio(suelo)) { 
+		        	game.marioDead();                      
+			        suelo = suelo.moved(Action.DOWN);
+			        this.pos =suelo;
+			        return true; 
+			        		}
 		        this.pos = suelo;                        // baja 1
 		        suelo = suelo.moved(Action.DOWN);     // recalcula
 		    }
 		 //this.pos = this.pos.moved(Action.UP);
+		 //game.doInteractionsFrom(this);
 		this.cayendo = true;
 		return false;
 		
 	}
 	
 	public boolean caidaUnitaria(Position suelo) {
+		if (game.isSolid(suelo)) return false; 
 		if(!game.isSolid(suelo)) {
+			if (suelo.isVacio(suelo)) {
+				//System.out.println("vaciooooo");
+				game.marioDead();
+				return true;
+			}
 			this.pos = suelo;
+			game.doInteractionsFrom(this);
+			this.cayendo = true;
 			return true;
 		}
+		//this.cayendo = true;
 		return false;
 	}
 	
@@ -266,6 +299,7 @@ public void update() {
 					game.marioDead();
 				}	
 			}
+			return true;
 		}
 		
 		return false;
@@ -277,6 +311,10 @@ public void update() {
 	
 	public boolean isWin() {
 		return game.isMarioWins();
+	}
+	
+	public boolean isBig() {
+		return this.big;
 	}
 	
 }

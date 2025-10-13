@@ -53,6 +53,10 @@ public class Goomba {
 	
 	public boolean caida(Position suelo) {
 		if(!game.isSolid(suelo)) {
+			if (suelo.isVacio(suelo)) {
+				this.dead = true;
+				return true;
+			}
 			this.pos = suelo;
 			return true;
 		}
@@ -65,7 +69,7 @@ public class Goomba {
 		if (caida(suelo)) return;
 		Action dir = avanza ? Action.LEFT : Action.RIGHT;
 		Position lateral = this.pos.moved(dir);
-		if (lateral.isLateral(lateral) || game.isSolid(lateral) || game.isGoombaPosition(lateral)) {
+		if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
 			avanza = !avanza;
 			//dir = avanza ? Action.LEFT : Action.RIGHT;
 			//this.pos = this.pos.moved(dir);
@@ -82,6 +86,7 @@ public class Goomba {
 	
 	public boolean receiveInteraction(Mario other) {
 		this.dead = true;
+		game.cleanGoomba();
 		return true;
 	}
 	

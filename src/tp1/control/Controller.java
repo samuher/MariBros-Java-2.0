@@ -51,23 +51,23 @@ public class Controller {
 		
 		// comando action
 		
-		if (prompt[0].equals("a")|| prompt[0].toLowerCase().equals("action")) {
+		if (prompt[0].toLowerCase().equals("a")|| prompt[0].toLowerCase().equals("action")) {
 			
 			if (prompt.length > 1) {
 				for (int i = 1; i < prompt.length; i++) {
-					if (prompt[i].equals("l")|| prompt[i].toLowerCase().equals("left")) {
+					if (prompt[i].toLowerCase().equals("l")|| prompt[i].toLowerCase().equals("left")) {
 						game.addAction(Action.LEFT);
 						
-					} else  if (prompt[i].equals("r")|| prompt[i].toLowerCase().equals("right")) {
+					} else  if (prompt[i].toLowerCase().equals("r")|| prompt[i].toLowerCase().equals("right")) {
 						game.addAction(Action.RIGHT);
 						
-					} else if (prompt[i].equals("u")|| prompt[i].toLowerCase().equals("up")) {
+					} else if (prompt[i].toLowerCase().equals("u")|| prompt[i].toLowerCase().equals("up")) {
 						game.addAction(Action.UP);
 						
-					} else if (prompt[i].equals("d")|| prompt[i].toLowerCase().equals("down")) {
+					} else if (prompt[i].toLowerCase().equals("d")|| prompt[i].toLowerCase().equals("down")) {
 						game.addAction(Action.DOWN);
 						
-					} else if (prompt[i].equals("s")|| prompt[i].toLowerCase().equals("stop")) {
+					} else if (prompt[i].toLowerCase().equals("s")|| prompt[i].toLowerCase().equals("stop")) {
 						game.addAction(Action.STOP);
 						
 					} else {
@@ -126,10 +126,25 @@ public class Controller {
 		
 		
 	}//while
-		
-	if (!game.isMarioWins()) {
+		/*
+	if (!game.isMarioWins() || !game.playerLoses()) {
 		view.showEndMessage(); 
+	} else {
+		view.showGame();
+		if (game.isMarioWins()) {
+			System.out.println(Messages.MARIO_WINS);
+		} 
+		if (game.playerLoses()) {
+			System.out.println(Messages.GAME_OVER);
+		}
+		
 	}
+	*/
+		if (game.isMarioWins() || game.playerLoses()) {
+			view.showGame(); 
+		}
+	view.showEndMessage(); 
+	
 		
 		
 	}//run
