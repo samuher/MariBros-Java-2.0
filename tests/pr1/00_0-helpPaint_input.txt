@@ -1,8 +1,0 @@
-h
-help
-helP
-help con argumentosIncorrectos
-n
-noExiste
-E
-exit
