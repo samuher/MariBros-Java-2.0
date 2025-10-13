@@ -1,5 +1,6 @@
 package tp1.logic.gameobjects;
 
+import tp1.logic.Action;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -27,4 +28,8 @@ public class ExitDoor {
 	public void setPos(Position pos) {
 		this.pos = pos;
 	}*/
+	
+	public void openDoor() {
+		this.pos = this.pos.moved(Action.LEFT);
+	}
 }

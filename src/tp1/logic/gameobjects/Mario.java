@@ -33,7 +33,7 @@ public class Mario {
 		this.actlist = new ActionList();
 		
 	}
-	
+	/*
 	public Mario(Game game, Position position, boolean big) {
 		// TODO Auto-generated constructor stub
 		this.game = game;
@@ -41,7 +41,7 @@ public class Mario {
 		this.actlist = new ActionList();
 		this.big = big;
 		
-	}
+	}*/
 
 public void update() {
 	
@@ -51,9 +51,8 @@ public void update() {
 				while(actlist.anyActions()) {
 					dir = actlist.nextAction();
 					Position lateral = this.pos.moved(dir);
-					if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-						continue;
-					}
+					
+					if (lateral.isLateral(lateral) || game.isSolid(lateral)) {continue;}
 					//this.pos = this.pos.moved(dir);
 					if (dir == Action.LEFT) {
 						this.left = true;
@@ -61,15 +60,20 @@ public void update() {
 					} else if (dir == Action.RIGHT){
 						this.right = true;
 						this.stop = false;
-					} else if (dir == Action.DOWN) {
-						this.left = false;
-						this.right = false;
-						this.stop = true;
+					} else 
+						if (dir == Action.DOWN) {
 						Position suelo = this.pos.moved(Action.DOWN);
-						caida(suelo);
-						//this.cayendo = true;
+						if (game.isSolid(suelo)) {
+							this.stop = true;
+							this.left = false;
+							this.right = false;
+							continue;
+						}else {
+							caida(suelo);
+							continue;
+						}
+						
 					}
-					
 					this.pos = this.pos.moved(dir);
 				}
 				game.doInteractionsFrom(this);
@@ -77,7 +81,7 @@ public void update() {
 			}
 			
 			Position suelo = this.pos.moved(Action.DOWN);
-			if (caida(suelo)) return;
+			if (caidaUnitaria(suelo)) return;
 			dir = avanza ? Action.LEFT : Action.RIGHT;
 			Position lateral = this.pos.moved(dir);
 			if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
@@ -96,22 +100,34 @@ public void update() {
 				this.right = true;
 				this.stop = false;
 			}
+			/*
 			suelo = this.pos.moved(Action.DOWN);
-			caida(suelo);
+			//caida(suelo);
+			if(!game.isSolid(suelo)) {
+				this.pos = suelo;
+			}
+			*/
 			game.doInteractionsFrom(this);
 			
-		} else {
+		} else { //big
 			Action dir;
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
 					dir = actlist.nextAction();
 					// lateral position (abajo)
 					Position lateral = this.pos.moved(dir);
+					Position lateral_arriba = this.pos.moved(Action.UP).moved(dir);
+					if (lateral_arriba.isLateral(lateral_arriba) || game.isSolid(lateral_arriba)) { continue; }
 					if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-						continue;
-					}
-					Position lateral_arriba = this.pos.moved(dir);
-					if (lateral_arriba .isLateral(lateral_arriba) || game.isSolid(lateral_arriba)) {
+						Position suelo = this.pos.moved(Action.DOWN);
+						if (dir == Action.DOWN) {
+							this.stop = true;
+							this.left = false;
+							this.right = false;
+							//System.out.println("se agacha");
+							//this.pos = suelo;
+							continue;
+						}
 						continue;
 					}
 					//this.pos = this.pos.moved(dir);
@@ -122,12 +138,21 @@ public void update() {
 						this.right = true;
 						this.stop = false;
 					} else if (dir == Action.DOWN) {
-						this.left = false;
-						this.right = false;
-						this.stop = true;
+						//this.stop = true; solo es true cuando ya tiene suelo debajo
 						Position suelo = this.pos.moved(Action.DOWN);
-						caida(suelo);
-						//this.cayendo = true;
+						//System.out.println("¿se agachara?");
+						/*
+						if (game.isSolid(suelo)) {
+							this.stop = true;
+							this.left = false;
+							this.right = false;
+							System.out.println("se agacha");
+							//this.pos = suelo;
+							continue;
+						}else {*/
+							caida(suelo);
+							continue;
+						//}
 					}
 					
 					this.pos = this.pos.moved(dir);
@@ -137,7 +162,6 @@ public void update() {
 			}
 			
 			Position suelo = this.pos.moved(Action.DOWN);
-			if (caida(suelo)) return;
 			dir = avanza ? Action.LEFT : Action.RIGHT;
 			Position lateral = this.pos.moved(dir);
 			if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
@@ -156,8 +180,14 @@ public void update() {
 				this.right = true;
 				this.stop = false;
 			}
+			if (caidaUnitaria(suelo)) return;
+			/*
 			suelo = this.pos.moved(Action.DOWN);
-			caida(suelo);
+			//caida(suelo);
+			if(!game.isSolid(suelo)) {
+				this.pos = suelo;
+			}
+			*/
 			game.doInteractionsFrom(this);
 		}
 	
@@ -165,11 +195,6 @@ public void update() {
 }
 	
 	public String getIcon() {
-		/*
-		if (big){
-			ret 
-		}
-		*/
 		// devuelve el icono, segun su direccion
 		
 		if (this.stop) {
@@ -202,15 +227,6 @@ public void update() {
 	
 	
 	public boolean isInPosition (Goomba g) {
-		/*
-		if (this.big) {
-			if (!g.isInPosition(this.pos)) {
-				Position pb = this.pos;
-				pb = pb.moved(Action.UP);
-				return g.isInPosition(pb); 
-			}
-		}
-		*/
 		if(this.big) {
 			Position pb = this.pos;
 			pb = pb.moved(Action.UP);
@@ -223,25 +239,31 @@ public void update() {
 		this.actlist.add(act);
 	}
 	
+	public void restringirLista() {
+		//System.out.println("restringiendo lista");
+		this.actlist.restringirLista();
+	}
+	
 	public boolean caida(Position suelo) {
-		if (!game.isSolid(suelo)) {
-			while (!game.isSolid(suelo)){
-				if (this.pos.isVacio(suelo)) {
-					//this.dead = true;
-					game.marioDead();
-					return true;
-				}
-				this.pos = suelo;
-				//this.pos = this.pos.moved(Action.DOWN);
-				suelo = this.pos.moved(Action.DOWN);
-				
-			}
-			this.cayendo = true;
-			return true;
-		}
-		//this.cayendo = false;
+		//caida infinita
+		 if (game.isSolid(suelo)) return false;
+		 while (!game.isSolid(suelo)) {
+		        if (this.pos.isVacio(suelo)) { game.marioDead(); return true; }
+		        this.pos = suelo;                        // baja 1
+		        suelo = suelo.moved(Action.DOWN);     // recalcula
+		    }
+		 //this.pos = this.pos.moved(Action.UP);
+		this.cayendo = true;
 		return false;
 		
+	}
+	
+	public boolean caidaUnitaria(Position suelo) {
+		if(!game.isSolid(suelo)) {
+			this.pos = suelo;
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean interactWith(ExitDoor other) {
@@ -264,10 +286,13 @@ public void update() {
 		
 		return false;
 	}
-	/*
-	public boolean isBig() {
-		return this.big;
+	
+	public void wins() {
+		game.marioExited();
 	}
-	*/
+	
+	public boolean isWin() {
+		return game.isMarioWins();
+	}
 	
 }

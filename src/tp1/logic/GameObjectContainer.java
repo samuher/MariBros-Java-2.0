@@ -43,7 +43,12 @@ public class GameObjectContainer {
 		//llamar a los metodos update de los objetos del tableroa
 		// primero se actualiza mario y luego los goombas
 		this.mario.update();
-		this.mario.interactWith(exit);
+		if (this.mario.interactWith(exit)) {
+			//System.out.println("ha tocado la puerta");
+			exit.openDoor();
+			mario.wins();
+		}
+		
 		//this.goombas.removeIf(Goomba :: isDead);
 		//System.out.println("update");
 		for (Goomba goomba : goombas ) {

@@ -32,4 +32,4 @@ replay_pid*
 *.bak
 /.metadata/
 
-tests/pr1/out1.txt
+tests/pr1/

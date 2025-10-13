@@ -16,70 +16,93 @@ public class ActionList {
 	
 	public void add(Action act) {
 		//Aplicar condiciones
-		this.list.add(act);
-		restringir();
+		if (act != null) this.list.add(act);
+		//this.list = restringir();
 	}
 	
-	public void restringir() {
+	public void restringirLista() {
+		//System.out.println("restringiendo lista");
+		this.list = restringir();
+	}
+	
+	public List<Action> restringir() {
 		boolean left = false;
 		boolean right = false;
 		boolean up = false;
 		boolean down = false;
+		int lr = 0;
+		int ud = 0;
 		List<Action> list_aux = new ArrayList<>();
 		for (int i = 0; i < this.list.size(); i++) {
-			if (this.list.get(i) == Action.LEFT) {
-				if (!right) {
-					left = true;
-					if (Collections.frequency(list_aux, Action.LEFT) <4 ) {
-						list_aux.add(Action.LEFT);
-						continue;
-					}
-				} 
-				continue;
-			} 
-			if (this.list.get(i) == Action.RIGHT) {
-				if (!left) {
-					right = true;
-					if (Collections.frequency(list_aux, Action.RIGHT) <4 ) {
-						list_aux.add(Action.RIGHT);
-						continue;
-					}
-				} 
-				
-			}
-			if (this.list.get(i) == Action.UP) {
-				if (!down) {
-					up = true;
-					if (Collections.frequency(list_aux, Action.UP) <4 ) {
-						list_aux.add(Action.UP);
-						continue;
-					}
-				} 
-				
-			}
-			
-			if (this.list.get(i) == Action.DOWN) {
-				if (!up) {
-					down = true;
-					if (Collections.frequency(list_aux, Action.DOWN) <4 ) {
-						list_aux.add(Action.DOWN);
-						continue;
-					}
-				} 
-				
-			}
-			
+            Action a = this.list.get(i);
 
-		}
-		this.list = list_aux;
+            // 1) CONSERVA STOP (no cuenta para límites)
+            if (a == Action.STOP) {
+                list_aux.add(Action.STOP);
+                continue;
+            }
+
+            // 2) HORIZONTAL: primera dirección manda, máx 4
+            if (a == Action.LEFT) {
+                if (!right) {                 // si apareció RIGHT antes, ignora LEFT
+                    left = true;              // fija que la elegida es LEFT
+                    if (lr < 4) {
+                        list_aux.add(Action.LEFT);
+                        lr++;
+                    }
+                }
+                continue; // ← evita seguir comprobando UP/DOWN inútilmente
+            }
+
+            if (a == Action.RIGHT) {
+                if (!left) {                  // si apareció LEFT antes, ignora RIGHT
+                    right = true;             // fija RIGHT como elegida
+                    if (lr < 4) {
+                        list_aux.add(Action.RIGHT);
+                        lr++;
+                    }
+                }
+                continue;
+            }
+
+            // 3) VERTICAL: primera dirección manda, máx 4
+            if (a == Action.UP) {
+                if (!down) {                  // si apareció DOWN antes, ignora UP
+                    up = true;
+                    if (ud < 4) {
+                        list_aux.add(Action.UP);
+                        ud++;
+                    }
+                }
+                continue;
+            }
+
+            if (a == Action.DOWN) {
+                if (!up) {                    // si apareció UP antes, ignora DOWN
+                    down = true;
+                    if (ud < 4) {
+                        list_aux.add(Action.DOWN);
+                        ud++;
+                    }
+                }
+                continue;
+            }
+            
+            if (a == Action.STOP) {
+				list_aux.add(Action.STOP);
+			}
+        }
+
+        return list_aux;
 	}
 	
 	public Action nextAction() {
-		return this.list.remove(0);
+		return this.list.isEmpty() ? null : this.list.remove(0);
 	}
 	
 	public boolean anyActions() {
-		return (this.list.size() > 0);
+		return !this.list.isEmpty();
 	}
+	
 	
 }

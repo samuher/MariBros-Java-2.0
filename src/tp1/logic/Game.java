@@ -22,6 +22,8 @@ public class Game {
 	private GameObjectContainer gameObjects;
 	
 	private boolean finish = false;
+	private boolean wins = false;
+	private boolean gameover = false;
 
 	//TODO fill your code
 	
@@ -38,9 +40,17 @@ public class Game {
 		}
 	}
 	
+	public void marioExited() {
+		this.wins = true;
+		this.points += this.remainingTime *10;
+		update();
+		finish();
+	}
+	
 	public boolean isFinished() {
 		return finish;
 	}
+	
 	
 	public void finish() {
 		this.finish = true;
@@ -70,6 +80,10 @@ public class Game {
 
 	public void update() {
 		//remainingTime--;
+		if (this.finish) {
+			System.out.println(Messages.MARIO_WINS);
+		}
+		
 		gameObjects.update();
 	}
 	
@@ -81,6 +95,10 @@ public class Game {
 		mario.addAction(act);
 	}
 	
+	public void restringirLista() {
+		//System.out.println("restringiendo lista");
+		mario.restringirLista();
+	}
 	
 	public boolean playerWins() {
 		// TODO Auto-generated method stub
@@ -229,6 +247,10 @@ public class Game {
 	
 	public void tick() {
 		remainingTime--;
+	}
+	
+	public boolean isMarioWins() {
+		return (this.finish && this.wins);
 	}
 	
 }

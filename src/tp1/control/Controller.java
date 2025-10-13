@@ -57,26 +57,32 @@ public class Controller {
 				for (int i = 1; i < prompt.length; i++) {
 					if (prompt[i].equals("l")|| prompt[i].toLowerCase().equals("left")) {
 						game.addAction(Action.LEFT);
+						
 					} else  if (prompt[i].equals("r")|| prompt[i].toLowerCase().equals("right")) {
 						game.addAction(Action.RIGHT);
+						
 					} else if (prompt[i].equals("u")|| prompt[i].toLowerCase().equals("up")) {
 						game.addAction(Action.UP);
+						
 					} else if (prompt[i].equals("d")|| prompt[i].toLowerCase().equals("down")) {
 						game.addAction(Action.DOWN);
+						
 					} else if (prompt[i].equals("s")|| prompt[i].toLowerCase().equals("stop")) {
 						game.addAction(Action.STOP);
+						
 					} else {
 						//System.out.printf(tp1.view.Messages.UNKNOWN_ACTION + "\n", prompt[i]);
 						System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_ACTION, prompt[i]));
-						game.update();
 						break;
 					}
 				}//for
+				game.restringirLista();
+				game.update();
 			}else {
 				System.out.printf(Messages.ERROR + "\n",Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
 				help = true;
 				//game.update();
-			}
+			} 
 			
 			
 		} else {
@@ -119,5 +125,12 @@ public class Controller {
 		
 		
 		
-	}view.showEndMessage(); }//while
+	}//while
+		
+	if (!game.isMarioWins()) {
+		view.showEndMessage(); 
+	}
+		
+		
+	}//run
 	}//class

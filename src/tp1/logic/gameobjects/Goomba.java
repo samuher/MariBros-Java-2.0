@@ -54,6 +54,7 @@ public class Goomba {
 	public boolean caida(Position suelo) {
 		if(!game.isSolid(suelo)) {
 			this.pos = suelo;
+			return true;
 		}
 		return false;
 	}
