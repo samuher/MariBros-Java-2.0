@@ -60,9 +60,6 @@ public class Game {
 	
 	
 	public void reset(int nLevel) {
-		//this.remainingTime = 100;
-		//this.points = 0;
-		//this.lives = 3;
 		switch (nLevel) {
 		case 0 -> initLevel0();
 		case 1 -> initLevel1();
@@ -94,7 +91,6 @@ public class Game {
 	}
 	
 	public void restringirLista() {
-		//System.out.println("restringiendo lista");
 		mario.restringirLista();
 	}
 	
@@ -196,7 +192,6 @@ public class Game {
 	}
 	
 	private void initLevel1() {
-		//System.out.println("level 1");
 		this.nLevel = 1;
 		this.remainingTime = 100;
 		
