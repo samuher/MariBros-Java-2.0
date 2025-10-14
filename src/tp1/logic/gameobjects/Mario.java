@@ -173,7 +173,7 @@ public class Mario {
 	    game.doInteractionsFrom(this);
 	}
 
-	/** Movimiento automático en grande */
+	// Movimiento automático en grande 
 	private void autoMoveBig() {
 	    Position suelo = this.pos.moved(Action.DOWN);
 	    if (caidaUnitaria(suelo)) return;
