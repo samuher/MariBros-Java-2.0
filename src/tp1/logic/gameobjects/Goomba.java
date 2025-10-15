@@ -12,10 +12,7 @@ public class Goomba {
 	private boolean avanza= true;
 	private boolean dead;
 	
-	public Goomba(Position pos){
-		this.pos = pos;
-	}
-
+	
 	public Goomba(Game game, Position position) {
 		// TODO Auto-generated constructor stub
 		this.game = game;

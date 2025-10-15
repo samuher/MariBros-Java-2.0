@@ -76,10 +76,10 @@ public class GameObjectContainer {
 			if (land.isInPosition(pos)) {
 				return land.getIcon();			}
 		}
-		String gom = "";
+		String gom = "";  
 		for (Goomba goomba : goombas ) {
 			if (goomba.isInPosition(pos) && !goomba.isDead()) {
-				gom+= goomba.getIcon();
+				gom+= goomba.getIcon(); // permite dos goombas en la misma posición, como en los tests
 			}
 		}
 		if (gom != "") return gom;

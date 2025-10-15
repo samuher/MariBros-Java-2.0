@@ -45,7 +45,7 @@ public class ActionList {
             // 2) HORIZONTAL: primera dirección manda, máx 4
             if (a == Action.LEFT) {
                 if (!right) {                 // si apareció RIGHT antes, ignora LEFT
-                    left = true;              // fija que la elegida es LEFT
+                    left = true;              
                     if (lr < 4) {
                         list_aux.add(Action.LEFT);
                         lr++;
@@ -56,7 +56,7 @@ public class ActionList {
 
             if (a == Action.RIGHT) {
                 if (!left) {                  // si apareció LEFT antes, ignora RIGHT
-                    right = true;             // fija RIGHT como elegida
+                    right = true;             
                     if (lr < 4) {
                         list_aux.add(Action.RIGHT);
                         lr++;
@@ -87,10 +87,6 @@ public class ActionList {
                 }
                 continue;
             }
-            
-            if (a == Action.STOP) {
-				list_aux.add(Action.STOP);
-			}
         }
 
         return list_aux;
