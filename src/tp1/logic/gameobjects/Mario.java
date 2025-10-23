@@ -38,65 +38,10 @@ public class Mario {
 	public void update() {
 		this.cayendo = false;
 		if (!big) {
-			Action dir;
 			//movmiento no automatico
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
-					dir = actlist.nextAction();
-					Position lateral = this.pos.moved(dir);
-					
-					if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-						Position suelo = this.pos.moved(Action.DOWN);
-						if (dir == Action.DOWN) {
-							this.stop = true;
-							this.left = false;
-							this.right = false;
-							//System.out.println("se agacha");
-							//this.pos = suelo;
-							this.downstop = true;
-							continue;
-						}
-						if (dir == Action.LEFT) {
-							this.right = true;
-							this.stop = false;
-							this.left = false;
-							this.avanza = false;
-							continue;
-						}
-						if (dir == Action.RIGHT) {
-							this.right = false;
-							this.stop = false;
-							this.left = true;
-							this.avanza = false;
-							continue;
-						}
-						
-						continue;
-					}
-					//this.pos = this.pos.moved(dir);
-					if (dir == Action.LEFT) {
-						this.left = true;
-						this.stop = false;
-						this.downstop = true;
-					} else if (dir == Action.RIGHT){
-						this.right = true;
-						this.stop = false;
-						this.downstop = true;
-					} else 
-						if (dir == Action.DOWN) {
-							Position suelo = this.pos.moved(Action.DOWN);
-							caida(suelo);
-							//this.downstop = true;
-							//this.stop = true;
-							continue;
-						//}
-						} else if (dir == Action.STOP) {
-							this.stop = true;
-							this.downstop = true;
-						}
-						
-					
-					this.pos = this.pos.moved(dir);
+					actionMovement(actlist.nextAction());
 				}
 				game.doInteractionsFrom(this);
 				this.avanza = false;
@@ -114,62 +59,8 @@ public class Mario {
 			Action dir;
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
-					dir = actlist.nextAction();
-					// lateral position (abajo)
-					Position lateral = this.pos.moved(dir);
-					Position lateral_arriba = this.pos.moved(Action.UP).moved(dir);
-					if (lateral_arriba.isLateral(lateral_arriba) || game.isSolid(lateral_arriba)) { continue; }
-					if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-						Position suelo = this.pos.moved(Action.DOWN);
-						if (dir == Action.DOWN) {
-							this.stop = true;
-							this.left = false;
-							this.right = false;
-							//System.out.println("se agacha");
-							//this.pos = suelo;
-							this.downstop = true;
-							continue;
-						}
-						if (dir == Action.LEFT) {
-							this.right = true;
-							this.stop = false;
-							this.left = false;
-							this.avanza = false;
-							continue;
-						}
-						if (dir == Action.RIGHT) {
-							this.right = false;
-							this.stop = false;
-							this.left = true;
-							this.avanza = false;
-							continue;
-						}
-						
-						continue;
-					}
-					//this.pos = this.pos.moved(dir);
-					if (dir == Action.LEFT) {
-						this.left = true;
-						this.stop = false;
-						this.downstop = false;
-					} else if (dir == Action.RIGHT){
-						this.right = true;
-						this.stop = false;
-						this.downstop = false;
-					} else if (dir == Action.DOWN) {
-						//this.stop = true; solo es true cuando ya tiene suelo debajo
-						Position suelo = this.pos.moved(Action.DOWN);
-							caida(suelo);
-							
-							continue;
-						//}
-					} else if (dir == Action.STOP) {
-						this.stop = true;
-						this.downstop = true;
-					}
-					
-					this.pos = this.pos.moved(dir);
-				}
+					actionMovement(actlist.nextAction());
+				}	
 				game.doInteractionsFrom(this);
 				this.avanza = false;
 				return;
@@ -185,6 +76,61 @@ public class Mario {
 	
 		
 }
+	
+	public void actionMovement(Action dir) {
+		if(isMarioNexToLateral(dir, this.pos) || isMarioNexToSolid(dir, this.pos)) {
+			if(dir == Action.DOWN) {
+				this.stop = true;
+				this.left = false;
+				this.right = false;
+				this.downstop = true;
+				return;
+			}
+			lookDirection(dir, true);
+		}else {
+			if (lookDirection(dir, false)) return;
+			marioMove(dir);
+		}
+		
+		
+	}
+	
+	
+	public void marioMove(Action dir) {
+		this.pos = this.pos.moved(dir);
+	}
+	
+	public boolean lookDirection(Action dir, boolean choque) {
+		
+		if(choque) {
+			if(dir == Action.LEFT) dir = Action.RIGHT;
+			if(dir == Action.RIGHT) dir = Action.LEFT;
+		}
+		
+		
+		
+		if (dir == Action.LEFT) {
+			this.left = true;
+			this.right = false;
+			this.stop = false;
+			this.downstop = false;
+		} else if (dir == Action.RIGHT){
+			this.right = true;
+			this.left = false;
+			this.stop = false;
+			this.downstop = false;
+		} else if (dir == Action.DOWN) {
+			Position suelo = this.pos.moved(Action.DOWN);
+			caida(suelo);
+			return true;
+		} else if (dir == Action.STOP) {
+			this.stop = true;
+			this.downstop = true;
+		}
+		return choque;
+	}
+	
+	
 	
 	public boolean automaticMovement() {
 		
@@ -240,6 +186,9 @@ public class Mario {
 	}
 	
 	public boolean isMarioNexToSolid(Action dir, Position actual) {
+		if(big) {
+			return game.isSolid(this.pos.moved(dir).moved(Action.UP)) || game.isSolid(this.pos.moved(dir));
+		}
 		return game.isSolid(this.pos.moved(dir));
 	}
 	
