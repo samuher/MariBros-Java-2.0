@@ -103,28 +103,10 @@ public class Mario {
 				return;
 			}
 			
-			Position suelo = this.pos.moved(Action.DOWN);
-			if (caidaUnitaria(suelo)) return;
-			dir = avanza ? Action.LEFT : Action.RIGHT;
-			Position lateral = this.pos.moved(dir);
-			if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-				avanza = !avanza;
-				//dir = avanza ? Action.LEFT : Action.RIGHT;
-				//this.pos = this.pos.moved(dir);
-			} else {
-				if (!this.downstop) {
-					this.pos = this.pos.moved(dir);
-				}
+			if(!automaticMovement()) {
+				return;
 			}
-			if (avanza && !this.downstop) {
-				this.left = true;
-				this.right = false;
-				this.stop = false;
-			} else if(!this.downstop) {
-				this.left = false;
-				this.right = true;
-				this.stop = false;
-			}
+			
 			game.doInteractionsFrom(this);
 		
 			
@@ -194,42 +176,74 @@ public class Mario {
 			}
 			
 			//automatico big
-			Position suelo = this.pos.moved(Action.DOWN);
-			dir = avanza ? Action.LEFT : Action.RIGHT;
-			Position lateral = this.pos.moved(dir);
-			if (caidaUnitaria(suelo)) return;
-			if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-				avanza = !avanza;
-				//dir = avanza ? Action.LEFT : Action.RIGHT;
-				//this.pos = this.pos.moved(dir);
-			} else {
-				if (!this.downstop) {
-					this.pos = this.pos.moved(dir);
-				}
-				
+			if(!automaticMovement()) {
+				return;
 			}
-			if (avanza && !this.downstop) {
-				this.left = true;
-				this.right = false;
-				this.stop = false;
-			} else if(!this.downstop){
-				this.left = false;
-				this.right = true;
-				this.stop = false;
-			}
-			//if (caidaUnitaria(suelo)) return;
-			/*
-			suelo = this.pos.moved(Action.DOWN);
-			//caida(suelo);
-			if(!game.isSolid(suelo)) {
-				this.pos = suelo;
-			}
-			*/
+			
 			game.doInteractionsFrom(this);
 		}
 	
 		
 }
+	
+	public boolean automaticMovement() {
+		
+		if(big) {
+			if (caidaUnitaria(this.pos.moved(Action.DOWN))) return false;
+			Action dir = avanza ? Action.LEFT : Action.RIGHT;
+			if(isMarioNexToLateral(dir, this.pos) || isMarioNexToSolid(dir, this.pos)) {
+				avanza = !avanza;
+				leftToRight(avanza);
+			} else {
+				movimientoUnitario(avanza, downstop, dir);
+			}
+			
+			
+			return true;
+		}
+		
+		if (caidaUnitaria(this.pos.moved(Action.DOWN))) return false;
+		Action dir = avanza ? Action.LEFT : Action.RIGHT;
+		if(isMarioNexToLateral(dir, this.pos) || isMarioNexToSolid(dir, this.pos)) {
+			avanza = !avanza;
+			leftToRight(avanza);
+		} else {
+			movimientoUnitario(avanza, downstop, dir);
+		}
+		return true;
+		
+	}
+	
+	public void movimientoUnitario(boolean avanza, boolean downstop, Action dir) {
+		if(!this.downstop) {
+			this.pos = this.pos.moved(dir);
+			leftToRight(avanza);
+			this.stop = false;
+		}
+	}
+	
+	
+	public void leftToRight(boolean avanza) {
+		this.left = avanza;
+		this.right = !avanza;
+	}
+	
+	
+	public boolean isMarioNexToLateral(Action dir, Position actual) {
+		Position lateral = this.pos.moved(dir);
+		if(big) {
+			Position lateral_arriba = this.pos.moved(Action.UP).moved(dir);
+			return (lateral.isLateral(lateral) || lateral.isLateral(lateral_arriba));
+		}
+		
+		return lateral.isLateral(lateral);
+	}
+	
+	public boolean isMarioNexToSolid(Action dir, Position actual) {
+		return game.isSolid(this.pos.moved(dir));
+	}
+	
+	
 	public String getIcon() {
 		// devuelve el icono, segun su direccion
 		
