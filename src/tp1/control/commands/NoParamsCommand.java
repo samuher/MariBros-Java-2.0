@@ -14,11 +14,9 @@ public abstract class NoParamsCommand extends AbstractCommand {
 	@Override
 	public Command parse(String[] commandWords) {
 		//First TODO fill with your code
-		if(commandWords.length == 1 && (commandWords[0].equalsIgnoreCase(getName()) 
-				|| (commandWords[0].equalsIgnoreCase(getShortcut())))) {
+		if (commandWords.length == 1 && matchCommandName(commandWords[0])) {
 			return this;
 		}
-
 		return null;
 	}
 }

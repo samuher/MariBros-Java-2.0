@@ -46,8 +46,8 @@ public class ActionCommand extends AbstractCommand{
                 case "s", "stop" -> this.actions.add(Action.STOP);
                 default -> {
                 	// Comando inválido
-                	System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_ACTION, words[i]));
-                	return null;
+                	//System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_ACTION, words[i]));
+                	//return null;
                 	}
 				}//switch
 				

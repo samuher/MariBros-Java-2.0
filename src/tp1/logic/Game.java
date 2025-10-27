@@ -41,6 +41,7 @@ public class Game {
 	
 	public void marioExited() {
 		this.wins = true;
+		//tick();
 		this.points += this.remainingTime *10;
 		this.remainingTime = 0;
 		finish();
@@ -57,11 +58,15 @@ public class Game {
 	}
 	
 	
-	public void reset(int nLevel) {
+	public boolean reset(int nLevel) {
 		switch (nLevel) {
 		case 0 -> initLevel0();
 		case 1 -> initLevel1();
+		default ->{
+			return false;
 		}
+		}
+		return true;
 	}
 	
 	public void reset() {
@@ -76,9 +81,8 @@ public class Game {
 	}
 
 	public void update() {
-		//remainingTime--;
-		gameObjects.update();
 		tick();
+		gameObjects.update();
 	}
 	
 	public boolean isSolid(Position pos) {
@@ -137,6 +141,7 @@ public class Game {
 			finish();
 		}else {
 			reset();
+			
 		}
 	}
 	

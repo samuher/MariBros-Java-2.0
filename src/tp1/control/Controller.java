@@ -41,7 +41,7 @@ public class Controller {
 	        
 	        if (command != null) {
 	            command.execute(game, view);
-	            game.tick();
+	            //game.tick();
 	         } else {
 	            //System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_COMMAND, prompt[0]));
 	        	view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", prompt)));

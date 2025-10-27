@@ -17,9 +17,15 @@ public class ResetCommand extends NoParamsCommand {
     public void execute(Game game, GameView view) {
     	if(level == null) {
     		game.reset();
+    		view.showGame();
     	}else {
-    		game.reset(level);
+    		if(!game.reset(level)) {
+    			view.showError(Messages.INVALID_LEVEL_NUMBER);
+    		}else {
+    			view.showGame();
+    		}
     	}
+    	
     }
     
     @Override
@@ -31,6 +37,14 @@ public class ResetCommand extends NoParamsCommand {
     		ResetCommand cmd = new ResetCommand();
     		
     		if(words.length > 1) {
+    			for (int i = 0; i < words[1].length(); i++) {
+    		        if (!Character.isDigit(words[1].charAt(i))) {
+    		            //return false;
+    		        	// not a valid number
+    		        	return null;
+    		        }
+    		    }
+    			
     			cmd.level = Integer.parseInt(words[1]);
     		}
     		return cmd;
