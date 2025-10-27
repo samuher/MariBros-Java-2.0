@@ -1,6 +1,5 @@
 package tp1.logic.gameobjects;
 
-import java.util.List;
 
 import tp1.logic.Action;
 import tp1.logic.ActionList;
@@ -56,7 +55,7 @@ public class Mario {
 		
 			
 		} else { //big
-			Action dir;
+			
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
 					actionMovement(actlist.nextAction());
@@ -106,8 +105,6 @@ public class Mario {
 			if(dir == Action.LEFT) dir = Action.RIGHT;
 			if(dir == Action.RIGHT) dir = Action.LEFT;
 		}
-		
-		
 		
 		if (dir == Action.LEFT) {
 			this.left = true;

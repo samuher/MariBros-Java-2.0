@@ -12,7 +12,6 @@ public class GameObjectContainer {
 	private Mario mario;
 	private ExitDoor exit;
 	private List<Goomba> goombas;
-	private int contador;
 	
 	public GameObjectContainer(){
 		landList = new ArrayList<>();
@@ -57,7 +56,6 @@ public class GameObjectContainer {
 		}
 		doInteractionsFrom(mario);
 		clean();
-		
 	}
 	
 	public void clean() {

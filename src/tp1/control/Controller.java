@@ -1,10 +1,8 @@
 package tp1.control;
 
-import java.util.Iterator;
 
-
-import tp1.logic.Action;
-import tp1.logic.ActionList;
+import tp1.control.commands.Command;
+import tp1.control.commands.CommandGenerator;
 import tp1.logic.Game;
 import tp1.view.GameView;
 import tp1.view.Messages;
@@ -12,6 +10,8 @@ import tp1.view.Messages;
 /**
  *  Accepts user input and coordinates the game execution logic
  */
+
+//Menejara objetos de tipo Command
 public class Controller {
 
 	private Game game;
@@ -28,124 +28,30 @@ public class Controller {
 	 * 
 	 */
 	public void run() {
-		
-		boolean help = false;
-		view.showWelcome();
-		while (!game.isFinished()) {
-		
-		
-		//TODO fill your code: The main loop that displays the game, asks the user for input, and executes the action.
-		
-		if (!help) {
-			view.showGame();
-			game.tick();
-		} else{
-			help = false;
-		}
-		
-		
-		
-		String[] prompt = view.getPrompt();
-
-		//System.out.println(prompt[0]);
-		
-		// comando action
-		
-		if (prompt[0].toLowerCase().equals("a")|| prompt[0].toLowerCase().equals("action")) {
+	    view.showWelcome();
+	 // Muestra el estado actual del juego
+        view.showGame();
+        
+        
+	    while (!game.isFinished()) {
+	        
+	        
+	        String[] prompt = view.getPrompt();
+	        Command command = CommandGenerator.parse(prompt);
+	        
+	        if (command != null) {
+	            command.execute(game, view);
+	            game.tick();
+	         } else {
+	            //System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_COMMAND, prompt[0]));
+	        	view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", prompt)));
+	        }
+	    }
+	    
+	    // Muestra el estado final del juego
+	    //view.showGame();
+	    view.showEndMessage();
 			
-			if (prompt.length > 1) {
-				for (int i = 1; i < prompt.length; i++) {
-					if (prompt[i].toLowerCase().equals("l")|| prompt[i].toLowerCase().equals("left")) {
-						game.addAction(Action.LEFT);
-						
-					} else  if (prompt[i].toLowerCase().equals("r")|| prompt[i].toLowerCase().equals("right")) {
-						game.addAction(Action.RIGHT);
-						
-					} else if (prompt[i].toLowerCase().equals("u")|| prompt[i].toLowerCase().equals("up")) {
-						game.addAction(Action.UP);
-						
-					} else if (prompt[i].toLowerCase().equals("d")|| prompt[i].toLowerCase().equals("down")) {
-						game.addAction(Action.DOWN);
-						
-					} else if (prompt[i].toLowerCase().equals("s")|| prompt[i].toLowerCase().equals("stop")) {
-						game.addAction(Action.STOP);
-						
-					} else {
-						//System.out.printf(tp1.view.Messages.UNKNOWN_ACTION + "\n", prompt[i]);
-						System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_ACTION, prompt[i]));
-						break;
-					}
-				}//for
-				game.restringirLista();
-				game.update();
-			}else {
-				System.out.printf(Messages.ERROR + "\n",Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
-				help = true;
-				//game.update();
-			} 
-			
-			
-		} else {
-			if (prompt[0].equals("r") || prompt[0].toLowerCase().equals("reset")) {
-				game.reset();
-				if (prompt.length > 1) {
-					//System.out.println("Cargando nuevo nivel " + prompt[1]);
-					game.reset(Integer.parseInt(prompt[1]));
-				}
-			} else {
-				switch (prompt[0].toLowerCase()) {
-				case "h", "help" -> {
-					if (prompt.length > 1) {
-						System.out.printf(Messages.ERROR + "\n",Messages.COMMAND_INCORRECT_PARAMETER_NUMBER);
-						help = true;
-						//return;
-					} else {
-						System.out.println(Messages.HELP);
-					
-					help = true;
-					}
-					
-					
-				}
-				case "u", "update" -> {
-					game.update();
-				}
-				case "e", "exit" -> {game.finish();}
-				case "" -> {
-					game.update();
-					}
-				default -> {System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_COMMAND, prompt[0]));
-							help = true;}
-				
-				}//switch
-			}//else
-			
-			
-		}
-		
-		
-		
-	}//while
-		/*
-	if (!game.isMarioWins() || !game.playerLoses()) {
-		view.showEndMessage(); 
-	} else {
-		view.showGame();
-		if (game.isMarioWins()) {
-			System.out.println(Messages.MARIO_WINS);
-		} 
-		if (game.playerLoses()) {
-			System.out.println(Messages.GAME_OVER);
-		}
-		
-	}
-	*/
-		if (game.isMarioWins() || game.playerLoses()) {
-			view.showGame(); 
-		}
-	view.showEndMessage(); 
-	
-		
-		
 	}//run
-	}//class
+	
+}//class

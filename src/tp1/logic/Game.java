@@ -1,10 +1,9 @@
 package tp1.logic;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+
 
 import tp1.logic.gameobjects.*;
-import tp1.view.Messages;
+
 
 public class Game {
 
@@ -24,7 +23,6 @@ public class Game {
 	private boolean finish = false;
 	private boolean wins = false;
 	private boolean looses = false;
-	private boolean gameover = false;
 
 	//TODO fill your code
 	
@@ -80,6 +78,7 @@ public class Game {
 	public void update() {
 		//remainingTime--;
 		gameObjects.update();
+		tick();
 	}
 	
 	public boolean isSolid(Position pos) {
@@ -172,7 +171,8 @@ public class Game {
 		gameObjects.add(new Land(new Position(5,6)));
 		
 		// Salto final
-		int tamX = 8, tamY= 8;
+		int tamX = 8;
+		//tamY= 8;
 		int posIniX = Game.DIM_X-3-tamX, posIniY = Game.DIM_Y-3;
 		
 		for(int col = 0; col < tamX; col++) {
@@ -216,7 +216,8 @@ public class Game {
 		gameObjects.add(new Land(new Position(5,6)));
 		
 		// Salto final
-		int tamX = 8, tamY= 8;
+		int tamX = 8;
+		//tamY= 8;
 		int posIniX = Game.DIM_X-3-tamX, posIniY = Game.DIM_Y-3;
 		
 		for(int col = 0; col < tamX; col++) {
