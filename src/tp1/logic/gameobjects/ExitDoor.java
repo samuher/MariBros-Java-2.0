@@ -4,12 +4,13 @@ import tp1.logic.Action;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-public class ExitDoor {
+public class ExitDoor extends GameObject{
 	
 	private Position pos;
 	
 	public ExitDoor(Position pos){
-		this.pos = pos;
+		super(pos);
+		//this.pos = pos;
 	}
 
 	

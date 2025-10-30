@@ -15,7 +15,7 @@ public class ActionList {
 	public void add(Action act) {
 		//Aplicar condiciones
 		if (act != null) this.list.add(act);
-		//this.list = restringir();
+		restringir();
 	}
 	
 	public void restringirLista() {
@@ -30,6 +30,7 @@ public class ActionList {
 		boolean down = false;
 		int lr = 0;
 		int ud = 0;
+		
 		List<Action> list_aux = new ArrayList<>();
 		for (int i = 0; i < this.list.size(); i++) {
             Action a = this.list.get(i);

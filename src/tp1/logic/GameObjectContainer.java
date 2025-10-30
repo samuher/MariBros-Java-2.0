@@ -12,10 +12,12 @@ public class GameObjectContainer {
 	private Mario mario;
 	private ExitDoor exit;
 	private List<Goomba> goombas;
+	private List<GameObject> gameObjects;
 	
 	public GameObjectContainer(){
 		landList = new ArrayList<>();
 		goombas = new ArrayList<>();
+		gameObjects = new ArrayList<>();
 		// land = new Land[Game.DIM_X][Game.DIM_Y];
 		
 	}

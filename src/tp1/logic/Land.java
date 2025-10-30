@@ -1,13 +1,15 @@
 package tp1.logic;
 
+import tp1.logic.gameobjects.GameObject;
 import tp1.view.Messages;
 
-public class Land {
+public class Land extends GameObject{
 	private Position pos;
 	
 	public Land(Position position) {
 		// TODO Auto-generated constructor stub
-		this.pos = position;
+		super(position);
+		//this.pos = position;
 	}
 
 	public String getIcon() {
@@ -17,21 +19,6 @@ public class Land {
 	public boolean isInPosition(Position p) {
 		return (this.pos.equals(p));
 	}
-	
-	/*
-	public int getCol() {
-		return this.pos.getCol();
-	}
-	
-	public int getRow() {
-		return this.pos.getRow();
-	}*/
-	
-	
-	/*
-	public void add(Goomba goomba) {
-		
-	}*/
 	
 	
 }

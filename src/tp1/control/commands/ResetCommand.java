@@ -4,7 +4,7 @@ import tp1.logic.Game;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
-public class ResetCommand extends NoParamsCommand {
+public class ResetCommand extends AbstractCommand {
 	
 	private Integer level; //Entero, sin decimales
 	

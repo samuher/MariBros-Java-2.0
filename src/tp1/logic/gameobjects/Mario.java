@@ -7,7 +7,7 @@ import tp1.logic.Game;
 import tp1.view.Messages;
 import tp1.logic.Position;
 
-public class Mario {
+public class Mario extends MovingObject{
 
 	//TODO fill your code
 	
@@ -28,34 +28,14 @@ public class Mario {
 	private ActionList actlist;
 	public Mario(Game game, Position position) {
 		// TODO Auto-generated constructor stub
-		this.game = game;
-		this.pos = position;
+		//this.game = game;
+		//this.pos = position;
+		super(game, position);
 		this.actlist = new ActionList();
-		
 	}
 
 	public void update() {
 		this.cayendo = false;
-		if (!big) {
-			//movmiento no automatico
-			if (actlist.anyActions()) {
-				while(actlist.anyActions()) {
-					actionMovement(actlist.nextAction());
-				}
-				game.doInteractionsFrom(this);
-				this.avanza = false;
-				return;
-			}
-			
-			if(!automaticMovement()) {
-				return;
-			}
-			
-			game.doInteractionsFrom(this);
-		
-			
-		} else { //big
-			
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
 					actionMovement(actlist.nextAction());
@@ -71,13 +51,13 @@ public class Mario {
 			}
 			
 			game.doInteractionsFrom(this);
-		}
+	
 	
 		
 }
 	
-	public void actionMovement(Action dir) {
-		if(isMarioNexToLateral(dir, this.pos) || isMarioNexToSolid(dir, this.pos)) {
+	private void actionMovement(Action dir) {
+		if(isNextToLateral(dir) || isNextToSolid(dir)) {
 			if(dir == Action.DOWN) {
 				this.stop = true;
 				this.left = false;
@@ -131,23 +111,9 @@ public class Mario {
 	
 	public boolean automaticMovement() {
 		
-		if(big) {
-			if (caidaUnitaria(this.pos.moved(Action.DOWN))) return false;
-			Action dir = avanza ? Action.LEFT : Action.RIGHT;
-			if(isMarioNexToLateral(dir, this.pos) || isMarioNexToSolid(dir, this.pos)) {
-				avanza = !avanza;
-				leftToRight(avanza);
-			} else {
-				movimientoUnitario(avanza, downstop, dir);
-			}
-			
-			
-			return true;
-		}
-		
 		if (caidaUnitaria(this.pos.moved(Action.DOWN))) return false;
 		Action dir = avanza ? Action.LEFT : Action.RIGHT;
-		if(isMarioNexToLateral(dir, this.pos) || isMarioNexToSolid(dir, this.pos)) {
+		if(isNextToLateral(dir) || isNextToSolid(dir)) {
 			avanza = !avanza;
 			leftToRight(avanza);
 		} else {
@@ -155,6 +121,12 @@ public class Mario {
 		}
 		return true;
 		
+	}
+	
+	//redirect movimientoUnitario
+	protected void movimientoUnitario(boolean avanza, Action dir) {
+		// TODO Auto-generated method stub
+		movimientoUnitario(avanza, downstop, dir);
 	}
 	
 	public void movimientoUnitario(boolean avanza, boolean downstop, Action dir) {
@@ -172,7 +144,7 @@ public class Mario {
 	}
 	
 	
-	public boolean isMarioNexToLateral(Action dir, Position actual) {
+	public boolean isNextToLateral(Action dir) {
 		Position lateral = this.pos.moved(dir);
 		if(big) {
 			Position lateral_arriba = this.pos.moved(Action.UP).moved(dir);
@@ -182,7 +154,7 @@ public class Mario {
 		return lateral.isLateral(lateral);
 	}
 	
-	public boolean isMarioNexToSolid(Action dir, Position actual) {
+	public boolean isNextToSolid(Action dir) {
 		if(big) {
 			return game.isSolid(this.pos.moved(dir).moved(Action.UP)) || game.isSolid(this.pos.moved(dir));
 		}
@@ -308,6 +280,10 @@ public class Mario {
 	
 	public boolean isBig() {
 		return this.big;
+	}
+	
+	public void deadMovingObject() {
+		game.marioDead();
 	}
 	
 }

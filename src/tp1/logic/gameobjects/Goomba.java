@@ -5,7 +5,7 @@ import tp1.logic.Game;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
-public class Goomba {
+public class Goomba extends MovingObject{
 
 	private Position pos;
 	private Game game;
@@ -15,8 +15,9 @@ public class Goomba {
 	
 	public Goomba(Game game, Position position) {
 		// TODO Auto-generated constructor stub
-		this.game = game;
-		this.pos = position;
+		super(game, position);
+		//this.game = game;
+		//this.pos = position;
 	}
 
 	public boolean isInPosition (Position p) {
@@ -77,6 +78,17 @@ public class Goomba {
 		//caida(suelo);
 	}
 	
+	
+	public boolean isNextToSolid(Action dir) {
+		return game.isSolid(this.pos.moved(dir));
+	}
+	
+	public boolean isNextToLateral(Action dir) {
+		return this.pos.isLateral(this.pos.moved(dir));
+	}
+	
+	
+	
 	public boolean isDead() {
 		return this.dead;
 	}
@@ -85,6 +97,11 @@ public class Goomba {
 		this.dead = true;
 		game.cleanGoomba();
 		return true;
+	}
+	
+	public void deadMovingObject() {
+		this.dead = true;
+		game.cleanGoomba();// Puede estar mal, posible borrado antes de update
 	}
 	
 
