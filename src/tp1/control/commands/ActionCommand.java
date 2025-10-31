@@ -21,6 +21,10 @@ import tp1.view.Messages;
  * */
 public class ActionCommand extends AbstractCommand{
 	private List<Action> actions; // lista de acciones 
+	private static final String NAME = Messages.COMMAND_ACTION_NAME;
+	private static final String SHORTCUT = Messages.COMMAND_ACTION_SHORTCUT;
+	private static final String DETAILS = Messages.COMMAND_ACTION_DETAILS;
+	private static final String HELP = Messages.COMMAND_ACTION_HELP;
 	
 	//Constructor
 	public ActionCommand() {

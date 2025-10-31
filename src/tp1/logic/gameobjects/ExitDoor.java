@@ -6,7 +6,7 @@ import tp1.view.Messages;
 
 public class ExitDoor extends GameObject{
 	
-	private Position pos;
+	//private Position pos;
 	
 	public ExitDoor(Position pos){
 		super(pos);

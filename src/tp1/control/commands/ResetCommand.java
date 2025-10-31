@@ -7,11 +7,16 @@ import tp1.view.Messages;
 public class ResetCommand extends AbstractCommand {
 	
 	private Integer level; //Entero, sin decimales
+	private static final String NAME = Messages.COMMAND_RESET_NAME;
+	private static final String SHORTCUT = Messages.COMMAND_RESET_SHORTCUT;
+	private static final String DETAILS = Messages.COMMAND_RESET_DETAILS;
+	private static final String HELP = Messages.COMMAND_RESET_HELP;
 	
 	//Constructor
 	public ResetCommand() {
-        super("reset", "r", "[r]eset [numLevel]", "reset the game to initial configuration if not numLevel else load the numLevel map");
-    }
+        //super("reset", "r", "[r]eset [numLevel]", "reset the game to initial configuration if not numLevel else load the numLevel map");
+		super(NAME, SHORTCUT, DETAILS, HELP);
+	}
 
     @Override
     public void execute(Game game, GameView view) {

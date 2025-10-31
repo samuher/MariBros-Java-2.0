@@ -4,7 +4,7 @@ import tp1.logic.gameobjects.GameObject;
 import tp1.view.Messages;
 
 public class Land extends GameObject{
-	private Position pos;
+	//private Position pos; ya esta en la clase padre
 	
 	public Land(Position position) {
 		// TODO Auto-generated constructor stub

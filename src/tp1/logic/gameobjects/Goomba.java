@@ -7,8 +7,8 @@ import tp1.view.Messages;
 
 public class Goomba extends MovingObject{
 
-	private Position pos;
-	private Game game;
+	//private Position pos;
+	//private Game game;
 	private boolean avanza= true;
 	private boolean dead;
 	

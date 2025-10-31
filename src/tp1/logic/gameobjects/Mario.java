@@ -15,7 +15,8 @@ public class Mario extends MovingObject{
 	 *  Implements the automatic update	
 	 */
 	
-	private Position pos;
+	//private Position pos;
+	//private Game game;
 	private boolean big = true;
 	private boolean right = true;
 	private boolean left = false;
@@ -23,7 +24,7 @@ public class Mario extends MovingObject{
 	private boolean avanza = false;
 	private boolean cayendo = false;
 	private boolean downstop = false;
-	private Game game;
+	
 	
 	private ActionList actlist;
 	public Mario(Game game, Position position) {

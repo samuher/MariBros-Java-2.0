@@ -91,11 +91,16 @@ public class Messages {
 	public static final String COMMAND_HELP_DETAILS = "[h]elp";
 	public static final String COMMAND_HELP_HELP = "print this help message";
 	
+	public static final String COMMAND_ACTION_NAME = "help";
+	public static final String COMMAND_ACTION_SHORTCUT = "h";
+	public static final String COMMAND_ACTION_DETAILS = "[h]elp";
+	public static final String COMMAND_ACTION_HELP = "print this help message";
+	
 	// RESET
-		public static final String COMMAND_RESEET_NAME = "reset";
-		public static final String COMMAND_RESEET_SHORTCUT = "r";
-		public static final String COMMAND_RESEET_DETAILS = "[r]eset [numLevel]";
-		public static final String COMMAND_RESEET_HELP = "reset the game to initial configuration if not numLevel else load the numLevel map";
+	public static final String COMMAND_RESET_NAME = "reset";
+	public static final String COMMAND_RESET_SHORTCUT = "r";
+	public static final String COMMAND_RESET_DETAILS = "[r]eset [numLevel]";
+	public static final String COMMAND_RESET_HELP = "reset the game to initial configuration if not numLevel else load the numLevel map";
 
 //Symbols
 	public static final String EMPTY = "";
