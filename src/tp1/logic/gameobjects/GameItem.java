@@ -5,6 +5,7 @@ import tp1.logic.Position;
 
 public interface GameItem {
 	public  boolean isSolid();
+	public 	boolean isAlive();
 	public  boolean isInPosition(Position pos);
 
 	public  boolean interactWith(GameItem item);

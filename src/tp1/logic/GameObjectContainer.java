@@ -25,17 +25,21 @@ public class GameObjectContainer {
 	}
 	
 	public void add(Land land) {
-		this.landList.add(land);
+		//this.landList.add(land);
+		this.gameObjects.add(land);
 	}
 	
 	public void add(Goomba goomba) {
-		this.goombas.add(goomba);
+		//this.goombas.add(goomba);
+		this.gameObjects.add(goomba);
 	}
 	public void add(ExitDoor exit) {
-		this.exit = exit;
+		//this.exit = exit;
+		this.gameObjects.add(exit);
 	}
 	public void add(Mario mario) {
-		this.mario = mario;
+		//this.mario = mario;
+		this.gameObjects.add(mario);
 	}
 	/*
 	public Land[][] getLand(){
@@ -77,7 +81,7 @@ public class GameObjectContainer {
 			}
 		}
 		
-		
+		/*
 		//Mario interactua con la puerta
 		GameObject mario = findMario();
 		GameObject exit = findExitDoor();
@@ -90,16 +94,10 @@ public class GameObjectContainer {
 		for(GameObject obj : gameObjects) {
 			if(obj.isGoomba() && obj.isAlive() ) {
 				obj.update();
-				
-				/*
-				//Si muere durante update
-				if(!obj.isAlive()) {
-					toRemove.add(obj);
-				}
-				*/
 			}
 		}
 		
+		*/
 		
 		
 		//Despues de esto Mario hace las interacciones con otros objetos
@@ -134,9 +132,9 @@ public class GameObjectContainer {
 			if (obj.isGoomba() && !obj.isAlive()) {
 				gameObjects.remove(obj);
 				clean();
+				break;
 			}
 		}
-		
 		//goombas.removeIf(Goomba::isDead);
 		//gameObjects.removeAll(toRemove);
 	}
@@ -149,6 +147,8 @@ public class GameObjectContainer {
 	public String positionToString(Position pos) {
 		//int col = pos.getCol();
 		//int row = pos.getRow();
+		String ptoString = "";
+		/*
 		for (Land land : landList) {
 			if (land.isInPosition(pos)) {
 				return land.getIcon();			}
@@ -172,6 +172,13 @@ public class GameObjectContainer {
 		}
 		if (marexit != "") return marexit; 
 		
+		*/
+		for (GameObject obj : gameObjects) {
+			if (obj.isInPosition(pos)) {
+				ptoString += obj.getIcon();
+			}
+		}
+		if (ptoString != "") return ptoString;
 		
 		return Messages.EMPTY;
 	}

@@ -11,7 +11,7 @@ public class Goomba extends MovingObject{
 	//private Game game;
 	private boolean avanza= true;
 	private boolean dead;
-	
+	private boolean alive;
 	
 	public Goomba(Game game, Position position) {
 		// TODO Auto-generated constructor stub
@@ -31,6 +31,7 @@ public class Goomba extends MovingObject{
 	public String getIcon() {
 		return Messages.GOOMBA;
 	}
+	
 	/*
 	 *
 	// para una caida infinita hasta encontrar suelo o vacio, no se ulitiza, test fallido.
@@ -56,7 +57,8 @@ public class Goomba extends MovingObject{
 	public boolean caida(Position suelo) {
 		if(!game.isSolid(suelo)) {
 			if (suelo.isVacio(suelo)) {
-				this.dead = true;
+				//this.dead = true;
+				dead();
 				return true;
 			}
 			this.pos = suelo;
@@ -94,17 +96,20 @@ public class Goomba extends MovingObject{
 	
 	
 	public boolean isDead() {
-		return this.dead;
+		//return this.dead;
+		return isAlive();
 	}
 	
 	public boolean receiveInteraction(Mario other) {
-		this.dead = true;
+		//this.dead = true;
+		dead();
 		game.cleanGoomba();
 		return true;
 	}
 	
 	public void deadMovingObject() {
-		this.dead = true;
+		//this.dead = true;
+		dead();
 		game.cleanGoomba();// Puede estar mal, posible borrado antes de update
 	}
 	

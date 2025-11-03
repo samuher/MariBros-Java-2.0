@@ -7,7 +7,7 @@ import tp1.logic.Position;
 public abstract class MovingObject extends GameObject {
 	
 	private boolean avanza;
-	private boolean alive;
+	private boolean alive = true;
 
 	public MovingObject(Game game, Position pos) {
 		super(game, pos);
@@ -77,5 +77,7 @@ public abstract class MovingObject extends GameObject {
 	protected void deadMovingObject() {
 		// TODO Auto-generated method stub
 	}
+	
+	
 
 }

@@ -19,5 +19,5 @@ public class Land extends GameObject{
 	public boolean isInPosition(Position p) {
 		return (this.pos.equals(p));
 	}
-	public boolean isLand() {return true;}	
+	public boolean isLand() {return true;}
 }

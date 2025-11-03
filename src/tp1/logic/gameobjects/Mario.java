@@ -24,6 +24,7 @@ public class Mario extends MovingObject{
 	private boolean avanza = false;
 	private boolean cayendo = false;
 	private boolean downstop = false;
+	private boolean alive = true;
 	
 	
 	private ActionList actlist;
@@ -240,7 +241,7 @@ public class Mario extends MovingObject{
 		if(!game.isSolid(suelo)) {
 			if (suelo.isVacio(suelo)) {
 				//System.out.println("vaciooooo");
-				game.marioDead();
+				//game.marioDead();
 				return true;
 			}
 			this.pos = suelo;
@@ -286,7 +287,9 @@ public class Mario extends MovingObject{
 		return this.big;
 	}
 	
-	public void deadMovingObject() {
+	
+	private void goingToDead() {
+		dead();
 		game.marioDead();
 	}
 	

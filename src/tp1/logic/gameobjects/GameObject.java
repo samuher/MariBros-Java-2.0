@@ -23,8 +23,12 @@ public abstract class GameObject implements GameItem { // TODO
 	
 	public boolean isInPosition(Position p) {
 		// TODO fill your code here, it should depends on the status of the object
-		return false;
+		return true;
 	}
+	
+	public 	boolean isAlive() {
+		return false;
+	};
  	
 	/*
 	public boolean isAlive() {return alive;}
