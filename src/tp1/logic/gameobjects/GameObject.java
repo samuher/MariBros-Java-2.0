@@ -2,18 +2,17 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
 import tp1.logic.Game;
-import tp1.logic.GameItem;
 import tp1.logic.Land;
 import tp1.logic.Position;
 
 public abstract class GameObject implements GameItem { // TODO 
 
 	protected Position pos; // If you can, make it private.
-	private boolean isAlive;
+	//protected boolean alive;
 	protected Game game; 
 	
 	public GameObject(Game game, Position pos) {
-		this.isAlive = true;
+		//this.alive = true;
 		this.pos = pos;
 		this.game = game;
 	}
@@ -27,13 +26,11 @@ public abstract class GameObject implements GameItem { // TODO
 		return false;
 	}
  	
-	public boolean isAlive() {
-		return isAlive;
-	}
+	/*
+	public boolean isAlive() {return alive;}
 	
-	public void dead(){
-		this.isAlive = false;
-	}
+	public void dead(){this.alive = false;}
+	*/
 	
 	// TODO implement and decide, Which one is abstract?
 	// public boolean isSolid()
@@ -46,7 +43,23 @@ public abstract class GameObject implements GameItem { // TODO
 	// Not mandatory but recommended
 	protected void move(Action dir) {
 		// TODO Auto-generated method stub
+		this.pos = this.pos.moved(dir); 
 	}
+	
+	
+	//Metodos para identificar el objeto
+		@Override
+		public boolean isMario() {return false;}
+		
+		@Override
+		public boolean isGoomba() {return false;}
+		
+		@Override
+		public boolean isLand() {return false;}
+		
+		@Override
+		public boolean isExitDoor() {return false;}
+	
 	
 	@Override
 		public boolean interactWith(GameItem item) {

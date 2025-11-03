@@ -34,6 +34,9 @@ public class Mario extends MovingObject{
 		super(game, position);
 		this.actlist = new ActionList();
 	}
+	
+	@Override
+	public boolean isMario() {return true;}
 
 	public void update() {
 		this.cayendo = false;

@@ -7,6 +7,7 @@ import tp1.logic.Position;
 public abstract class MovingObject extends GameObject {
 	
 	private boolean avanza;
+	private boolean alive;
 
 	public MovingObject(Game game, Position pos) {
 		super(game, pos);
@@ -18,6 +19,11 @@ public abstract class MovingObject extends GameObject {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	// objetos que tienen vida
+	// no estan en la clase super ya que no viven
+	public boolean isAlive() {return alive;}
+	public void dead(){this.alive = false;}
 	
 	protected boolean automaticMovement(boolean avanza) {
 		if (caida(this.pos.moved(Action.DOWN))) return false;

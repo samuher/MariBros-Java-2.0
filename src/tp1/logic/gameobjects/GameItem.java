@@ -1,12 +1,10 @@
-package tp1.logic;
+package tp1.logic.gameobjects;
 
-import tp1.logic.gameobjects.ExitDoor;
-import tp1.logic.gameobjects.Goomba;
-import tp1.logic.gameobjects.Mario;
+import tp1.logic.Land;
+import tp1.logic.Position;
 
 public interface GameItem {
 	public  boolean isSolid();
-	public  boolean isAlive();
 	public  boolean isInPosition(Position pos);
 
 	public  boolean interactWith(GameItem item);
@@ -15,4 +13,9 @@ public interface GameItem {
 	public  boolean receiveInteraction(ExitDoor obj);
 	public  boolean receiveInteraction(Mario obj);
 	public  boolean receiveInteraction(Goomba obj);
+	
+	public boolean isMario();
+	public boolean isGoomba();
+	public boolean isLand();
+	public boolean isExitDoor();
 }

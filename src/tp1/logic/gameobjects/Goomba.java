@@ -19,6 +19,10 @@ public class Goomba extends MovingObject{
 		//this.game = game;
 		//this.pos = position;
 	}
+	
+	@Override
+	public boolean isGoomba() {return true;}
+	
 
 	public boolean isInPosition (Position p) {
 		return (this.pos.equals(p));
