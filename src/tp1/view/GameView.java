@@ -1,12 +1,12 @@
 package tp1.view;
 
-import tp1.logic.Game;
+import tp1.logic.GameStatus;
 
 public abstract class GameView implements ViewInterface{
 
-	protected Game game;
+	protected GameStatus game;
 	
-	public GameView(Game game) {
+	public GameView(GameStatus game) {
 		this.game = game;
 	}
 	
@@ -15,20 +15,7 @@ public abstract class GameView implements ViewInterface{
 		// TODO Auto-generated method stub
 	    //System.out.print(this.toString());
 		}
-	
-	@Override
-	public void setGame(int nLevel) {
-        this.game = new Game(nLevel);
-        System.out.println("set echo");
-    }
-/*
-	public void setGame(Game game) {
-	    this.game = game;
-	}
-	*/
-	
-	
-	
+
 	public String[] getPrompt() {
 		return null;
 	}

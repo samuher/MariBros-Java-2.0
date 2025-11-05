@@ -1,7 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 
 public abstract class MovingObject extends GameObject {
@@ -9,7 +9,7 @@ public abstract class MovingObject extends GameObject {
 	private boolean avanza;
 	private boolean alive = true;
 
-	public MovingObject(Game game, Position pos) {
+	public MovingObject(GameWorld game, Position pos) {
 		super(game, pos);
 		// TODO Auto-generated constructor stub
 	}

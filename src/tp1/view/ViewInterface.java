@@ -10,5 +10,4 @@ public interface ViewInterface {
 
 	// get data from view methods
 	public String[] getPrompt();
-	void setGame(int nLevel);
 }

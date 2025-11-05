@@ -32,28 +32,6 @@ public class Goomba extends MovingObject{
 		return Messages.GOOMBA;
 	}
 	
-	/*
-	 *
-	// para una caida infinita hasta encontrar suelo o vacio, no se ulitiza, test fallido.
-	public boolean caida(Position suelo) {
-		if (!game.isSolid(suelo)) {
-			while (!game.isSolid(suelo)){
-				if (this.pos.isVacio(suelo)) {
-					this.dead = true;
-					return true;
-				}
-				//this.pos = suelo;
-				//this.pos = this.pos.moved(Action.DOWN);
-				suelo = this.pos.moved(Action.DOWN);
-				
-			}
-			return true;
-		}
-		return false;
-		
-	}
-	*/
-	
 	public boolean caida(Position suelo) {
 		if(!game.isSolid(suelo)) {
 			if (suelo.isVacio(suelo)) {
@@ -97,20 +75,36 @@ public class Goomba extends MovingObject{
 	
 	public boolean isDead() {
 		//return this.dead;
-		return isAlive();
+		return !isAlive();
 	}
 	
 	public boolean receiveInteraction(Mario other) {
 		//this.dead = true;
-		dead();
-		game.cleanGoomba();
+		//dead();
+		if (isAlive()) {
+			game.addPoints(100);
+			dead();
+			other.receiveInteraction(this);
+		}
+		
+		//other.receiveInteraction(this);
+		//game.cleanGoomba();
 		return true;
 	}
 	
 	public void deadMovingObject() {
 		//this.dead = true;
 		dead();
-		game.cleanGoomba();// Puede estar mal, posible borrado antes de update
+		//game.cleanGoomba();// Puede estar mal, posible borrado antes de update
+	}
+	
+	@Override
+	public boolean interactWith(GameItem item) {
+		boolean canInteract = item.isInPosition(this.pos);
+		if(canInteract) {
+			item.receiveInteraction(this);
+		}
+		return canInteract;
 	}
 	
 

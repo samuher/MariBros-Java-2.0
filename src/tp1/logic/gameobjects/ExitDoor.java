@@ -13,7 +13,6 @@ public class ExitDoor extends GameObject{
 		//this.pos = pos;
 	}
 
-	
 	public String getIcon() {
 		return Messages.EXIT_DOOR;
 	}
@@ -25,12 +24,13 @@ public class ExitDoor extends GameObject{
 	public boolean isInPosition(Mario m) {
 		return m.isInPosition(this.pos);
 	}
-	/*
-	public void setPos(Position pos) {
-		this.pos = pos;
-	}*/
 	
-	public void openDoor() {
-		this.pos = this.pos.moved(Action.LEFT);
+	@Override
+	public boolean receiveInteraction(Mario obj) {
+		// TODO Auto-generated method stub
+		//game.marioExited();
+		obj.receiveInteraction(this);
+		return true;
 	}
+	
 }

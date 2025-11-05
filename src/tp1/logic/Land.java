@@ -1,7 +1,9 @@
 package tp1.logic;
 
+import tp1.logic.gameobjects.GameItem;
 import tp1.logic.gameobjects.GameObject;
 import tp1.view.Messages;
+
 
 public class Land extends GameObject{
 	//private Position pos; ya esta en la clase padre
@@ -19,5 +21,14 @@ public class Land extends GameObject{
 	public boolean isInPosition(Position p) {
 		return (this.pos.equals(p));
 	}
-	public boolean isLand() {return true;}
+	public boolean isSolid() {return true;}
+		
+	@Override
+	public boolean interactWith(GameItem item) {
+		boolean canInteract = item.isInPosition(this.pos);
+		if(canInteract) {
+			item.receiveInteraction(this);
+		}
+		return canInteract;
+	}
 }

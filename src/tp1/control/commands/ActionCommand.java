@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
+import tp1.logic.GameModel;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
@@ -65,7 +65,7 @@ public class ActionCommand extends AbstractCommand{
 	//Metodo encargado de agragar esas acciones a la lista de acciones de Mario 
 	//y Actualiza el juego
 	@Override
-	public void execute(Game game, GameView view) {
+	public void execute(GameModel game, GameView view) {
 		//Añadir todas la sacciones a la lista de acciones de Mario
 		//Copiar private actions a mario actionlist 
 		while(!actions.isEmpty()) {

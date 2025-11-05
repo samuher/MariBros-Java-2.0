@@ -5,7 +5,7 @@ package tp1.logic;
 import tp1.logic.gameobjects.*;
 
 
-public class Game {
+public class Game implements GameWorld, GameModel, GameStatus{
 
 	public static final int DIM_X = 30;
 	public static final int DIM_Y = 15;
@@ -82,6 +82,9 @@ public class Game {
 
 	public void update() {
 		tick();
+		if (finish) {
+			
+		}
 		gameObjects.update();
 	}
 	
@@ -141,13 +144,12 @@ public class Game {
 			finish();
 		}else {
 			reset();
-			
 		}
 	}
 	
-	public void doInteractionsFrom(Mario m) {
-		// game ob -> goombas -> posicion = posicion mario
-		gameObjects.doInteractionsFrom(m);
+	
+	public void doInteraction(GameObject gobj) {
+		gameObjects.doInteraction(gobj);
 	}
 	
 	
@@ -255,11 +257,20 @@ public class Game {
 		return (this.finish && this.wins);
 	}
 	
-	public boolean isGoombaPosition(Position p) {
-		return gameObjects.isGoombaPosition(p);
+
+	@Override
+	public void clean() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean interactWith() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
-	public void cleanGoomba() {
-		gameObjects.clean();
+	public void exit() {
+		finish();
 	}
 }

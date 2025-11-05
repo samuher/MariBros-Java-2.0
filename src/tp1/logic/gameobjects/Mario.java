@@ -3,7 +3,7 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
 import tp1.logic.ActionList;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.view.Messages;
 import tp1.logic.Position;
 
@@ -28,7 +28,7 @@ public class Mario extends MovingObject{
 	
 	
 	private ActionList actlist;
-	public Mario(Game game, Position position) {
+	public Mario(GameWorld game, Position position) {
 		// TODO Auto-generated constructor stub
 		//this.game = game;
 		//this.pos = position;
@@ -45,7 +45,8 @@ public class Mario extends MovingObject{
 				while(actlist.anyActions()) {
 					actionMovement(actlist.nextAction());
 				}	
-				game.doInteractionsFrom(this);
+				//game.doInteractionsFrom(this);
+				game.doInteraction(this);
 				this.avanza = false;
 				return;
 			}
@@ -55,7 +56,8 @@ public class Mario extends MovingObject{
 				return;
 			}
 			
-			game.doInteractionsFrom(this);
+			//game.doInteractionsFrom(this);
+			game.doInteraction(this);
 	
 	
 		
@@ -116,7 +118,9 @@ public class Mario extends MovingObject{
 	
 	public boolean automaticMovement() {
 		
-		if (caidaUnitaria(this.pos.moved(Action.DOWN))) return false;
+		if (caidaUnitaria(this.pos.moved(Action.DOWN))) {
+			return false;
+		}
 		Action dir = avanza ? Action.LEFT : Action.RIGHT;
 		if(isNextToLateral(dir) || isNextToSolid(dir)) {
 			avanza = !avanza;
@@ -242,26 +246,36 @@ public class Mario extends MovingObject{
 			if (suelo.isVacio(suelo)) {
 				//System.out.println("vaciooooo");
 				//game.marioDead();
+				game.marioDead();
 				return true;
 			}
 			this.pos = suelo;
 			this.cayendo = true;
-			game.doInteractionsFrom(this);
+			//game.doInteractionsFrom(this);
+			game.doInteraction(this);
 			return true;
 		}
 		//this.cayendo = true;
 		return false;
 	}
 	
-	public boolean interactWith(ExitDoor other) {
-		return other.isInPosition(this);
+	@Override
+	public boolean receiveInteraction(ExitDoor other) {
+		wins();
+		return true;
+		//return other.isInPosition(this);
 	}
 	
-	public boolean interactWith(Goomba goomba) {
+	
+	
+	
+	@Override
+	public boolean receiveInteraction(Goomba goomba) {
+		//System.out.println("bbsita");
 		
-		if(isInPosition(goomba)) {
-			game.addPoints(100);
-			goomba.receiveInteraction(this);
+		if (goomba.isAlive()) {
+			goomba.receiveInteraction(this);	
+		}else {
 			if (!cayendo) {
 				if (this.big) {
 					this.big = false;
@@ -271,8 +285,7 @@ public class Mario extends MovingObject{
 			}
 			return true;
 		}
-		
-		return false;
+		return true;
 	}
 	
 	public void wins() {
@@ -291,6 +304,15 @@ public class Mario extends MovingObject{
 	private void goingToDead() {
 		dead();
 		game.marioDead();
+	}
+	
+	@Override
+	public boolean interactWith(GameItem item) {
+		boolean canInteract = item.isInPosition(this.pos);
+		if(canInteract) {
+			item.receiveInteraction(this);
+		}
+		return canInteract;
 	}
 	
 }

@@ -1,7 +1,7 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Land;
 import tp1.logic.Position;
 
@@ -9,13 +9,14 @@ public abstract class GameObject implements GameItem { // TODO
 
 	protected Position pos; // If you can, make it private.
 	//protected boolean alive;
-	protected Game game; 
+	protected GameWorld game; 
 	
-	public GameObject(Game game, Position pos) {
+	public GameObject(GameWorld game, Position pos) {
 		//this.alive = true;
 		this.pos = pos;
 		this.game = game;
 	}
+	
 	
 	public GameObject(Position pos) {
 		this.pos = pos;
@@ -26,9 +27,7 @@ public abstract class GameObject implements GameItem { // TODO
 		return true;
 	}
 	
-	public 	boolean isAlive() {
-		return false;
-	};
+	public 	boolean isAlive() {return true;};
  	
 	/*
 	public boolean isAlive() {return alive;}
