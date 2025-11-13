@@ -28,7 +28,7 @@ public class ActionCommand extends AbstractCommand{
 	
 	//Constructor
 	public ActionCommand() {
-		super("action", "a", "[a]ction [[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+", "user performs actions");
+		super(NAME, SHORTCUT, DETAILS, HELP);
 		this.actions = new ArrayList<>();
 	}
 	
@@ -38,7 +38,7 @@ public class ActionCommand extends AbstractCommand{
 	public Command parse(String[] words) {
 		//Creo que me falta el equals y el toLowerCase ??
 		if(words.length >= 2 && 
-				(words[0].equalsIgnoreCase("a") || words[0].equalsIgnoreCase("action"))) {
+				(words[0].toLowerCase().equalsIgnoreCase("a") || words[0].toLowerCase().equalsIgnoreCase("action"))) {
 
 			//Procesamos cada accion
 			for(int i = 1; i<words.length; i++) {

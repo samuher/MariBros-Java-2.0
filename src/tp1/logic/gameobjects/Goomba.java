@@ -20,6 +20,10 @@ public class Goomba extends MovingObject{
 		//this.pos = position;
 	}
 	
+	public Goomba() {
+		
+	}
+	
 	@Override
 	public boolean isGoomba() {return true;}
 	

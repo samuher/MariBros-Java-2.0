@@ -1,15 +1,23 @@
 package tp1.logic.gameobjects;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 import tp1.logic.Action;
 import tp1.logic.GameWorld;
 import tp1.logic.Land;
 import tp1.logic.Position;
+import tp1.view.Messages;
 
 public abstract class GameObject implements GameItem { // TODO 
 
 	protected Position pos; // If you can, make it private.
 	//protected boolean alive;
 	protected GameWorld game; 
+	
+	protected String NAME;
+	protected String SHORTCUT;
 	
 	public GameObject(GameWorld game, Position pos) {
 		//this.alive = true;
@@ -20,6 +28,10 @@ public abstract class GameObject implements GameItem { // TODO
 	
 	public GameObject(Position pos) {
 		this.pos = pos;
+	}
+	
+	public GameObject() {
+		
 	}
 	
 	public boolean isInPosition(Position p) {
@@ -48,7 +60,21 @@ public abstract class GameObject implements GameItem { // TODO
 		// TODO Auto-generated method stub
 		this.pos = this.pos.moved(dir); 
 	}
-	
+	public GameObject parse(String objWords[], GameWorld game) {
+		// addGameObject objectos sencillos esto es para land, exit door, goomba y los nurvos objrtos. todo menos mario
+		// x = 0, y= 1, n or sh = 2
+		// comprobar que es el 
+		if(objWords[2].toLowerCase() == this.NAME || objWords[2].toLowerCase() == this.SHORTCUT) {
+			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+			// inicializr y devolver
+			this.pos = p;
+			this.game = game;
+			return this;
+		}
+		
+		
+		return null;
+	}
 	
 	//Metodos para identificar el objeto
 		@Override
@@ -94,4 +120,6 @@ public abstract class GameObject implements GameItem { // TODO
 			// TODO Auto-generated method stub
 			return false;
 		}
+	
+	
 }

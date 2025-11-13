@@ -13,6 +13,10 @@ public abstract class MovingObject extends GameObject {
 		super(game, pos);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public MovingObject() {
+		
+	}
 
 	@Override
 	public String getIcon() {

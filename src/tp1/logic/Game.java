@@ -39,6 +39,13 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		}
 	}
 	
+	public void parseGameObjectFactory(String objWords[]){
+		GameObject gameobject = GameObjectFactory.parse(objWords, this);
+		if (gameobject != null) gameObjects.add(gameobject);
+	}
+	
+	
+	
 	public void marioExited() {
 		this.wins = true;
 		//tick();

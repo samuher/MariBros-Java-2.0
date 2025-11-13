@@ -12,6 +12,10 @@ public class ExitDoor extends GameObject{
 		super(pos);
 		//this.pos = pos;
 	}
+	
+	public ExitDoor() {
+		
+	}
 
 	public String getIcon() {
 		return Messages.EXIT_DOOR;

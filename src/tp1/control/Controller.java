@@ -4,6 +4,7 @@ package tp1.control;
 import tp1.control.commands.Command;
 import tp1.control.commands.CommandGenerator;
 import tp1.logic.GameModel;
+import tp1.logic.GameWorld;
 import tp1.view.GameView;
 import tp1.view.Messages;
 
@@ -16,11 +17,12 @@ public class Controller {
 
 	private GameModel game;
 	private GameView view;
+	private GameWorld world;
 
 	public Controller(GameModel game, GameView view) {
 		this.game = game;
 		this.view = view;
-	}
+		}
 
 
 	/**
@@ -38,7 +40,7 @@ public class Controller {
 	        
 	        String[] prompt = view.getPrompt();
 	        Command command = CommandGenerator.parse(prompt);
-	        
+	        // aO (14,5) Mario right big
 	        if (command != null) {
 	            command.execute(game, view);
 	            //game.tick();

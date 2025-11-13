@@ -11,7 +11,13 @@ public class Land extends GameObject{
 	public Land(Position position) {
 		// TODO Auto-generated constructor stub
 		super(position);
+		this.NAME = "land";
+		
 		//this.pos = position;
+	}
+	
+	public Land() {
+		
 	}
 
 	public String getIcon() {

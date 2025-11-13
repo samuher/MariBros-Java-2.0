@@ -36,8 +36,52 @@ public class Mario extends MovingObject{
 		this.actlist = new ActionList();
 	}
 	
-	@Override
-	public boolean isMario() {return true;}
+	public Mario() {
+		
+	}
+	
+	
+	public GameObject parse(String objWords[], GameWorld game) {
+		
+		// comprobacion de mario 
+		if (objWords[2].toLowerCase() == this.NAME || objWords[2].toLowerCase() == this.SHORTCUT) {
+			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+			
+			if (objWords.length > 3) {
+				// direccion
+				switch (objWords[3]) {
+				case "right", "r" -> {
+					lookDirection(Action.RIGHT, false);
+				}
+				case "left", "l" -> {
+					lookDirection(Action.LEFT, false);
+				}
+				case "stop", "s" -> {
+					lookDirection(Action.STOP, false);
+				}
+				default -> {return null;}
+			}
+			
+			}
+			
+			if(objWords.length > 4) {
+				// small or big
+				switch (objWords[3]) {
+				case "big", "b" -> {
+					this.big = true;
+				}
+				case "small", "s" -> {
+					this.big = false;
+				}
+				default -> {return null;}
+				}
+			}
+			
+		}
+		return null;
+	}
+	
+	
 
 	public void update() {
 		this.cayendo = false;

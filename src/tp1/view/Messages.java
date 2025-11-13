@@ -91,16 +91,43 @@ public class Messages {
 	public static final String COMMAND_HELP_DETAILS = "[h]elp";
 	public static final String COMMAND_HELP_HELP = "print this help message";
 	
-	public static final String COMMAND_ACTION_NAME = "help";
-	public static final String COMMAND_ACTION_SHORTCUT = "h";
-	public static final String COMMAND_ACTION_DETAILS = "[h]elp";
-	public static final String COMMAND_ACTION_HELP = "print this help message";
+	// ACTION
+	public static final String COMMAND_ACTION_NAME = "action";
+	public static final String COMMAND_ACTION_SHORTCUT = "a";
+	public static final String COMMAND_ACTION_DETAILS = "[a]ction [[R]IGHT | [L]EFT | [U]P | [D]OWN | [S]TOP]+";
+	public static final String COMMAND_ACTION_HELP = "user performs actions";
+	
+	// ADDOBJECT
+	public static final String COMMAND_ADDOBJECT_NAME = "addObject";
+	public static final String COMMAND_ADDOBJECT_SHORTCUT = "aO";
+	public static final String COMMAND_ADDOBJECT_DETAILS = "[a]dd[O]bject <object_description>";
+	public static final String COMMAND_ADDOBJECT_HELP = "adds to the board the object given by object_description";
 	
 	// RESET
 	public static final String COMMAND_RESET_NAME = "reset";
 	public static final String COMMAND_RESET_SHORTCUT = "r";
 	public static final String COMMAND_RESET_DETAILS = "[r]eset [numLevel]";
 	public static final String COMMAND_RESET_HELP = "reset the game to initial configuration if not numLevel else load the numLevel map";
+	
+// GameObjectFactory
+	
+	// LAND
+	public static final String LAND_NAME = "land";
+	public static final String LAND_SHORTCUT = "l";
+	
+	// MARIO
+	public static final String MARIO_NAME = "mario";
+	public static final String MARIO_SHORTCUT = "m";
+	
+	// GOOMBA
+	public static final String GOOMBA_NAME = "goomba";
+	public static final String GOOMBA_SHORTCUT = "g";
+	
+	//EXITDOOR
+	public static final String EXITDOOR_NAME = "exitdoor";
+	public static final String EXITDOOR_SHORTCUT = "ed";
+	
+	
 
 //Symbols
 	public static final String EMPTY = "";
