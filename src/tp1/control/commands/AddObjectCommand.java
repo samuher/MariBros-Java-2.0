@@ -33,20 +33,23 @@ public class AddObjectCommand extends AbstractCommand{
 	public void execute(GameModel game, GameView view) {
 		// TODO Auto-generated method stub
 		// game - game llama a gamefactory y añade el objeto
+		//System.out.println("exe");
 		game.parseGameObjectFactory(objWords);
+		view.showGame();
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		// TODO Auto-generated method stub
-		
+		// aO (1,2) m
+		//System.out.println(commandWords[0].toLowerCase());
 		// comprobamos longitud y ejeccucion del comando deseado
-		if (commandWords.length >= 3 && commandWords[0].toLowerCase().equals(getName()) && commandWords[0].toLowerCase().equals(getShortcut())) {
+		if (commandWords.length >= 3 && (commandWords[0].toLowerCase().equals(getName()) || commandWords[0].toLowerCase().equals(getShortcut()))) {
 			// array commandWords
 			// 0 = a0, 1 = pos, 2 = objeto , 3 = atributo, 4 = atributo(mario)
 			// convertir a 
 			// 0 = x , 1 = y, 2 = objeto, 3 = 1 atributo , 4 = atributo opcional
-			
+			//System.out.println("entra en aO" + commandWords.length);
 			// sacar datos de pos
 			String vpos; 
 			//String[] objwordscopy = Arrays.copyOfRange(commandWords, 0, 1); // objwords copy, pvalor (0,0) 
@@ -76,8 +79,8 @@ public class AddObjectCommand extends AbstractCommand{
 			if (commandWords.length > 4) {
 			    objWords[i++] = commandWords[4].toLowerCase();
 			}
-
-			
+			// añadir lista objWords al objeto
+			this.objWords = objWords;
 			return this;
 		}
 		

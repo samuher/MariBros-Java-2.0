@@ -9,7 +9,6 @@ import tp1.control.commands.HelpCommand;
 import tp1.control.commands.ResetCommand;
 import tp1.control.commands.UpdateCommand;
 import tp1.logic.GameWorld;
-import tp1.logic.Land;
 
 public class GameObjectFactory {
 

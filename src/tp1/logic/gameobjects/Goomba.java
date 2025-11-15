@@ -2,6 +2,7 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
 import tp1.logic.Game;
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -13,19 +14,46 @@ public class Goomba extends MovingObject{
 	private boolean dead;
 	private boolean alive;
 	
+	
 	public Goomba(Game game, Position position) {
 		// TODO Auto-generated constructor stub
 		super(game, position);
-		//this.game = game;
-		//this.pos = position;
+		this.NAME = "goomba";
+		this.SHORTCUT = "g";
 	}
 	
 	public Goomba() {
 		
 	}
 	
-	@Override
-	public boolean isGoomba() {return true;}
+	public GameObject parse(String objWords[], GameWorld game) {
+		
+		// comprobacion goomba
+		if (objWords[2].toLowerCase() == this.NAME || objWords[2].toLowerCase() == this.SHORTCUT) {
+			
+			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+			
+			// añadimos el juego
+			this.game = game;
+			// añadimos la posicion 
+			this.pos = p;
+			
+			if (objWords.length > 3) {
+				// direccion si existe
+				switch (objWords[3]) {
+				case "right", "r" -> {
+					this.avanza = false;
+				}
+				case "left", "l" -> {
+					this.avanza = true;
+				}
+				default -> {return null;}
+			}
+			}
+		}
+		return null;
+		
+	}
 	
 
 	public boolean isInPosition (Position p) {

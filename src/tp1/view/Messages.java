@@ -98,10 +98,13 @@ public class Messages {
 	public static final String COMMAND_ACTION_HELP = "user performs actions";
 	
 	// ADDOBJECT
-	public static final String COMMAND_ADDOBJECT_NAME = "addObject";
-	public static final String COMMAND_ADDOBJECT_SHORTCUT = "aO";
+	public static final String COMMAND_ADDOBJECT_NAME = "addobject";
+	public static final String COMMAND_ADDOBJECT_SHORTCUT = "ao";
 	public static final String COMMAND_ADDOBJECT_DETAILS = "[a]dd[O]bject <object_description>";
-	public static final String COMMAND_ADDOBJECT_HELP = "adds to the board the object given by object_description";
+	public static final String COMMAND_ADDOBJECT_HELP = "adds to the board the object given by object_description.\n      "
+			+ "<object_description> = (col,row) objName [dir [BIG|SMALL]]. Ej. (12,3) Mario LEFT SMALL";
+	public static final String COMMAND_ADDOBJECT_HELP2 = "adds to the board the object given by object_description.";
+
 	
 	// RESET
 	public static final String COMMAND_RESET_NAME = "reset";

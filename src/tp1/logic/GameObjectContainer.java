@@ -74,6 +74,7 @@ public class GameObjectContainer {
 		if (ptoString != "") return ptoString;
 		
 		return Messages.EMPTY;
+		//return ".";
 	}
 	
 	

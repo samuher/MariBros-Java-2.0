@@ -25,6 +25,8 @@ public class Mario extends MovingObject{
 	private boolean cayendo = false;
 	private boolean downstop = false;
 	private boolean alive = true;
+	//private String NAME = "mario";
+	//private String SHORTCUT = "m";
 	
 	
 	private ActionList actlist;
@@ -34,21 +36,33 @@ public class Mario extends MovingObject{
 		//this.pos = position;
 		super(game, position);
 		this.actlist = new ActionList();
+		this.NAME = "mario";
+		this.SHORTCUT = "m";
 	}
 	
 	public Mario() {
-		
+		this.actlist = new ActionList();
+		this.NAME = "mario";
+		this.SHORTCUT = "m";
 	}
 	
 	
 	public GameObject parse(String objWords[], GameWorld game) {
 		
+		System.out.println(this.SHORTCUT);
+		System.out.println();
 		// comprobacion de mario 
-		if (objWords[2].toLowerCase() == this.NAME || objWords[2].toLowerCase() == this.SHORTCUT) {
+		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
+			
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+			System.out.println("p0 = " + Integer.parseInt(objWords[0]) + ",p1 = " + Integer.parseInt(objWords[1]));
+			// añadimos el juego
+			this.game = game;
+			// añadimos la posicion 
+			this.pos = p;
 			
 			if (objWords.length > 3) {
-				// direccion
+				// direccion si existe
 				switch (objWords[3]) {
 				case "right", "r" -> {
 					lookDirection(Action.RIGHT, false);
@@ -59,13 +73,12 @@ public class Mario extends MovingObject{
 				case "stop", "s" -> {
 					lookDirection(Action.STOP, false);
 				}
-				default -> {return null;}
-			}
+				default -> {return null;}}
 			
 			}
 			
 			if(objWords.length > 4) {
-				// small or big
+				// small or big si existe
 				switch (objWords[3]) {
 				case "big", "b" -> {
 					this.big = true;
@@ -78,7 +91,7 @@ public class Mario extends MovingObject{
 			}
 			
 		}
-		return null;
+		return this;
 	}
 	
 	

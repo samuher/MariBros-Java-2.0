@@ -33,10 +33,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		this.lives = 3;
 		//System.out.println("creando game");
 		this.nLevel = nLevel;
-		switch (nLevel) {
-		case 0 -> initLevel0();
-		case 1 -> {initLevel1();}
-		}
+		reset(nLevel);
 	}
 	
 	public void parseGameObjectFactory(String objWords[]){
@@ -69,6 +66,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		switch (nLevel) {
 		case 0 -> initLevel0();
 		case 1 -> initLevel1();
+		case -1 -> initLevelnegative1();
 		default ->{
 			return false;
 		}
@@ -206,7 +204,6 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	private void initLevel1() {
-		this.nLevel = 1;
 		this.remainingTime = 100;
 		
 		// 1. Mapa
@@ -253,6 +250,11 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		gameObjects.add(new Goomba(this, new Position(10,10)));
 		gameObjects.add(new Goomba(this, new Position(12,11)));
 		gameObjects.add(new Goomba(this, new Position(12,14)));
+	}
+	
+	private void initLevelnegative1(){
+		this.remainingTime = 100;
+		gameObjects = new GameObjectContainer();
 	}
 
 	

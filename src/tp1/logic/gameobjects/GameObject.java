@@ -6,7 +6,6 @@ import java.util.List;
 
 import tp1.logic.Action;
 import tp1.logic.GameWorld;
-import tp1.logic.Land;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -40,12 +39,6 @@ public abstract class GameObject implements GameItem { // TODO
 	}
 	
 	public 	boolean isAlive() {return true;};
- 	
-	/*
-	public boolean isAlive() {return alive;}
-	
-	public void dead(){this.alive = false;}
-	*/
 	
 	// TODO implement and decide, Which one is abstract?
 	// public boolean isSolid()
