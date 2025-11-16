@@ -21,7 +21,7 @@ public class Mario extends MovingObject{
 	private boolean right = true;
 	private boolean left = false;
 	private boolean stop = false;
-	private boolean avanza = false;
+	//private boolean avanza = false;
 	private boolean cayendo = false;
 	private boolean downstop = false;
 	private boolean alive = true;
@@ -36,24 +36,23 @@ public class Mario extends MovingObject{
 		//this.pos = position;
 		super(game, position);
 		this.actlist = new ActionList();
-		this.NAME = "mario";
-		this.SHORTCUT = "m";
+		//this.NAME = "mario";
+		//this.SHORTCUT = "m";
+		//this.avanza = false;
 	}
 	
 	public Mario() {
 		this.actlist = new ActionList();
-		this.NAME = "mario";
-		this.SHORTCUT = "m";
+		this.NAME = Messages.MARIO_NAME;
+		this.SHORTCUT = Messages.MARIO_SHORTCUT;
+		this.avanza = false;
 	}
 	
 	
 	public GameObject parse(String objWords[], GameWorld game) {
-		
-		System.out.println(this.SHORTCUT);
-		System.out.println();
 		// comprobacion de mario 
 		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			
+			System.out.println("es mario");
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
 			System.out.println("p0 = " + Integer.parseInt(objWords[0]) + ",p1 = " + Integer.parseInt(objWords[1]));
 			// añadimos el juego
@@ -89,9 +88,9 @@ public class Mario extends MovingObject{
 				default -> {return null;}
 				}
 			}
-			
+			return this;
 		}
-		return this;
+		return null;
 	}
 	
 	
@@ -102,21 +101,13 @@ public class Mario extends MovingObject{
 				while(actlist.anyActions()) {
 					actionMovement(actlist.nextAction());
 				}	
-				//game.doInteractionsFrom(this);
-				game.doInteraction(this);
 				this.avanza = false;
 				return;
 			}
-			
 			//automatico big
 			if(!automaticMovement()) {
 				return;
 			}
-			
-			//game.doInteractionsFrom(this);
-			game.doInteraction(this);
-	
-	
 		
 }
 	
@@ -291,7 +282,6 @@ public class Mario extends MovingObject{
 		        suelo = suelo.moved(Action.DOWN);     // recalcula
 		    }
 		 //this.pos = this.pos.moved(Action.UP);
-		 //game.doInteractionsFrom(this);
 		this.cayendo = true;
 		return false;
 		
@@ -308,8 +298,6 @@ public class Mario extends MovingObject{
 			}
 			this.pos = suelo;
 			this.cayendo = true;
-			//game.doInteractionsFrom(this);
-			game.doInteraction(this);
 			return true;
 		}
 		//this.cayendo = true;
@@ -322,9 +310,6 @@ public class Mario extends MovingObject{
 		return true;
 		//return other.isInPosition(this);
 	}
-	
-	
-	
 	
 	@Override
 	public boolean receiveInteraction(Goomba goomba) {
@@ -370,6 +355,19 @@ public class Mario extends MovingObject{
 			item.receiveInteraction(this);
 		}
 		return canInteract;
+	}
+	
+	@Override
+	public boolean receiveInteraction(MushRoom mushRoom) {
+		// TODO Auto-generated method stub
+		if (mushRoom.isAlive()) {
+			mushRoom.receiveInteraction(this);
+		}else {
+			if (!big) {
+				this.big = true;
+			}
+		}
+		return true;
 	}
 	
 }

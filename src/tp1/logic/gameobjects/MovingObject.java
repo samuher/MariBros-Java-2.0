@@ -6,7 +6,7 @@ import tp1.logic.Position;
 
 public abstract class MovingObject extends GameObject {
 	
-	private boolean avanza;
+	protected boolean avanza = true;
 	private boolean alive = true;
 
 	public MovingObject(GameWorld game, Position pos) {
@@ -29,19 +29,20 @@ public abstract class MovingObject extends GameObject {
 	public boolean isAlive() {return alive;}
 	public void dead(){this.alive = false;}
 	
-	protected boolean automaticMovement(boolean avanza) {
+	protected boolean automaticMovement() {
+		
 		if (caida(this.pos.moved(Action.DOWN))) return false;
-		Action dir = avanza ? Action.LEFT : Action.RIGHT;
+		Action dir = this.avanza ? Action.LEFT : Action.RIGHT;
 		Position lateral = this.pos.moved(dir);
 		//if (lateral.isLateral(lateral) || game.isSolid(lateral))
 		if(isNextToLateral(dir)|| isNextToSolid(dir)) {
-			avanza = !avanza;
-			leftToRight(avanza);
+			this.avanza = !this.avanza;
+			leftToRight(this.avanza);
 			//dir = avanza ? Action.LEFT : Action.RIGHT;
 			//this.pos = this.pos.moved(dir);
 		} else {
 			//this.pos = this.pos.moved(dir);
-			movimientoUnitario(avanza, dir);
+			movimientoUnitario(this.avanza, dir);
 		}
 		return false;
 	}
@@ -66,22 +67,14 @@ public abstract class MovingObject extends GameObject {
 	public boolean caida(Position suelo) {
 		if(!game.isSolid(suelo)) {
 			if (suelo.isVacio(suelo)) {
-				deadMovingObject();
+				dead();
 				return true;
 			}
 			this.pos = suelo;
 			return true;
 		}
 		return false;
-	}
-	
-	
-	
-	
-	protected void deadMovingObject() {
-		// TODO Auto-generated method stub
-	}
-	
+	}	
 	
 
 }

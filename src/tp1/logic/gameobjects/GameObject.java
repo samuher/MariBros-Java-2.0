@@ -57,30 +57,19 @@ public abstract class GameObject implements GameItem { // TODO
 		// addGameObject objectos sencillos esto es para land, exit door, goomba y los nurvos objrtos. todo menos mario
 		// x = 0, y= 1, n or sh = 2
 		// comprobar que es el 
-		if(objWords[2].toLowerCase() == this.NAME || objWords[2].toLowerCase() == this.SHORTCUT) {
+		System.out.println(this.NAME);
+		System.out.println(this.SHORTCUT);
+		if(objWords[2].toLowerCase().equals(this.NAME) || objWords[2].toLowerCase().equals(this.SHORTCUT)) {
+			System.out.println("entra aqui");
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
 			// inicializr y devolver
 			this.pos = p;
+			System.out.println(p.toString());
 			this.game = game;
 			return this;
 		}
-		
-		
 		return null;
 	}
-	
-	//Metodos para identificar el objeto
-		@Override
-		public boolean isMario() {return false;}
-		
-		@Override
-		public boolean isGoomba() {return false;}
-		
-		@Override
-		public boolean isLand() {return false;}
-		
-		@Override
-		public boolean isExitDoor() {return false;}
 	
 	
 	@Override
@@ -113,6 +102,16 @@ public abstract class GameObject implements GameItem { // TODO
 			// TODO Auto-generated method stub
 			return false;
 		}
+	@Override
+	public boolean receiveInteraction(MushRoom obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
+	@Override
+	public boolean receiveInteraction(Box obj) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

@@ -52,6 +52,7 @@ public class ActionCommand extends AbstractCommand{
                 	// Comando inválido
                 	//System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_ACTION, words[i]));
                 	//return null;
+                	//return null;
                 	}
 				}//switch
 				

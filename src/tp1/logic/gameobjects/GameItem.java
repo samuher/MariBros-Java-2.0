@@ -13,9 +13,6 @@ public interface GameItem {
 	public  boolean receiveInteraction(ExitDoor obj);
 	public  boolean receiveInteraction(Mario obj);
 	public  boolean receiveInteraction(Goomba obj);
-	
-	public boolean isMario();
-	public boolean isGoomba();
-	public boolean isLand();
-	public boolean isExitDoor();
+	public  boolean receiveInteraction(MushRoom obj);
+	public  boolean receiveInteraction(Box obj);
 }

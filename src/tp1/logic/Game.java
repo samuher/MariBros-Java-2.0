@@ -36,9 +36,15 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		reset(nLevel);
 	}
 	
-	public void parseGameObjectFactory(String objWords[]){
+	public boolean parseGameObjectFactory(String objWords[]){
 		GameObject gameobject = GameObjectFactory.parse(objWords, this);
-		if (gameobject != null) gameObjects.add(gameobject);
+		if (gameobject != null) {
+			gameObjects.add(gameobject);
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 	
 	

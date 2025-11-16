@@ -9,5 +9,5 @@ public interface GameModel {
 	public void restringirLista();
 	public boolean reset(int Level);
 	public void exit();
-	public void parseGameObjectFactory(String objWords[]);
+	public boolean parseGameObjectFactory(String objWords[]);
 }

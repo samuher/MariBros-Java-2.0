@@ -34,7 +34,9 @@ public class AddObjectCommand extends AbstractCommand{
 		// TODO Auto-generated method stub
 		// game - game llama a gamefactory y añade el objeto
 		//System.out.println("exe");
-		game.parseGameObjectFactory(objWords);
+		if(!game.parseGameObjectFactory(objWords)) {
+			
+		};
 		view.showGame();
 	}
 

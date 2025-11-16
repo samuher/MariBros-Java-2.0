@@ -33,6 +33,12 @@ public class Position {
 	public boolean isLateral(Position p) {
 		return p.col > Game.DIM_X || p.col < 0;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "(" + this.col + "," + this.row + ")";
+	}
 
 	/*
 	public void move(Action a) {

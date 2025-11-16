@@ -36,4 +36,10 @@ public class Land extends GameObject{
 		}
 		return canInteract;
 	}
+
+	@Override
+	public boolean receiveInteraction(MushRoom mushRoom) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

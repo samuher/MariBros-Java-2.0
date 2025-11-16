@@ -36,5 +36,11 @@ public class ExitDoor extends GameObject{
 		obj.receiveInteraction(this);
 		return true;
 	}
+
+	@Override
+	public boolean receiveInteraction(MushRoom mushRoom) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

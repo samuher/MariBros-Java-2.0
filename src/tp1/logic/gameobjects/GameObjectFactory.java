@@ -20,7 +20,9 @@ public class GameObjectFactory {
 			new Land(),
 			new ExitDoor(),
 			new Goomba(),
-			new Mario()
+			new Mario(),
+			new Box(),
+			new MushRoom()
 	);
 	public static GameObject parse (String objWords[], GameWorld game) {
 		for (GameObject c: availableObjects) {

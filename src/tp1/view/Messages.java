@@ -130,7 +130,13 @@ public class Messages {
 	public static final String EXITDOOR_NAME = "exitdoor";
 	public static final String EXITDOOR_SHORTCUT = "ed";
 	
+	// MUSHROOM
+	public static final String MUSHROOM_NAME = "mushroom";
+	public static final String MUSHROOM_SHORTCUT = "mu";
 	
+	// BOX
+	public static final String BOX_NAME = "box";
+	public static final String BOX_SHORTCUT = "b";
 
 //Symbols
 	public static final String EMPTY = "";

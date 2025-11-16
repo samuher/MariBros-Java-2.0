@@ -10,7 +10,7 @@ public class Goomba extends MovingObject{
 
 	//private Position pos;
 	//private Game game;
-	private boolean avanza= true;
+	//private boolean avanza= true;
 	private boolean dead;
 	private boolean alive;
 	
@@ -78,20 +78,7 @@ public class Goomba extends MovingObject{
 	}
 	
 	public void update() {
-		
-		Position suelo = this.pos.moved(Action.DOWN);
-		if (caida(suelo)) return;
-		Action dir = avanza ? Action.LEFT : Action.RIGHT;
-		Position lateral = this.pos.moved(dir);
-		if (lateral.isLateral(lateral) || game.isSolid(lateral)) {
-			avanza = !avanza;
-			//dir = avanza ? Action.LEFT : Action.RIGHT;
-			//this.pos = this.pos.moved(dir);
-		} else {
-			this.pos = this.pos.moved(dir);
-		}
-		//suelo = this.pos.moved(Action.DOWN);
-		//caida(suelo);
+		automaticMovement();
 	}
 	
 	
@@ -124,11 +111,6 @@ public class Goomba extends MovingObject{
 		return true;
 	}
 	
-	public void deadMovingObject() {
-		//this.dead = true;
-		dead();
-		//game.cleanGoomba();// Puede estar mal, posible borrado antes de update
-	}
 	
 	@Override
 	public boolean interactWith(GameItem item) {
@@ -138,6 +120,5 @@ public class Goomba extends MovingObject{
 		}
 		return canInteract;
 	}
-	
 
 }
