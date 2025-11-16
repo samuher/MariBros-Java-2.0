@@ -91,4 +91,10 @@ public class GameObjectContainer {
 		}
 	}
 	
+	public void deadAll() {
+		for (GameObject obj : gameObjects) {
+			if(obj.isAlive()) obj.dead();
+		}
+	}
+	
 }

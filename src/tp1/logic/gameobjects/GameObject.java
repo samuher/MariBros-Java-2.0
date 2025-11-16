@@ -34,11 +34,11 @@ public abstract class GameObject implements GameItem { // TODO
 	}
 	
 	public boolean isInPosition(Position p) {
-		// TODO fill your code here, it should depends on the status of the object
-		return true;
+		return (this.pos.equals(p));
 	}
 	
-	public 	boolean isAlive() {return true;};
+	public boolean isAlive() {return true;};
+	public void dead() {};
 	
 	// TODO implement and decide, Which one is abstract?
 	// public boolean isSolid()
@@ -57,19 +57,18 @@ public abstract class GameObject implements GameItem { // TODO
 		// addGameObject objectos sencillos esto es para land, exit door, goomba y los nurvos objrtos. todo menos mario
 		// x = 0, y= 1, n or sh = 2
 		// comprobar que es el 
-		System.out.println(this.NAME);
-		System.out.println(this.SHORTCUT);
 		if(objWords[2].toLowerCase().equals(this.NAME) || objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			System.out.println("entra aqui");
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
 			// inicializr y devolver
 			this.pos = p;
-			System.out.println(p.toString());
 			this.game = game;
-			return this;
+			return createInstance(game, p);
 		}
 		return null;
 	}
+	
+	// se sobrescribe en cada clase hija para poder hacer funcionar metodo parse
+	protected abstract GameObject createInstance(GameWorld game, Position pos);
 	
 	
 	@Override

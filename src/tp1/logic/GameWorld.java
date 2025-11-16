@@ -15,5 +15,6 @@ public interface GameWorld {
 	public boolean interactWith();
 	
 	public void doInteraction(GameObject gobj);
+	public void deadAll();
 	
 }

@@ -288,4 +288,9 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	public void exit() {
 		finish();
 	}
+	
+	public void deadAll() {
+		gameObjects.deadAll();
+	}
+	
 }

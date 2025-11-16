@@ -49,5 +49,12 @@ public class MushRoom extends MovingObject {
 		// TODO Auto-generated method stub
 		return Messages.MUSHROOM;
 	}
+	
+	@Override
+	protected GameObject createInstance(GameWorld game, Position pos) {
+		// TODO Auto-generated method stub
+		return new MushRoom(game, pos);
+	}
+	
 
 }

@@ -1,5 +1,6 @@
 package tp1.logic.gameobjects;
 
+import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
@@ -15,8 +16,15 @@ public class Land extends GameObject{
 		//this.pos = position;
 	}
 	
+	public Land(GameWorld game, Position pos) {
+		super(game, pos);
+		// TODO Auto-generated constructor stub
+	}
+
 	public Land() {
-		
+		super();
+		this.NAME = Messages.LAND_NAME;
+		this.SHORTCUT = Messages.LAND_SHORTCUT;
 	}
 
 	public String getIcon() {
@@ -42,4 +50,11 @@ public class Land extends GameObject{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	protected GameObject createInstance(GameWorld game, Position pos) {
+		// TODO Auto-generated method stub
+		return new Land(game, pos);
+	}
+	
 }

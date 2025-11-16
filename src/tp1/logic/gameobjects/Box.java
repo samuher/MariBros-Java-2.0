@@ -9,12 +9,15 @@ public class Box extends GameObject {
 	
 	private boolean full = true;
 
-	public Box(Position pos) {
-		super(pos);
+	public Box(GameWorld game, Position pos) {
+		super(game, pos);
 		// TODO Auto-generated constructor stub
 	}
 
 	public Box() {
+		super();
+		this.NAME = Messages.BOX_NAME;
+		this.SHORTCUT = Messages.BOX_SHORTCUT;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -25,7 +28,6 @@ public class Box extends GameObject {
 		// comprobacion de mario 
 		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
-			System.out.println("p0 = " + Integer.parseInt(objWords[0]) + ",p1 = " + Integer.parseInt(objWords[1]));
 			// añadimos el juego
 			this.game = game;
 			// añadimos la posicion 
@@ -59,5 +61,10 @@ public class Box extends GameObject {
 		// TODO Auto-generated method stub
 		return this.full ? Messages.BOX : Messages.EMPTY_BOX;
 	}
-
+	
+	@Override
+	protected GameObject createInstance(GameWorld game, Position pos) {
+		// TODO Auto-generated method stub
+		return new Box(game, pos);
+	}
 }

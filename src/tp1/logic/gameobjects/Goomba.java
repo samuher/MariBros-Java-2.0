@@ -15,7 +15,7 @@ public class Goomba extends MovingObject{
 	private boolean alive;
 	
 	
-	public Goomba(Game game, Position position) {
+	public Goomba(GameWorld game, Position position) {
 		// TODO Auto-generated constructor stub
 		super(game, position);
 		this.NAME = "goomba";
@@ -23,36 +23,44 @@ public class Goomba extends MovingObject{
 	}
 	
 	public Goomba() {
-		
+		super();
+		this.NAME = "goomba";
+		this.SHORTCUT = "g";
 	}
 	
 	public GameObject parse(String objWords[], GameWorld game) {
 		
 		// comprobacion goomba
-		if (objWords[2].toLowerCase() == this.NAME || objWords[2].toLowerCase() == this.SHORTCUT) {
+		if (objWords[2].toLowerCase().equals(this.NAME) || objWords[2].toLowerCase().equals(this.SHORTCUT)) {
 			
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
 			
-			// añadimos el juego
-			this.game = game;
+			// añadimos el juego		
 			// añadimos la posicion 
-			this.pos = p;
+			Goomba g = new Goomba(game, p);
 			
 			if (objWords.length > 3) {
 				// direccion si existe
 				switch (objWords[3]) {
 				case "right", "r" -> {
-					this.avanza = false;
+					g.avanza = false;
 				}
 				case "left", "l" -> {
-					this.avanza = true;
+					g.avanza = true;
 				}
 				default -> {return null;}
 			}
 			}
+			return g;
 		}
 		return null;
 		
+	}
+	
+	@Override
+	protected GameObject createInstance(GameWorld game, Position pos) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

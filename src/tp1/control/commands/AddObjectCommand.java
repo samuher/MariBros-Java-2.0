@@ -35,9 +35,11 @@ public class AddObjectCommand extends AbstractCommand{
 		// game - game llama a gamefactory y añade el objeto
 		//System.out.println("exe");
 		if(!game.parseGameObjectFactory(objWords)) {
-			
-		};
-		view.showGame();
+			view.showError(Messages.INVALID_GAME_OBJECT.formatted(objWords[2]));
+		}else {
+			view.showGame();
+		}
+		
 	}
 
 	@Override

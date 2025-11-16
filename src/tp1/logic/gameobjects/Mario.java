@@ -36,9 +36,7 @@ public class Mario extends MovingObject{
 		//this.pos = position;
 		super(game, position);
 		this.actlist = new ActionList();
-		//this.NAME = "mario";
-		//this.SHORTCUT = "m";
-		//this.avanza = false;
+		this.avanza = false;
 	}
 	
 	public Mario() {
@@ -50,27 +48,26 @@ public class Mario extends MovingObject{
 	
 	
 	public GameObject parse(String objWords[], GameWorld game) {
+		
+		
 		// comprobacion de mario 
 		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			System.out.println("es mario");
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
-			System.out.println("p0 = " + Integer.parseInt(objWords[0]) + ",p1 = " + Integer.parseInt(objWords[1]));
 			// añadimos el juego
-			this.game = game;
 			// añadimos la posicion 
-			this.pos = p;
+			Mario m = new Mario(game, p);
 			
 			if (objWords.length > 3) {
 				// direccion si existe
 				switch (objWords[3]) {
 				case "right", "r" -> {
-					lookDirection(Action.RIGHT, false);
+					m.lookDirection(Action.RIGHT, false);
 				}
 				case "left", "l" -> {
-					lookDirection(Action.LEFT, false);
+					m.lookDirection(Action.LEFT, false);
 				}
 				case "stop", "s" -> {
-					lookDirection(Action.STOP, false);
+					m.lookDirection(Action.STOP, false);
 				}
 				default -> {return null;}}
 			
@@ -80,19 +77,26 @@ public class Mario extends MovingObject{
 				// small or big si existe
 				switch (objWords[3]) {
 				case "big", "b" -> {
-					this.big = true;
+					m.big = true;
 				}
 				case "small", "s" -> {
-					this.big = false;
+					m.big = false;
 				}
 				default -> {return null;}
 				}
 			}
-			return this;
+			return m;
 		}
 		return null;
 	}
 	
+	// null / no se usa
+	
+	@Override
+	protected GameObject createInstance(GameWorld game, Position pos) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 	public void update() {
@@ -100,17 +104,21 @@ public class Mario extends MovingObject{
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
 					actionMovement(actlist.nextAction());
+					game.doInteraction(this);
 				}	
 				this.avanza = false;
 				return;
 			}
 			//automatico big
 			if(!automaticMovement()) {
+				game.doInteraction(this);
 				return;
 			}
 		
 }
 	
+	
+
 	private void actionMovement(Action dir) {
 		if(isNextToLateral(dir) || isNextToSolid(dir)) {
 			if(dir == Action.DOWN) {
@@ -125,7 +133,6 @@ public class Mario extends MovingObject{
 			if (lookDirection(dir, false)) return;
 			marioMove(dir);
 		}
-		
 		
 	}
 	
@@ -323,6 +330,8 @@ public class Mario extends MovingObject{
 					this.big = false;
 				} else {
 					game.marioDead();
+					dead();
+					game.deadAll();
 				}	
 			}
 			return true;
