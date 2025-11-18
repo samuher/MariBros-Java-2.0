@@ -23,6 +23,10 @@ public class Box extends GameObject {
 	
 	public boolean isSolid() {return true;}
 	
+	public boolean isFull() {
+		return this.full;
+	}
+	
 	public GameObject parse(String objWords[], GameWorld game) {
 
 		// comprobacion de mario 
@@ -53,6 +57,18 @@ public class Box extends GameObject {
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
 		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	public boolean receiveInteraction(Mario m) {
+		// TODO Auto-generated method stub
+		System.out.println("ha recobidop");
+		if(isFull()) {
+			game.addPoints(50);
+			game.addMushroom(this.pos);
+			this.full = false;
+		}
 		return false;
 	}
 

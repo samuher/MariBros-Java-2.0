@@ -72,6 +72,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		switch (nLevel) {
 		case 0 -> initLevel0();
 		case 1 -> initLevel1();
+		case 2 -> initLevel2();
 		case -1 -> initLevelnegative1();
 		default ->{
 			return false;
@@ -258,6 +259,63 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		gameObjects.add(new Goomba(this, new Position(12,14)));
 	}
 	
+	private void initLevel2() {
+		this.remainingTime = 100;
+		
+		// 1. Mapa
+		gameObjects = new GameObjectContainer();
+		for(int col = 0; col < 15; col++) {
+			gameObjects.add(new Land(new Position(13,col)));
+			gameObjects.add(new Land(new Position(14,col)));		
+		}
+
+		gameObjects.add(new Land(new Position(Game.DIM_Y-3,9)));
+		gameObjects.add(new Land(new Position(Game.DIM_Y-3,12)));
+		for(int col = 17; col < Game.DIM_X; col++) {
+			gameObjects.add(new Land(new Position(Game.DIM_Y-2, col)));
+			gameObjects.add(new Land(new Position(Game.DIM_Y-1, col)));		
+		}
+
+		gameObjects.add(new Land(new Position(9,2)));
+		gameObjects.add(new Land(new Position(9,5)));
+		gameObjects.add(new Land(new Position(9,6)));
+		gameObjects.add(new Land(new Position(9,7)));
+		gameObjects.add(new Land(new Position(5,6)));
+		
+		// Salto final
+		int tamX = 8;
+		//tamY= 8;
+		int posIniX = Game.DIM_X-3-tamX, posIniY = Game.DIM_Y-3;
+		
+		for(int col = 0; col < tamX; col++) {
+			for (int fila = 0; fila < col+1; fila++) {
+				gameObjects.add(new Land(new Position(posIniY- fila, posIniX+ col)));
+			}
+		}
+
+		gameObjects.add(new ExitDoor(new Position(Game.DIM_Y-3, Game.DIM_X-1)));
+
+		// 3. Personajes
+		this.mario = new Mario(this, new Position(Game.DIM_Y-3, 0));
+		gameObjects.add(this.mario);
+
+		gameObjects.add(new Goomba(this, new Position(0, 19)));
+		gameObjects.add(new Goomba(this, new Position(4,6)));
+		gameObjects.add(new Goomba(this, new Position(12,6)));
+		gameObjects.add(new Goomba(this, new Position(12,8)));
+		gameObjects.add(new Goomba(this, new Position(10,10)));
+		gameObjects.add(new Goomba(this, new Position(12,11)));
+		gameObjects.add(new Goomba(this, new Position(12,14)));
+		
+		//practica 2_2
+		// Para probar estas estensiones crear un nuevo nivel 2 que sea exactamente igual el nivel 1 
+		// pero con una caja en la posición (9,4) y dos setas en las posiciones (12,8) y (2,20). 
+		//Las posiciones indicadas siguen el formato: (fila,columna).
+		gameObjects.add(new Box(this, new Position(9,4)));
+		gameObjects.add(new MushRoom(this, new Position(12,8)));
+		gameObjects.add(new MushRoom(this, new Position(2,20)));
+	}
+	
 	private void initLevelnegative1(){
 		this.remainingTime = 100;
 		gameObjects = new GameObjectContainer();
@@ -291,6 +349,12 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	
 	public void deadAll() {
 		gameObjects.deadAll();
+	}
+	
+	
+	// añadir seta desde box
+	public void addMushroom(Position p) {
+		gameObjects.add(new MushRoom(this, p.moved(Action.UP)));
 	}
 	
 }

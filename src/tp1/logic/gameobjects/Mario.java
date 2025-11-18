@@ -25,6 +25,7 @@ public class Mario extends MovingObject{
 	private boolean cayendo = false;
 	private boolean downstop = false;
 	private boolean alive = true;
+	private Action lastAction;
 	//private String NAME = "mario";
 	//private String SHORTCUT = "m";
 	
@@ -48,8 +49,6 @@ public class Mario extends MovingObject{
 	
 	
 	public GameObject parse(String objWords[], GameWorld game) {
-		
-		
 		// comprobacion de mario 
 		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
@@ -113,9 +112,8 @@ public class Mario extends MovingObject{
 			if(!automaticMovement()) {
 				game.doInteraction(this);
 				return;
-			}
-		
-}
+			}		
+	}
 	
 	
 
@@ -219,10 +217,31 @@ public class Mario extends MovingObject{
 	}
 	
 	public boolean isNextToSolid(Action dir) {
+		boolean solido =game.isSolid(this.pos.moved(dir));
 		if(big) {
-			return game.isSolid(this.pos.moved(dir).moved(Action.UP)) || game.isSolid(this.pos.moved(dir));
+			solido = game.isSolid(this.pos.moved(dir).moved(Action.UP)) || solido;
+			
 		}
-		return game.isSolid(this.pos.moved(dir));
+		if(solido && dir == Action.UP) {
+			System.out.println("checkea caja");
+			checkBox(dir);
+		}
+		return solido;
+		
+	}
+	
+	public void checkBox(Action dir) {
+		move(dir);
+		game.doInteraction(this);
+		move(oposite(dir));
+	}
+	
+	private Action oposite(Action dir) {
+		if(dir == Action.UP) return Action.DOWN;
+		if(dir == Action.DOWN) return Action.UP;
+		if(dir == Action.RIGHT) return Action.LEFT;
+		if(dir == Action.LEFT) return Action.RIGHT;
+		else return dir;
 	}
 	
 	
@@ -277,7 +296,10 @@ public class Mario extends MovingObject{
 	
 	public boolean caida(Position suelo) {
 		//caida infinita
-		 if (game.isSolid(suelo)) return false;
+		 if (game.isSolid(suelo)) {
+			 
+			 return false;
+		 }
 		 while (!game.isSolid(suelo)) {
 		        if (this.pos.isVacio(suelo)) { 
 		        	game.marioDead();                      
@@ -377,6 +399,14 @@ public class Mario extends MovingObject{
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public boolean receiveInteraction(Box box) {
+		if(box.isFull()) {
+			box.receiveInteraction(this);
+		}
+		return false;
 	}
 	
 }

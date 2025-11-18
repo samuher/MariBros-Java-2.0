@@ -16,5 +16,6 @@ public interface GameWorld {
 	
 	public void doInteraction(GameObject gobj);
 	public void deadAll();
+	public void addMushroom(Position pos);
 	
 }
