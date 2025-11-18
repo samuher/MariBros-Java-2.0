@@ -37,6 +37,9 @@ public abstract class GameObject implements GameItem { // TODO
 		return (this.pos.equals(p));
 	}
 	
+	public void addAction(Action act) {
+		// NO hace nada sino es mario.
+	}
 	public boolean isAlive() {return true;};
 	public void dead() {};
 	

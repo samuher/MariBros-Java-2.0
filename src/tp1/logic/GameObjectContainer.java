@@ -103,6 +103,17 @@ public class GameObjectContainer {
 	public void doInteraction(GameObject gobj) {
 		for (GameObject obj : gameObjects) {
 			gobj.interactWith(obj);
+			// comprobar que no este zombie
+			if (!gobj.isAlive()) return;
+		}
+	}
+	
+	public void addAction(Action act) {
+		// NO hace nada sino es mario.
+		for (GameObject obj : gameObjects) {
+			if (!obj.isSolid() && obj.isAlive()) {
+				obj.addAction(act);
+			}
 		}
 	}
 }

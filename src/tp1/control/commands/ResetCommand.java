@@ -24,6 +24,7 @@ public class ResetCommand extends AbstractCommand {
     		game.reset();
     		view.showGame();
     	}else {
+    		game.resetStats();
     		if(!game.reset(level)) {
     			view.showError(Messages.INVALID_LEVEL_NUMBER);
     		}else {
@@ -42,15 +43,27 @@ public class ResetCommand extends AbstractCommand {
     		ResetCommand cmd = new ResetCommand();
     		
     		if(words.length > 1) {
-    			for (int i = 0; i < words[1].length(); i++) {
-    		        if (!Character.isDigit(words[1].charAt(i))) {
-    		            //return false;
-    		        	// not a valid number
-    		        	return null;
-    		        }
-    		    }
-    			
-    			cmd.level = Integer.parseInt(words[1]);
+    			String arg = words[1];
+                
+                // comprobar si es -
+                int i = 0;
+                if (arg.charAt(0) == '-') {
+                    // Si es solo un "-", no es un número válido
+                    if (arg.length() == 1) return null; 
+                    // Empezamos a mirar dígitos a partir del siguiente carácter
+                    i = 1; 
+                }
+                
+                // comporbar que no es -(NaN)
+                for (; i < arg.length(); i++) {
+                    char c = arg.charAt(i);
+                    if (!Character.isDigit(c)) {
+                        return null;
+                    }
+                }
+                
+                // 3. Si llegamos aquí, es seguro convertirlo
+                cmd.level = Integer.parseInt(arg);
     		}
     		return cmd;
     	}

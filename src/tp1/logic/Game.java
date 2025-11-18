@@ -69,6 +69,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	
 	
 	public boolean reset(int nLevel) {
+		this.nLevel = nLevel;
 		switch (nLevel) {
 		case 0 -> initLevel0();
 		case 1 -> initLevel1();
@@ -83,6 +84,11 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	
 	public void reset() {
 		reset(this.nLevel);
+	}
+	
+	public void resetStats() {
+		this.points = 0;
+		this.lives = 3;
 	}
 	
 	
@@ -105,7 +111,8 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	public void addAction(Action act) {
-		mario.addAction(act);
+		//mario.addAction(act);
+		gameObjects.addAction(act);
 	}
 	
 	public void restringirLista() {

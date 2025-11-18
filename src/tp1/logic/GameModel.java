@@ -10,4 +10,5 @@ public interface GameModel {
 	public boolean reset(int Level);
 	public void exit();
 	public boolean parseGameObjectFactory(String objWords[]);
+	public void resetStats();
 }

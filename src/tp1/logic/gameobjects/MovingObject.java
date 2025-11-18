@@ -28,7 +28,7 @@ public abstract class MovingObject extends GameObject {
 	// no estan en la clase super ya que no viven
 	public boolean isAlive() {return alive;}
 	public void dead(){
-		System.out.println("ha muerto un objeto");
+		//System.out.println("ha muerto un objeto");
 		this.alive = false;
 	}
 	
@@ -77,7 +77,6 @@ public abstract class MovingObject extends GameObject {
 			return true;
 		}
 		return false;
-	}	
-	
+	}
 
 }

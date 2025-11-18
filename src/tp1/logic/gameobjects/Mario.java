@@ -68,20 +68,22 @@ public class Mario extends MovingObject{
 				case "stop", "s" -> {
 					m.lookDirection(Action.STOP, false);
 				}
-				default -> {return null;}}
+				default -> {
+					return null;}}
 			
 			}
 			
 			if(objWords.length > 4) {
 				// small or big si existe
-				switch (objWords[3]) {
+				switch (objWords[4]) {
 				case "big", "b" -> {
 					m.big = true;
 				}
 				case "small", "s" -> {
 					m.big = false;
 				}
-				default -> {return null;}
+				default -> {
+					return null;}
 				}
 			}
 			return m;

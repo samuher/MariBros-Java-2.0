@@ -96,7 +96,7 @@ public class Goomba extends MovingObject{
 	public boolean receiveInteraction(Mario other) {
 		//this.dead = true;
 		//dead();
-		if (isAlive()) {
+		if (isAlive() && other.isAlive()) {
 			game.addPoints(100);
 			dead();
 			other.receiveInteraction(this);
