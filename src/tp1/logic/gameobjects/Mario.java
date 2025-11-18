@@ -360,7 +360,6 @@ public class Mario extends MovingObject{
 				} else {
 					game.marioDead();
 					dead();
-					game.deadAll();
 				}	
 			}
 			return true;

@@ -102,17 +102,7 @@ public class GameObjectContainer {
 	
 	public void doInteraction(GameObject gobj) {
 		for (GameObject obj : gameObjects) {
-			if(gobj.interactWith(obj)) {
-				System.out.println("es true");
-				break;
-			};
+			gobj.interactWith(obj);
 		}
 	}
-	
-	public void deadAll() {
-		for (GameObject obj : gameObjects) {
-			if(obj.isAlive()) obj.dead();
-		}
-	}
-	
 }

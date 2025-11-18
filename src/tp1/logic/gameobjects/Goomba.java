@@ -72,18 +72,6 @@ public class Goomba extends MovingObject{
 		return Messages.GOOMBA;
 	}
 	
-	public boolean caida(Position suelo) {
-		if(!game.isSolid(suelo)) {
-			if (suelo.isVacio(suelo)) {
-				//this.dead = true;
-				dead();
-				return true;
-			}
-			this.pos = suelo;
-			return true;
-		}
-		return false;
-	}
 	
 	public void update() {
 		automaticMovement();

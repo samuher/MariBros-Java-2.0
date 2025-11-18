@@ -347,10 +347,6 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		finish();
 	}
 	
-	public void deadAll() {
-		gameObjects.deadAll();
-	}
-	
 	
 	// añadir seta desde box
 	public void addMushroom(Position p) {
