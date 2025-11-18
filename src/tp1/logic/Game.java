@@ -354,7 +354,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	
 	// añadir seta desde box
 	public void addMushroom(Position p) {
-		gameObjects.add(new MushRoom(this, p.moved(Action.UP)));
+		gameObjects.addPending(new MushRoom(this, p.moved(Action.UP)));
 	}
 	
 }

@@ -68,8 +68,9 @@ public class Box extends GameObject {
 			game.addPoints(50);
 			game.addMushroom(this.pos);
 			this.full = false;
+			
 		}
-		return false;
+		return true;
 	}
 
 	@Override

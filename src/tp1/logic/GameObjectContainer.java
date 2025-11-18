@@ -14,12 +14,14 @@ public class GameObjectContainer {
 	private ExitDoor exit;
 	private List<Goomba> goombas;
 	private List<GameObject> gameObjects;
+	private List<GameObject> gameObjectsPending;
 	//private List<GameObject> toRemove;
 	
 	public GameObjectContainer(){
 		//landList = new ArrayList<>();
 		goombas = new ArrayList<>();
 		gameObjects = new ArrayList<>();
+		gameObjectsPending = new ArrayList<>();
 		//toRemove = new ArrayList<>();
 		// land = new Land[Game.DIM_X][Game.DIM_Y];
 		
@@ -52,6 +54,14 @@ public class GameObjectContainer {
 		
 		//Limpiamos los elementos muertos
 		clean();
+		
+		// añadir los objetos nuevos añadidos en ejecuccion
+		// evitamos java.util.ConcurrentModificationException al añadir por ejemplo mushroom
+		if (!gameObjectsPending.isEmpty()) {
+	        gameObjects.addAll(gameObjectsPending);
+	        gameObjectsPending.clear();
+	    }
+		
 	}
 	
 	private void clean() {		
@@ -61,6 +71,11 @@ public class GameObjectContainer {
 	
 	public void add(GameObject obj) {
 		this.gameObjects.add(obj);
+	}
+	
+	// para la lista de pendientes
+	public void addPending(GameObject obj) {
+		this.gameObjectsPending.add(obj);
 	}
 	
 	
@@ -87,7 +102,10 @@ public class GameObjectContainer {
 	
 	public void doInteraction(GameObject gobj) {
 		for (GameObject obj : gameObjects) {
-			gobj.interactWith(obj);
+			if(gobj.interactWith(obj)) {
+				System.out.println("es true");
+				break;
+			};
 		}
 	}
 	

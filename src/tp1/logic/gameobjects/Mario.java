@@ -231,9 +231,16 @@ public class Mario extends MovingObject{
 	}
 	
 	public void checkBox(Action dir) {
-		move(dir);
+		marioMove(dir);
+		if(big) {
+			move(dir);
+		}
+		System.out.println("Mario en: " + this.pos.toString() + " para interactuar.");
 		game.doInteraction(this);
 		move(oposite(dir));
+		if (big) {
+			move(oposite(dir));
+		}
 	}
 	
 	private Action oposite(Action dir) {
@@ -383,7 +390,7 @@ public class Mario extends MovingObject{
 	public boolean interactWith(GameItem item) {
 		boolean canInteract = item.isInPosition(this.pos);
 		if(canInteract) {
-			item.receiveInteraction(this);
+			return item.receiveInteraction(this);
 		}
 		return canInteract;
 	}

@@ -41,6 +41,7 @@ public class Land extends GameObject{
 		boolean canInteract = item.isInPosition(this.pos);
 		if(canInteract) {
 			item.receiveInteraction(this);
+			return false;
 		}
 		return canInteract;
 	}
