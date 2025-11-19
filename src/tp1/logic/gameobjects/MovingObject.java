@@ -11,7 +11,6 @@ public abstract class MovingObject extends GameObject {
 
 	public MovingObject(GameWorld game, Position pos) {
 		super(game, pos);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public MovingObject() {
@@ -20,7 +19,7 @@ public abstract class MovingObject extends GameObject {
 
 	@Override
 	public String getIcon() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	

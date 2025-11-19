@@ -15,7 +15,6 @@ public class ExitDoor extends GameObject{
 	
 	public ExitDoor(GameWorld game, Position pos) {
 		super(game, pos);
-		// TODO Auto-generated constructor stub
 	}
 
 	public ExitDoor() {
@@ -38,7 +37,7 @@ public class ExitDoor extends GameObject{
 	
 	@Override
 	public boolean receiveInteraction(Mario obj) {
-		// TODO Auto-generated method stub
+		
 		//game.marioExited();
 		obj.receiveInteraction(this);
 		return true;
@@ -46,13 +45,13 @@ public class ExitDoor extends GameObject{
 
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		// TODO Auto-generated method stub
+		
 		return new ExitDoor(game, pos);
 	}
 	

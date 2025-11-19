@@ -33,7 +33,7 @@ public final class Position {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
+		
 		return "(" + this.col + "," + this.row + ")";
 	}
 	

@@ -17,7 +17,7 @@ public class HelpCommand extends NoParamsCommand {
 
 	@Override
 	public void execute(GameModel game, GameView view) {
-		// TODO Auto-generated method stub
+		
 		view.showMessage(CommandGenerator.commandHelp());
 	}
 	

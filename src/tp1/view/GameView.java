@@ -12,7 +12,7 @@ public abstract class GameView implements ViewInterface{
 	
 	@Override
 	public void showGame() {
-		// TODO Auto-generated method stub
+		
 	    //System.out.print(this.toString());
 		}
 

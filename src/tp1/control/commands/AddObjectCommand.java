@@ -24,7 +24,6 @@ public class AddObjectCommand extends AbstractCommand{
 
 	@Override
 	public void execute(GameModel game, GameView view) {
-		// TODO Auto-generated method stub
 		// game - game llama a gamefactory y añade el objeto
 		//System.out.println("exe");
 		if(!game.parseGameObjectFactory(objWords)) {
@@ -36,7 +35,7 @@ public class AddObjectCommand extends AbstractCommand{
 
 	@Override
 	public Command parse(String[] commandWords) {
-		// TODO Auto-generated method stub
+		
 		// comprobamos longitud y ejeccucion del comando deseado
 		if (commandWords.length >= 3 && (commandWords[0].toLowerCase().equals(getName()) || commandWords[0].toLowerCase().equals(getShortcut()))) {
 			// preparar objWords para eliminar el comando

@@ -7,10 +7,9 @@ import tp1.logic.GameWorld;
 public class GameObjectFactory {
 
 	public GameObjectFactory() {
-		// TODO Auto-generated constructor stub
 	}
 	private static final List<GameObject> availableObjects  = Arrays.asList(
-			//TODO fill with your code
+			
 			new Land(),
 			new ExitDoor(),
 			new Goomba(),
@@ -20,7 +19,7 @@ public class GameObjectFactory {
 	);
 	public static GameObject parse (String objWords[], GameWorld game) {
 		for (GameObject c: availableObjects) {
-			//TODO fill with your code
+			
 			GameObject parsed = c.parse(objWords, game);
 			if(parsed != null) return parsed;
 		}

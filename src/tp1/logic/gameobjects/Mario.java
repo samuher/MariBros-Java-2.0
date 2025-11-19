@@ -9,8 +9,6 @@ import tp1.view.Messages;
 import tp1.logic.Position;
 
 public class Mario extends MovingObject{
-
-	//TODO fill your code
 	
 	/**
 	 *  Implements the automatic update	
@@ -25,7 +23,7 @@ public class Mario extends MovingObject{
 	private ActionList actlist;	
 	
 	public Mario(GameWorld game, Position position) {
-		// TODO Auto-generated constructor stub
+		
 		//this.game = game;
 		//this.pos = position;
 		super(game, position);
@@ -78,7 +76,7 @@ public class Mario extends MovingObject{
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	
@@ -168,7 +166,7 @@ public class Mario extends MovingObject{
 	
 	//redirect movimientoUnitario
 	protected void movimientoUnitario(boolean avanza, Action dir) {
-		// TODO Auto-generated method stub
+		
 		movimientoUnitario(avanza, downstop, dir);
 	}
 	
@@ -209,7 +207,6 @@ public class Mario extends MovingObject{
 			checkBox(dir);
 		}
 		return solido;
-		
 	}
 	
 	public void checkBox(Action dir) {
@@ -346,7 +343,7 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
-		// TODO Auto-generated method stub
+		
 		if (mushRoom.isAlive()) {
 			mushRoom.receiveInteraction(this);
 		}else {

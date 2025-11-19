@@ -23,11 +23,8 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	private boolean finish = false;
 	private boolean wins = false;
 	private boolean looses = false;
-
-	//TODO fill your code
 	
 	public Game(int nLevel) {
-		// TODO Auto-generated constructor stub
 		this.remainingTime = 100;
 		this.points = 0;
 		this.lives = 3;
@@ -86,7 +83,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	public String positionToString(int col, int row) {
-		// TODO Auto-generated method stub
+		
 		return this.gameObjects.positionToString(new Position(col, row));
 	}
 
@@ -107,17 +104,17 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	public boolean playerWins() {
-		// TODO Auto-generated method stub
+		
 		return (this.finish && this.wins);
 	}
 
 	public int remainingTime() {
-		// TODO Auto-generated method stub
+		
 		return this.remainingTime;
 	}
 
 	public int points() {
-		// TODO Auto-generated method stub
+		
 		return this.points;
 	}
 	
@@ -126,18 +123,18 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 
 	public int numLives() {
-		// TODO Auto-generated method stub
+		
 		return this.lives;
 	}
 
 	@Override
 	public String toString() {
-		// TODO returns a textual representation of the object
+		
 		return "TODO: Hola soy el game";
 	}
 
 	public boolean playerLoses() {
-		// TODO Auto-generated method stub
+		
 		return this.looses;
 	}
 	
@@ -327,13 +324,13 @@ public class Game implements GameWorld, GameModel, GameStatus{
 
 	@Override
 	public void clean() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public boolean interactWith() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
@@ -349,7 +346,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 
 	@Override
 	public void replaceMario(Mario m) {
-		// TODO Auto-generated method stub
+		
 		this.mario = m;
 	}
 	

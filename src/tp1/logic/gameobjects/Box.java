@@ -10,14 +10,12 @@ public class Box extends GameObject {
 
 	public Box(GameWorld game, Position pos) {
 		super(game, pos);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Box() {
 		super();
 		this.NAME = Messages.BOX_NAME;
 		this.SHORTCUT = Messages.BOX_SHORTCUT;
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean isSolid() {return true;}
@@ -58,13 +56,13 @@ public class Box extends GameObject {
 
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
 	@Override
 	public boolean receiveInteraction(Mario m) {
-		// TODO Auto-generated method stub
+		
 		if(isFull()) {
 			game.addPoints(50);
 			game.addMushroom(this.pos);
@@ -76,13 +74,13 @@ public class Box extends GameObject {
 
 	@Override
 	public String getIcon() {
-		// TODO Auto-generated method stub
+		
 		return this.full ? Messages.BOX : Messages.EMPTY_BOX;
 	}
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		// TODO Auto-generated method stub
+		
 		return new Box(game, pos);
 	}
 	

@@ -21,7 +21,6 @@ public class UpdateCommand extends NoParamsCommand {
     }
     
     public Command parse(String[] commandWords) {
-		//First TODO fill with your code
 		if (commandWords.length == 1 && (matchCommandName(commandWords[0])|| commandWords[0].equals(""))) {
 			return this;
 		}

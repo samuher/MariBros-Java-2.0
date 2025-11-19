@@ -9,7 +9,6 @@ public class Land extends GameObject{
 	//private Position pos; ya esta en la clase padre
 	
 	public Land(Position position) {
-		// TODO Auto-generated constructor stub
 		super(position);
 		this.NAME = "land";
 		
@@ -18,7 +17,6 @@ public class Land extends GameObject{
 	
 	public Land(GameWorld game, Position pos) {
 		super(game, pos);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Land() {
@@ -51,13 +49,13 @@ public class Land extends GameObject{
 
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		// TODO Auto-generated method stub
+		
 		return new Land(game, pos);
 	}
 	

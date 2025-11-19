@@ -11,11 +11,11 @@ public class MushRoom extends MovingObject {
 		this.avanza = false;
 		this.NAME = Messages.MUSHROOM_NAME;
 		this.SHORTCUT = Messages.MUSHROOM_SHORTCUT;
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public MushRoom() {
-		// TODO Auto-generated constructor stub
+		
 		super();
 		this.NAME = Messages.MUSHROOM_NAME;
 		this.SHORTCUT = Messages.MUSHROOM_SHORTCUT;
@@ -23,7 +23,7 @@ public class MushRoom extends MovingObject {
 	
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
+		
 		automaticMovement();
 	}
 	
@@ -48,13 +48,13 @@ public class MushRoom extends MovingObject {
 	
 	@Override
 	public String getIcon() {
-		// TODO Auto-generated method stub
+		
 		return Messages.MUSHROOM;
 	}
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		// TODO Auto-generated method stub
+		
 		return new MushRoom(game, pos);
 	}
 	

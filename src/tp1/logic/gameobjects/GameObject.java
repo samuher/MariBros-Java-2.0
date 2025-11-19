@@ -5,7 +5,7 @@ import tp1.logic.GameObjectContainer;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 
-public abstract class GameObject implements GameItem { // TODO 
+public abstract class GameObject implements GameItem { 
 
 	protected Position pos; // If you can, make it private.
 	//protected boolean alive;
@@ -43,7 +43,7 @@ public abstract class GameObject implements GameItem { // TODO
 	public boolean isAlive() {return true;};
 	public void dead() {};
 	
-	// TODO implement and decide, Which one is abstract?
+	
 	// public boolean isSolid()
 	public void update() {
 		
@@ -53,7 +53,7 @@ public abstract class GameObject implements GameItem { // TODO
 
 	// Not mandatory but recommended
 	protected void move(Action dir) {
-		// TODO Auto-generated method stub
+		
 		this.pos = this.pos.moved(dir); 
 	}
 	public GameObject parse(String objWords[], GameWorld game) {
@@ -77,43 +77,43 @@ public abstract class GameObject implements GameItem { // TODO
 	
 	@Override
 		public boolean interactWith(GameItem item) {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 	@Override
 		public boolean isSolid() {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 	@Override
 		public boolean receiveInteraction(ExitDoor obj) {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 	@Override
 		public boolean receiveInteraction(Goomba obj) {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 	@Override
 		public boolean receiveInteraction(Land obj) {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 	@Override
 		public boolean receiveInteraction(Mario obj) {
-			// TODO Auto-generated method stub
+			
 			return false;
 		}
 	@Override
 	public boolean receiveInteraction(MushRoom obj) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	
 	@Override
 	public boolean receiveInteraction(Box obj) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 	

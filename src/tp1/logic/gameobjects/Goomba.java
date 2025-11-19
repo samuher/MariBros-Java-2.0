@@ -8,7 +8,6 @@ import tp1.view.Messages;
 public class Goomba extends MovingObject{
 	
 	public Goomba(GameWorld game, Position position) {
-		// TODO Auto-generated constructor stub
 		super(game, position);
 		this.NAME = Messages.GOOMBA_NAME;
 		this.SHORTCUT = Messages.GOOMBA_SHORTCUT;
@@ -52,7 +51,7 @@ public class Goomba extends MovingObject{
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	

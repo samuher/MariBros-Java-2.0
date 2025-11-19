@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameObjectContainer {
-	//TODO fill your code
+	
 	
 	private Mario mario;
 	private List<GameObject> gameObjects;
