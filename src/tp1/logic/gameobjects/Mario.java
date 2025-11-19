@@ -3,6 +3,7 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
 import tp1.logic.ActionList;
+import tp1.logic.GameObjectContainer;
 import tp1.logic.GameWorld;
 import tp1.view.Messages;
 import tp1.logic.Position;
@@ -15,17 +16,12 @@ public class Mario extends MovingObject{
 	 *  Implements the automatic update	
 	 */
 	
-	//private Position pos;
-	//private Game game;
 	private boolean big = true;
 	private boolean right = true;
 	private boolean left = false;
 	private boolean stop = false;
-	//private boolean avanza = false;
 	private boolean cayendo = false;
 	private boolean downstop = false;
-	private boolean alive = true;
-	private Action lastAction;
 	private ActionList actlist;	
 	
 	public Mario(GameWorld game, Position position) {
@@ -43,8 +39,6 @@ public class Mario extends MovingObject{
 		this.SHORTCUT = Messages.MARIO_SHORTCUT;
 		this.avanza = false;
 	}
-	
-	
 	
 	public GameObject parse(String objWords[], GameWorld game) {
 		// comprobacion de mario 
@@ -82,8 +76,6 @@ public class Mario extends MovingObject{
 		return null;
 	}
 	
-	// null / no se usa
-	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
 		// TODO Auto-generated method stub
@@ -111,7 +103,7 @@ public class Mario extends MovingObject{
 	
 
 	private void actionMovement(Action dir) {
-		if(isNextToLateral(dir) || isNextToSolid(dir)) {
+		if(isNextToLateral(dir) || isNextToSolid(dir) || isNextToRoof(dir)) {
 			if(dir == Action.DOWN) {
 				this.stop = true;
 				this.left = false;
@@ -124,9 +116,7 @@ public class Mario extends MovingObject{
 			if (lookDirection(dir, false)) return;
 			marioMove(dir);
 		}
-		
 	}
-	
 	
 	public void marioMove(Action dir) {
 		this.pos = this.pos.moved(dir);
@@ -166,7 +156,7 @@ public class Mario extends MovingObject{
 			return false;
 		}
 		Action dir = avanza ? Action.LEFT : Action.RIGHT;
-		if(isNextToLateral(dir) || isNextToSolid(dir)) {
+		if(isNextToLateral(dir) || isNextToSolid(dir) || isNextToRoof(dir)) {
 			avanza = !avanza;
 			leftToRight(avanza);
 		} else {
@@ -190,12 +180,15 @@ public class Mario extends MovingObject{
 		}
 	}
 	
-	
 	public void leftToRight(boolean avanza) {
 		this.left = avanza;
 		this.right = !avanza;
 	}
 	
+	public boolean isNextToRoof(Action dir) {
+		Position nextPos = this.pos.moved(dir);
+		return nextPos.isRoof(nextPos);
+	}
 	
 	public boolean isNextToLateral(Action dir) {
 		Position lateral = this.pos.moved(dir);
@@ -224,7 +217,6 @@ public class Mario extends MovingObject{
 		if(big) {
 			move(dir);
 		}
-		//System.out.println("Mario en: " + this.pos.toString() + " para interactuar.");
 		game.doInteraction(this);
 		move(oposite(dir));
 		if (big) {
@@ -243,7 +235,6 @@ public class Mario extends MovingObject{
 	
 	public String getIcon() {
 		// devuelve el icono, segun su direccion
-		
 		if (this.stop) {
 			return Messages.MARIO_STOP; 
 		} else if (this.right) {
@@ -251,20 +242,15 @@ public class Mario extends MovingObject{
 		} else if (this.left) {
 			return Messages.MARIO_LEFT;
 		}
-		//System.out.println("Eror direccion Mario");
-		
 		return Messages.MARIO_STOP;
 	}
 	
 	public String toString() {
-		// devuelve una representación de Mario, ej: Mario grande situado en la posicion (1,2), parado
 		return null;
-		
 	}
 	
 	public boolean isInPosition (Position p) {
 		if (this.big) {
-			//System.out.println("esta big");
 			Position pb = this.pos;
 			pb = pb.moved(Action.UP);
 			return (this.pos.equals(p)|| pb.equals(p));
@@ -285,38 +271,14 @@ public class Mario extends MovingObject{
 		this.actlist.add(act);
 	}
 	
-	public void restringirLista() {
-		//System.out.println("restringiendo lista");
-		this.actlist.restringirLista();
-	}
-	
 	public boolean caida(Position suelo) {
 		//caida infinita
-		/*
-		 if (game.isSolid(suelo)) {
-			 return false;
-		 }
-		 while (!game.isSolid(suelo)) {
-		        if (this.pos.isVacio(suelo)) { 
-		        	game.marioDead();                      
-			        suelo = suelo.moved(Action.DOWN);
-			        this.pos =suelo;
-			        return true; 
-			        		}
-		        this.pos = suelo;                        // baja 1
-		        suelo = suelo.moved(Action.DOWN);     // recalcula
-		    }
-		 */
 		 while (caidaUnitaria(suelo)) {
 			 if (this.pos.isVacio(this.pos)) {
 		            return true;
 		        }
 			 suelo = this.pos.moved(Action.DOWN);
 		 }
-		 
-		 
-		 //this.pos = this.pos.moved(Action.UP);
-		//this.cayendo = true;
 		return false;
 		
 	}
@@ -334,7 +296,6 @@ public class Mario extends MovingObject{
 			game.doInteraction(this);
 			return true;
 		}
-		//this.cayendo = true;
 		return false;
 	}
 	
@@ -374,11 +335,6 @@ public class Mario extends MovingObject{
 	}
 	
 	
-	private void goingToDead() {
-		dead();
-		game.marioDead();
-	}
-	
 	@Override
 	public boolean interactWith(GameItem item) {
 		boolean canInteract = item.isInPosition(this.pos);
@@ -407,6 +363,11 @@ public class Mario extends MovingObject{
 			box.receiveInteraction(this);
 		}
 		return false;
+	}
+	
+	public void add(GameObjectContainer gameObjects) {
+		gameObjects.add(this);
+		game.replaceMario(this);
 	}
 	
 }

@@ -1,16 +1,9 @@
 package tp1.logic;
 
-/**
- * 
- * TODO: Immutable class to encapsulate and manipulate positions in the game board
- * 
- */
 public final class Position {
 
 	private final int col;
 	private final int row;
-
-	//TODO fill your code
 	
 	public Position(int row, int col) {
 		this.row = row;
@@ -32,6 +25,10 @@ public final class Position {
 	
 	public boolean isLateral(Position p) {
 		return p.col > Game.DIM_X || p.col < 0;
+	}
+	
+	public boolean isRoof(Position p) {
+		return p.row < 0;
 	}
 	
 	@Override

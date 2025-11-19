@@ -31,7 +31,6 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		this.remainingTime = 100;
 		this.points = 0;
 		this.lives = 3;
-		//System.out.println("creando game");
 		this.nLevel = nLevel;
 		reset(nLevel);
 	}
@@ -39,15 +38,13 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	public boolean parseGameObjectFactory(String objWords[]){
 		GameObject gameobject = GameObjectFactory.parse(objWords, this);
 		if (gameobject != null) {
-			gameObjects.addObjectFactory(gameobject);
+			//gameObjects.addObjectFactory(gameobject);
+			gameobject.add(gameObjects);
 			return true;
 		}else{
 			return false;
 		}
-		
 	}
-	
-	
 	
 	public void marioExited() {
 		this.wins = true;
@@ -55,18 +52,15 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		this.points += this.remainingTime *10;
 		this.remainingTime = 0;
 		finish();
-		
 	}
 	
 	public boolean isFinished() {
 		return finish;
 	}
 	
-	
 	public void finish() {
 		this.finish = true;
 	}
-	
 	
 	public boolean reset(int nLevel) {
 		this.nLevel = nLevel;
@@ -91,11 +85,9 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		this.lives = 3;
 	}
 	
-	
 	public String positionToString(int col, int row) {
 		// TODO Auto-generated method stub
 		return this.gameObjects.positionToString(new Position(col, row));
-		
 	}
 
 	public void update() {
@@ -111,12 +103,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	public void addAction(Action act) {
-		//mario.addAction(act);
 		gameObjects.addAction(act);
-	}
-	
-	public void restringirLista() {
-		mario.restringirLista();
 	}
 	
 	public boolean playerWins() {
@@ -358,6 +345,12 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	// añadir seta desde box
 	public void addMushroom(Position p) {
 		gameObjects.addPending(new MushRoom(this, p.moved(Action.UP)));
+	}
+
+	@Override
+	public void replaceMario(Mario m) {
+		// TODO Auto-generated method stub
+		this.mario = m;
 	}
 	
 }

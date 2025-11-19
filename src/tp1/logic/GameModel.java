@@ -6,7 +6,7 @@ public interface GameModel {
 	public void update();
 	public void reset();
 	public void addAction(Action act);
-	public void restringirLista();
+	//public void restringirLista();
 	public boolean reset(int Level);
 	public void exit();
 	public boolean parseGameObjectFactory(String objWords[]);

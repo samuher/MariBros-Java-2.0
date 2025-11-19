@@ -1,13 +1,9 @@
 package tp1.logic.gameobjects;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.List;
-
 import tp1.logic.Action;
+import tp1.logic.GameObjectContainer;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
-import tp1.view.Messages;
 
 public abstract class GameObject implements GameItem { // TODO 
 
@@ -119,6 +115,10 @@ public abstract class GameObject implements GameItem { // TODO
 	public boolean receiveInteraction(Box obj) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void add(GameObjectContainer gameObjects) {
+		gameObjects.add(this);
 	}
 	
 }

@@ -1,19 +1,11 @@
 package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
-import tp1.logic.Game;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
 
 public class Goomba extends MovingObject{
-
-	//private Position pos;
-	//private Game game;
-	//private boolean avanza= true;
-	private boolean dead;
-	private boolean alive;
-	
 	
 	public Goomba(GameWorld game, Position position) {
 		// TODO Auto-generated constructor stub

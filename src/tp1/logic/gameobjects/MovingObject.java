@@ -36,8 +36,6 @@ public abstract class MovingObject extends GameObject {
 		
 		if (caida(this.pos.moved(Action.DOWN))) return false;
 		Action dir = this.avanza ? Action.LEFT : Action.RIGHT;
-		Position lateral = this.pos.moved(dir);
-		//if (lateral.isLateral(lateral) || game.isSolid(lateral))
 		if(isNextToLateral(dir)|| isNextToSolid(dir)) {
 			this.avanza = !this.avanza;
 			leftToRight(this.avanza);

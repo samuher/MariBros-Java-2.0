@@ -1,14 +1,7 @@
 package tp1.control.commands;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import tp1.logic.Action;
 import tp1.logic.GameModel;
-import tp1.logic.gameobjects.GameObject;
-import tp1.logic.gameobjects.GameObjectFactory;
 import tp1.view.GameView;
 import tp1.view.Messages;
 

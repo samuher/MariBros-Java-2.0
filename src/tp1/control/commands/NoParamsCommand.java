@@ -1,8 +1,5 @@
 package tp1.control.commands;
 
-import tp1.logic.GameModel;
-import tp1.view.GameView;
-
 public abstract class NoParamsCommand extends AbstractCommand {
 
 	public NoParamsCommand(String name, String shortcut, String details, String help) {

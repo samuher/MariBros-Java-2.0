@@ -1,7 +1,5 @@
 package tp1.control.commands;
 
-import tp1.logic.ActionList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +47,7 @@ public class ActionCommand extends AbstractCommand{
                 case "d", "down" -> this.actions.add(Action.DOWN);
                 case "s", "stop" -> this.actions.add(Action.STOP);
                 default -> {
-                	// Comando inválido
-                	//System.out.printf(Messages.ERROR + "%n", String.format(Messages.UNKNOWN_ACTION, words[i]));
-                	//return null;
-                	//return null;
+                	return null;
                 	}
 				}//switch
 				
@@ -75,7 +70,6 @@ public class ActionCommand extends AbstractCommand{
 				game.addAction(action); //Agragamos la accion al juego
 			}
 		}
-		game.restringirLista(); // metodo para cambiar 
 		game.update(); // Actualiza el estado del jeugo con las acciones
 		view.showGame();
 	}

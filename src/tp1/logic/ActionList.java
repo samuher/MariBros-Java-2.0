@@ -18,10 +18,10 @@ public class ActionList {
 		restringir();
 	}
 	
-	public void restringirLista() {
-		//System.out.println("restringiendo lista");
-		this.list = restringir();
-	}
+//	public void restringirLista() {
+//		//System.out.println("restringiendo lista");
+//		this.list = restringir();
+//	}
 	
 	public List<Action> restringir() {
 		boolean left = false;
