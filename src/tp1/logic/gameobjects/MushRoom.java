@@ -9,6 +9,8 @@ public class MushRoom extends MovingObject {
 	public MushRoom(GameWorld game, Position pos) {
 		super(game, pos);
 		this.avanza = false;
+		this.NAME = Messages.MUSHROOM_NAME;
+		this.SHORTCUT = Messages.MUSHROOM_SHORTCUT;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -54,6 +56,37 @@ public class MushRoom extends MovingObject {
 	protected GameObject createInstance(GameWorld game, Position pos) {
 		// TODO Auto-generated method stub
 		return new MushRoom(game, pos);
+	}
+	
+	public GameObject parse(String objWords[], GameWorld game) {
+		
+		// comprobacion goomba
+		if (objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
+			//System.out.println("entra");
+			Position p = Position.parsePosition(objWords[0]);
+			if (p == null) return null;
+			
+			MushRoom m = new MushRoom(game,p);
+			System.out.println(m.pos);
+			
+			// direccion goomba
+			if (objWords.length > 2) {
+				// direccion si existe
+				switch (objWords[2].toLowerCase()) {
+				case "right", "r" -> {
+					m.avanza = false;
+				}
+				case "left", "l" -> {
+					m.avanza = true;
+				}
+				default -> {return null;}
+				}	
+			}
+			return this;
+			
+		}
+		return null;
+		
 	}
 	
 

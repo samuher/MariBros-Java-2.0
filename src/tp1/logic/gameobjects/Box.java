@@ -30,13 +30,16 @@ public class Box extends GameObject {
 	public GameObject parse(String objWords[], GameWorld game) {
 
 		// comprobacion de mario 
-		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+		if (objWords[1].toLowerCase().equals(this.NAME)|| objWords[1].toLowerCase().equals(this.SHORTCUT)) {
+			Position p = Position.parsePosition(objWords[0]);
+			if (p == null) return null;
+			
 			// añadimos el juego
 			this.game = game;
 			// añadimos la posicion 
 			this.pos = p;
 			
+			// diferencia entre full y empty
 			if (objWords.length > 3) {
 				// direccion si existe
 				switch (objWords[3]) {

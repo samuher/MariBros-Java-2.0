@@ -292,8 +292,8 @@ public class Mario extends MovingObject{
 	
 	public boolean caida(Position suelo) {
 		//caida infinita
+		/*
 		 if (game.isSolid(suelo)) {
-			 
 			 return false;
 		 }
 		 while (!game.isSolid(suelo)) {
@@ -306,8 +306,17 @@ public class Mario extends MovingObject{
 		        this.pos = suelo;                        // baja 1
 		        suelo = suelo.moved(Action.DOWN);     // recalcula
 		    }
+		 */
+		 while (caidaUnitaria(suelo)) {
+			 if (this.pos.isVacio(this.pos)) {
+		            return true;
+		        }
+			 suelo = this.pos.moved(Action.DOWN);
+		 }
+		 
+		 
 		 //this.pos = this.pos.moved(Action.UP);
-		this.cayendo = true;
+		//this.cayendo = true;
 		return false;
 		
 	}
@@ -316,13 +325,12 @@ public class Mario extends MovingObject{
 		if (game.isSolid(suelo)) return false; 
 		if(!game.isSolid(suelo)) {
 			if (suelo.isVacio(suelo)) {
-				//System.out.println("vaciooooo");
-				//game.marioDead();
 				game.marioDead();
 				return true;
 			}
 			this.pos = suelo;
 			this.cayendo = true;
+			game.doInteraction(this);
 			return true;
 		}
 		//this.cayendo = true;

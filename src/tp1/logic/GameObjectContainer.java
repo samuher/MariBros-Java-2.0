@@ -52,15 +52,15 @@ public class GameObjectContainer {
 			if (obj.isAlive()) doInteraction(obj);
 		}
 		
-		//Limpiamos los elementos muertos
-		clean();
-		
 		// añadir los objetos nuevos añadidos en ejecuccion
 		// evitamos java.util.ConcurrentModificationException al añadir por ejemplo mushroom
 		if (!gameObjectsPending.isEmpty()) {
 	        gameObjects.addAll(gameObjectsPending);
 	        gameObjectsPending.clear();
 	    }
+		
+		//Limpiamos los elementos muertos
+		clean();
 		
 	}
 	
@@ -112,6 +112,7 @@ public class GameObjectContainer {
 		// NO hace nada sino es mario.
 		for (GameObject obj : gameObjects) {
 			if (!obj.isSolid() && obj.isAlive()) {
+				obj.addAction(act);
 			}
 		}
 	}
