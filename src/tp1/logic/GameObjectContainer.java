@@ -52,7 +52,7 @@ public class GameObjectContainer {
 			if (obj.isAlive()) doInteraction(obj);
 		}
 		
-		// añadir los objetos nuevos añadidos en ejecuccion
+		// añadir los objetos nuevos añadidos en ejecuccion mientras se hace update/action
 		// evitamos java.util.ConcurrentModificationException al añadir por ejemplo mushroom
 		if (!gameObjectsPending.isEmpty()) {
 	        gameObjects.addAll(gameObjectsPending);
@@ -72,6 +72,15 @@ public class GameObjectContainer {
 	public void add(GameObject obj) {
 		this.gameObjects.add(obj);
 	}
+	
+	public void addObjectFactory(GameObject obj) {
+		
+		for (GameObject gameObject : gameObjects) {
+			if(gameObject.isSolid() && obj.isInPosition(gameObject)) return;
+		}
+		this.gameObjects.add(obj);
+	}
+	
 	
 	// para la lista de pendientes
 	public void addPending(GameObject obj) {

@@ -18,14 +18,14 @@ public class Goomba extends MovingObject{
 	public Goomba(GameWorld game, Position position) {
 		// TODO Auto-generated constructor stub
 		super(game, position);
-		this.NAME = "goomba";
-		this.SHORTCUT = "g";
+		this.NAME = Messages.GOOMBA_NAME;
+		this.SHORTCUT = Messages.GOOMBA_SHORTCUT;
 	}
 	
 	public Goomba() {
 		super();
-		this.NAME = "goomba";
-		this.SHORTCUT = "g";
+		this.NAME = Messages.GOOMBA_NAME;
+		this.SHORTCUT = Messages.GOOMBA_SHORTCUT;
 	}
 	
 	public GameObject parse(String objWords[], GameWorld game) {

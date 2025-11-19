@@ -37,6 +37,10 @@ public abstract class GameObject implements GameItem { // TODO
 		return (this.pos.equals(p));
 	}
 	
+	public boolean isInPosition(GameObject g) {
+		return (this.pos.equals(g.pos));
+	}
+	
 	public void addAction(Action act) {
 		// NO hace nada sino es mario.
 	}

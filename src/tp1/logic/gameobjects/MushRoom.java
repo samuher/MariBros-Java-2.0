@@ -67,7 +67,6 @@ public class MushRoom extends MovingObject {
 			if (p == null) return null;
 			
 			MushRoom m = new MushRoom(game,p);
-			System.out.println(m.pos);
 			
 			// direccion goomba
 			if (objWords.length > 2) {
@@ -82,7 +81,7 @@ public class MushRoom extends MovingObject {
 				default -> {return null;}
 				}	
 			}
-			return this;
+			return m;
 			
 		}
 		return null;

@@ -325,6 +325,7 @@ public class Mario extends MovingObject{
 		if (game.isSolid(suelo)) return false; 
 		if(!game.isSolid(suelo)) {
 			if (suelo.isVacio(suelo)) {
+				this.pos = suelo;
 				game.marioDead();
 				return true;
 			}
