@@ -31,17 +31,18 @@ public class Goomba extends MovingObject{
 	public GameObject parse(String objWords[], GameWorld game) {
 		
 		// comprobacion goomba
-		if (objWords[2].toLowerCase().equals(this.NAME) || objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			
-			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+		if (objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
+			Position p = Position.parsePosition(objWords[0]);
+			if (p == null) return null;
 			
 			// añadimos el juego		
 			// añadimos la posicion 
 			Goomba g = new Goomba(game, p);
 			
-			if (objWords.length > 3) {
+			// direccion goomba
+			if (objWords.length > 2) {
 				// direccion si existe
-				switch (objWords[3]) {
+				switch (objWords[2].toLowerCase()) {
 				case "right", "r" -> {
 					g.avanza = false;
 				}

@@ -45,34 +45,28 @@ public class Mario extends MovingObject{
 	}
 	
 	
+	
 	public GameObject parse(String objWords[], GameWorld game) {
 		// comprobacion de mario 
-		if (objWords[2].toLowerCase().equals(this.NAME)|| objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
-			// añadimos el juego
-			// añadimos la posicion 
+		if (objWords[1].toLowerCase().equals(this.NAME)|| objWords[1].toLowerCase().equals(this.SHORTCUT)) {
+			// pase Position and check not null
+			Position p = Position.parsePosition(objWords[0]);
+			if (p == null) return null;
+			
 			Mario m = new Mario(game, p);
-			
-			if (objWords.length > 3) {
-				// direccion si existe
-				switch (objWords[3]) {
-				case "right", "r" -> {
-					m.lookDirection(Action.RIGHT, false);
+			if (objWords.length >2) {
+				Action act = Action.parseAction(objWords[2]);
+				if(act != null) {
+					m.lookDirection(act, false);
+				}else {
+					return null;
 				}
-				case "left", "l" -> {
-					m.lookDirection(Action.LEFT, false);
-				}
-				case "stop", "s" -> {
-					m.lookDirection(Action.STOP, false);
-				}
-				default -> {
-					return null;}}
-			
 			}
 			
-			if(objWords.length > 4) {
+			// parse tamaño
+			if(objWords.length > 3) {
 				// small or big si existe
-				switch (objWords[4]) {
+				switch (objWords[3].toLowerCase()) {
 				case "big", "b" -> {
 					m.big = true;
 				}

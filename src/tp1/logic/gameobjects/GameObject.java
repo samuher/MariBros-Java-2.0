@@ -60,10 +60,9 @@ public abstract class GameObject implements GameItem { // TODO
 		// addGameObject objectos sencillos esto es para land, exit door, goomba y los nurvos objrtos. todo menos mario
 		// x = 0, y= 1, n or sh = 2
 		// comprobar que es el 
-		if(objWords[2].toLowerCase().equals(this.NAME) || objWords[2].toLowerCase().equals(this.SHORTCUT)) {
-			
-			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
-			if (p.isLateral(p) || p.isVacio(p)) return null;
+		if(objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
+			Position p = Position.parsePosition(objWords[0]);
+			if (p == null) return null;
 			// inicializr y devolver
 			this.pos = p;
 			this.game = game;

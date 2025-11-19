@@ -5,7 +5,7 @@ package tp1.logic;
  * TODO: Immutable class to encapsulate and manipulate positions in the game board
  * 
  */
-public class Position {
+public final class Position {
 
 	private final int col;
 	private final int row;
@@ -38,6 +38,16 @@ public class Position {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "(" + this.col + "," + this.row + ")";
+	}
+	
+	public static Position parsePosition(String parse) {
+		if (parse == null) return null;
+		String[] parseList = parse.split(",");
+		parseList[0] = parseList[0].replaceAll("\\(", "");
+		parseList[1] = parseList[1].replaceAll("\\)", "");
+		Position p = new Position(Integer.parseInt(parseList[0]), Integer.parseInt(parseList[1]));
+		if(p.isVacio(p)|| p.isLateral(p)) return null;
+		else return p;
 	}
 
 }

@@ -23,6 +23,22 @@ public enum Action {
 		return y;
 	}
 	
+	public static Action parseAction(String word) {
+		// direccion si existe
+		switch (word.toLowerCase()) {
+		case "right", "r" -> {
+			return RIGHT;
+		}
+		case "left", "l" -> {
+			return LEFT;
+		}
+		case "stop", "s" -> {
+			return STOP;
+		}
+		default -> {
+			return null;}}
+	}
+	
 	//TODO fill your code
 	
 }
