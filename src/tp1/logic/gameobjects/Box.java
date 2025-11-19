@@ -38,10 +38,8 @@ public class Box extends GameObject {
 			
 			// diferencia entre full y empty
 			if (objWords.length > 3) {
-				// direccion si existe
 				switch (objWords[3]) {
 				case "full", "f" -> {
-					// esto podriamos omitirlo
 					this.full = true;
 				}
 				case "empty", "e" -> {

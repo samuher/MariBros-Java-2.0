@@ -62,7 +62,6 @@ public class MushRoom extends MovingObject {
 		
 		// comprobacion goomba
 		if (objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
-			//System.out.println("entra");
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
 			

@@ -9,7 +9,6 @@ public class GameObjectFactory {
 	public GameObjectFactory() {
 	}
 	private static final List<GameObject> availableObjects  = Arrays.asList(
-			
 			new Land(),
 			new ExitDoor(),
 			new Goomba(),
@@ -19,7 +18,6 @@ public class GameObjectFactory {
 	);
 	public static GameObject parse (String objWords[], GameWorld game) {
 		for (GameObject c: availableObjects) {
-			
 			GameObject parsed = c.parse(objWords, game);
 			if(parsed != null) return parsed;
 		}

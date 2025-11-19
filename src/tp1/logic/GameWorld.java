@@ -8,8 +8,6 @@ public interface GameWorld {
 	public void addPoints(int points);
 	public void marioExited();
 	public void marioDead();
-	//public void doInteractionsFrom(Mario m);
-	//public boolean isGoombaPosition(Position p);
 	public void clean();
 	public boolean isMarioWins();
 	public boolean interactWith();

@@ -10,10 +10,6 @@ import tp1.logic.Position;
 
 public class Mario extends MovingObject{
 	
-	/**
-	 *  Implements the automatic update	
-	 */
-	
 	private boolean big = true;
 	private boolean right = true;
 	private boolean left = false;
@@ -23,9 +19,6 @@ public class Mario extends MovingObject{
 	private ActionList actlist;	
 	
 	public Mario(GameWorld game, Position position) {
-		
-		//this.game = game;
-		//this.pos = position;
 		super(game, position);
 		this.actlist = new ActionList();
 		this.avanza = false;
@@ -300,13 +293,10 @@ public class Mario extends MovingObject{
 	public boolean receiveInteraction(ExitDoor other) {
 		game.marioExited();
 		return true;
-		//return other.isInPosition(this);
 	}
 	
 	@Override
 	public boolean receiveInteraction(Goomba goomba) {
-		//System.out.println("bbsita");
-		
 		if (goomba.isAlive()) {
 			goomba.receiveInteraction(this);	
 		}else {

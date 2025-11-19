@@ -31,11 +31,7 @@ public class Controller {
 	    view.showWelcome();
 	 // Muestra el estado actual del juego
         view.showGame();
-        
-        
 	    while (!game.isFinished()) {
-	        
-	        
 	        String[] prompt = view.getPrompt();
 	        Command command = CommandGenerator.parse(prompt);
 	        if (command != null) {
@@ -44,7 +40,6 @@ public class Controller {
 	        	view.showError(Messages.UNKNOWN_COMMAND.formatted(String.join(" ", prompt)));
 	        }
 	    }
-	    
 	    // Muestra el estado final del juego
 	    view.showEndMessage();
 			

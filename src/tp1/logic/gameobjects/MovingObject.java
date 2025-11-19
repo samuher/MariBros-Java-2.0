@@ -23,11 +23,8 @@ public abstract class MovingObject extends GameObject {
 		return null;
 	}
 	
-	// objetos que tienen vida
-	// no estan en la clase super ya que no viven
 	public boolean isAlive() {return alive;}
 	public void dead(){
-		//System.out.println("ha muerto un objeto");
 		this.alive = false;
 	}
 	
@@ -38,10 +35,7 @@ public abstract class MovingObject extends GameObject {
 		if(isNextToLateral(dir)|| isNextToSolid(dir)) {
 			this.avanza = !this.avanza;
 			leftToRight(this.avanza);
-			//dir = avanza ? Action.LEFT : Action.RIGHT;
-			//this.pos = this.pos.moved(dir);
 		} else {
-			//this.pos = this.pos.moved(dir);
 			movimientoUnitario(this.avanza, dir);
 		}
 		return false;
@@ -52,7 +46,6 @@ public abstract class MovingObject extends GameObject {
 	}
 	
 	public boolean isNextToLateral(Action dir) {
-		//return game.isLateral(this.pos.moved(dir));
 		return this.pos.isLateral(this.pos);
 	}
 	

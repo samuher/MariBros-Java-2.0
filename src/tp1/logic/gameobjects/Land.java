@@ -6,13 +6,10 @@ import tp1.view.Messages;
 
 
 public class Land extends GameObject{
-	//private Position pos; ya esta en la clase padre
 	
 	public Land(Position position) {
 		super(position);
 		this.NAME = "land";
-		
-		//this.pos = position;
 	}
 	
 	public Land(GameWorld game, Position pos) {
@@ -55,7 +52,6 @@ public class Land extends GameObject{
 	
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
-		
 		return new Land(game, pos);
 	}
 	
