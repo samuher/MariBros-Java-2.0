@@ -63,12 +63,11 @@ public class Box extends GameObject {
 	@Override
 	public boolean receiveInteraction(Mario m) {
 		// TODO Auto-generated method stub
-		System.out.println("ha recobidop");
 		if(isFull()) {
 			game.addPoints(50);
 			game.addMushroom(this.pos);
 			this.full = false;
-			
+			m.receiveInteraction(this);		
 		}
 		return true;
 	}
@@ -83,5 +82,15 @@ public class Box extends GameObject {
 	protected GameObject createInstance(GameWorld game, Position pos) {
 		// TODO Auto-generated method stub
 		return new Box(game, pos);
+	}
+	
+	@Override
+	public boolean interactWith(GameItem item) {
+		boolean canInteract = item.isInPosition(this.pos);
+		if(canInteract) {
+			item.receiveInteraction(this);
+			return false;
+		}
+		return canInteract;
 	}
 }

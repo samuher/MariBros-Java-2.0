@@ -112,7 +112,6 @@ public class GameObjectContainer {
 		// NO hace nada sino es mario.
 		for (GameObject obj : gameObjects) {
 			if (!obj.isSolid() && obj.isAlive()) {
-				obj.addAction(act);
 			}
 		}
 	}

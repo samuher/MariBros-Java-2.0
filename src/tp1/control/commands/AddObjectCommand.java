@@ -22,6 +22,7 @@ public class AddObjectCommand extends AbstractCommand{
 	
 	// prompt como lista de strings con el objeto con sus propiedades
 	private String[] objWords;
+	private String[] commandWords;
 	
 	//Constructor
 	public AddObjectCommand() {
@@ -35,18 +36,15 @@ public class AddObjectCommand extends AbstractCommand{
 		// game - game llama a gamefactory y añade el objeto
 		//System.out.println("exe");
 		if(!game.parseGameObjectFactory(objWords)) {
-			view.showError(Messages.INVALID_GAME_OBJECT.formatted(objWords[2]));
+			view.showError(Messages.INVALID_GAME_OBJECT.formatted(String.join(" ", commandWords)));
 		}else {
 			view.showGame();
 		}
-		
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		// TODO Auto-generated method stub
-		// aO (1,2) m
-		//System.out.println(commandWords[0].toLowerCase());
 		// comprobamos longitud y ejeccucion del comando deseado
 		if (commandWords.length >= 3 && (commandWords[0].toLowerCase().equals(getName()) || commandWords[0].toLowerCase().equals(getShortcut()))) {
 			// array commandWords
@@ -61,7 +59,9 @@ public class AddObjectCommand extends AbstractCommand{
 			String[] objwordscopy = commandWords[1].split(",");
 			objwordscopy[0] = objwordscopy[0].replaceAll("\\(", "");
 			objwordscopy[1] = objwordscopy[1].replaceAll("\\)", "");
-
+			
+			// preparar commandWords para eliminar el primero
+			this.commandWords = Arrays.copyOfRange(commandWords, 1, commandWords.length);
 			// 2. Calcular tamaño del array final
 			int size = 3; // siempre habrá: obj1, obj2, nObjeto
 			if (commandWords.length > 3) size++;   // atributo1

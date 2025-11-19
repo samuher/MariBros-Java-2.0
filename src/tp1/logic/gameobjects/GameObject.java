@@ -61,7 +61,9 @@ public abstract class GameObject implements GameItem { // TODO
 		// x = 0, y= 1, n or sh = 2
 		// comprobar que es el 
 		if(objWords[2].toLowerCase().equals(this.NAME) || objWords[2].toLowerCase().equals(this.SHORTCUT)) {
+			
 			Position p = new Position(Integer.parseInt(objWords[0]), Integer.parseInt(objWords[1]));
+			if (p.isLateral(p) || p.isVacio(p)) return null;
 			// inicializr y devolver
 			this.pos = p;
 			this.game = game;

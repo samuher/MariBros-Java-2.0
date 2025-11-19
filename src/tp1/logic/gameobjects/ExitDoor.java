@@ -57,4 +57,14 @@ public class ExitDoor extends GameObject{
 		return new ExitDoor(game, pos);
 	}
 	
+	@Override
+	public boolean interactWith(GameItem item) {
+		boolean canInteract = item.isInPosition(this.pos);
+		if(canInteract) {
+			item.receiveInteraction(this);
+			return false;
+		}
+		return canInteract;
+	}
+	
 }

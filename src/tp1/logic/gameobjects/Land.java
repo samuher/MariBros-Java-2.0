@@ -38,12 +38,15 @@ public class Land extends GameObject{
 		
 	@Override
 	public boolean interactWith(GameItem item) {
+		/*
 		boolean canInteract = item.isInPosition(this.pos);
 		if(canInteract) {
 			item.receiveInteraction(this);
 			return false;
 		}
 		return canInteract;
+		*/
+		return false;
 	}
 
 	@Override

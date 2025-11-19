@@ -40,10 +40,4 @@ public class Position {
 		return "(" + this.col + "," + this.row + ")";
 	}
 
-	/*
-	public void move(Action a) {
-		this.row += a.getY();
-		this.col += a.getX();
-	}*/
-
 }

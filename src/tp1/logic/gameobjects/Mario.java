@@ -26,11 +26,8 @@ public class Mario extends MovingObject{
 	private boolean downstop = false;
 	private boolean alive = true;
 	private Action lastAction;
-	//private String NAME = "mario";
-	//private String SHORTCUT = "m";
+	private ActionList actlist;	
 	
-	
-	private ActionList actlist;
 	public Mario(GameWorld game, Position position) {
 		// TODO Auto-generated constructor stub
 		//this.game = game;
@@ -169,8 +166,6 @@ public class Mario extends MovingObject{
 		return choque;
 	}
 	
-	
-	
 	public boolean automaticMovement() {
 		
 		if (caidaUnitaria(this.pos.moved(Action.DOWN))) {
@@ -222,10 +217,8 @@ public class Mario extends MovingObject{
 		boolean solido =game.isSolid(this.pos.moved(dir));
 		if(big) {
 			solido = game.isSolid(this.pos.moved(dir).moved(Action.UP)) || solido;
-			
 		}
 		if(solido && dir == Action.UP) {
-			System.out.println("checkea caja");
 			checkBox(dir);
 		}
 		return solido;
@@ -237,7 +230,7 @@ public class Mario extends MovingObject{
 		if(big) {
 			move(dir);
 		}
-		System.out.println("Mario en: " + this.pos.toString() + " para interactuar.");
+		//System.out.println("Mario en: " + this.pos.toString() + " para interactuar.");
 		game.doInteraction(this);
 		move(oposite(dir));
 		if (big) {
@@ -344,7 +337,7 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(ExitDoor other) {
-		wins();
+		game.marioExited();
 		return true;
 		//return other.isInPosition(this);
 	}
@@ -367,10 +360,6 @@ public class Mario extends MovingObject{
 			return true;
 		}
 		return true;
-	}
-	
-	public void wins() {
-		game.marioExited();
 	}
 	
 	public boolean isWin() {
