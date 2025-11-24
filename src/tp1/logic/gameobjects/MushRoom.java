@@ -64,7 +64,8 @@ public class MushRoom extends MovingObject {
 		if (objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
-			
+			// si es solido no se genera
+			if(game.isSolid(p)) return null;
 			MushRoom m = new MushRoom(game,p);
 			
 			// direccion goomba

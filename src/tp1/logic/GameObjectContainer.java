@@ -8,8 +8,6 @@ import java.util.List;
 
 public class GameObjectContainer {
 	
-	
-	private Mario mario;
 	private List<GameObject> gameObjects;
 	private List<GameObject> gameObjectsPending;
 	
@@ -30,11 +28,11 @@ public class GameObjectContainer {
 	}
 	
 	public void add(Mario mario) {
-		if (this.mario != null) {
-			gameObjects.remove(this.mario);
-		}
-		this.mario = mario;
 		this.gameObjects.add(mario);
+	}
+	
+	public boolean removeMario(Mario m) {
+		return gameObjects.remove(m);
 	}
 
 	public void add(GameObject obj) {

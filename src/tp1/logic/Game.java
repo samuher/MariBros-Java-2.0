@@ -344,10 +344,11 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		gameObjects.addPending(new MushRoom(this, p.moved(Action.UP)));
 	}
 
-	@Override
-	public void replaceMario(Mario m) {
-		
-		this.mario = m;
+	
+	public void replaceMario(Mario nm) {
+		gameObjects.removeMario(this.mario);
+		this.mario = nm;
+		gameObjects.add(nm);
 	}
 	
 }

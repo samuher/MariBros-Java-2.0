@@ -30,24 +30,25 @@ public class Box extends GameObject {
 		if (objWords[1].toLowerCase().equals(this.NAME)|| objWords[1].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
-			
-			// añadimos el juego
-			this.game = game;
-			// añadimos la posicion 
-			this.pos = p;
+			// si es solido no se genera
+			if(game.isSolid(p)) return null;
+			// crea instancia de box 
+			Box b = new Box(game, p);
 			
 			// diferencia entre full y empty
 			if (objWords.length > 3) {
 				switch (objWords[3]) {
 				case "full", "f" -> {
-					this.full = true;
+					b.full = true;
 				}
 				case "empty", "e" -> {
-					this.full = false;
+					b.full = false;
 				}
 				default -> {return null;}}
 			}
-			return this;
+			
+			
+			return b;
 		}
 		return null;
 	}

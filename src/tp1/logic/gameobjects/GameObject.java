@@ -63,9 +63,8 @@ public abstract class GameObject implements GameItem {
 		if(objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
-			// inicializr y devolver
-			this.pos = p;
-			this.game = game;
+			// si es solido no se genera
+			if(game.isSolid(p)) return null;
 			return createInstance(game, p);
 		}
 		return null;

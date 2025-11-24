@@ -37,6 +37,8 @@ public class Mario extends MovingObject{
 			// pase Position and check not null
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
+			// si es solido no se genera
+			if(game.isSolid(p)) return null;
 			
 			Mario m = new Mario(game, p);
 			if (objWords.length >2) {
@@ -297,9 +299,9 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(Goomba goomba) {
-		if (goomba.isAlive()) {
-			goomba.receiveInteraction(this);	
-		}else {
+		if (isAlive()) {
+			goomba.receiveInteraction(this);
+		}
 			if (!cayendo) {
 				if (this.big) {
 					this.big = false;
@@ -308,8 +310,6 @@ public class Mario extends MovingObject{
 					dead();
 				}	
 			}
-			return true;
-		}
 		return true;
 	}
 	
@@ -333,27 +333,20 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
-		
-		if (mushRoom.isAlive()) {
-			mushRoom.receiveInteraction(this);
-		}else {
-			if (!big) {
-				this.big = true;
-			}
+		mushRoom.receiveInteraction(this);
+		if (!big) {
+			this.big = true;
 		}
 		return true;
 	}
 	
 	@Override
 	public boolean receiveInteraction(Box box) {
-		if(box.isFull()) {
-			box.receiveInteraction(this);
-		}
+		box.receiveInteraction(this);
 		return false;
 	}
 	
-	public void add(GameObjectContainer gameObjects) {
-		gameObjects.add(this);
+	public void add(GameObjectContainer gameObjectsC) {
 		game.replaceMario(this);
 	}
 	
