@@ -34,21 +34,28 @@ public class ActionCommand extends AbstractCommand{
 	
 	@Override
 	public Command parse(String[] words) {
+		//Creo que me falta el equals y el toLowerCase ??
 		if(words.length >= 2 && 
-				(words[0].toLowerCase().equalsIgnoreCase(ActionCommand.SHORTCUT) || words[0].toLowerCase().equalsIgnoreCase(ActionCommand.SHORTCUT))) {
-			
-			ActionCommand cmd = new ActionCommand();
-			
+				(words[0].toLowerCase().equalsIgnoreCase("a") || words[0].toLowerCase().equalsIgnoreCase("action"))) {
+
 			//Procesamos cada accion
 			for(int i = 1; i<words.length; i++) {
-				Action dir = Action.parseAction(words[i].toLowerCase());
-				if(dir == null) return null;
-				else cmd.actions.add(dir);
+				switch(words[i].toLowerCase()) {
+				case "l", "left" -> this.actions.add(Action.LEFT);
+                case "r", "right" -> this.actions.add(Action.RIGHT);
+                case "u", "up" -> this.actions.add(Action.UP);
+                case "d", "down" -> this.actions.add(Action.DOWN);
+                case "s", "stop" -> this.actions.add(Action.STOP);
+                default -> {
+                	return null;
+                	}
+				}//switch
 				
 			}//for
-			return cmd; //Devuelve el comando con las acciones cargadas
+			// return cmd
+			return this; //Devuelve el comando (el mismo) con las acciones cargadas
 		}
-		return null;
+		return null; // No es el comando esperado -> action
 	}
 	
 	//Metodo encargado de agragar esas acciones a la lista de acciones de Mario 
@@ -58,7 +65,10 @@ public class ActionCommand extends AbstractCommand{
 		//Añadir todas la sacciones a la lista de acciones de Mario
 		//Copiar private actions a mario actionlist 
 		while(!actions.isEmpty()) {
-			game.addAction(this.actions.remove(0)); //Agragamos la accion al juego
+			Action action = this.actions.remove(0); // ejecuta accion x, x es la siguiente accion que le toca ejecutar
+			if(action != null) {
+				game.addAction(action); //Agragamos la accion al juego
+			}
 		}
 		game.update(); // Actualiza el estado del jeugo con las acciones
 		view.showGame();

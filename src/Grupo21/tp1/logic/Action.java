@@ -35,22 +35,10 @@ public enum Action {
 		case "stop", "s" -> {
 			return STOP;
 		}
-		case "up", "u" -> {
-			return UP;
-		}
-		case "down", "d" -> {
-			return DOWN;
-		}
 		default -> {
 			return null;}}
 	}
 	
-	public static Action oposite(Action dir) {
-		if(dir == Action.UP) return Action.DOWN;
-		if(dir == Action.DOWN) return Action.UP;
-		if(dir == Action.RIGHT) return Action.LEFT;
-		if(dir == Action.LEFT) return Action.RIGHT;
-		else return dir;
-	}
+	
 	
 }

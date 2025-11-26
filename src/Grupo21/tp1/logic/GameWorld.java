@@ -12,8 +12,8 @@ public interface GameWorld {
 	public boolean isMarioWins();
 	public boolean interactWith();
 	
-	public void doInteractions(GameObject gobj);
-	public void addMario(Mario mario);
-	public void addGameObject(GameObject obj);
+	public void doInteraction(GameObject gobj);
+	public void addMushroom(Position pos);
+	public void replaceMario(Mario m);
 	
 }

@@ -8,6 +8,8 @@ import java.util.List;
 
 public class GameObjectContainer {
 	
+	
+	private Mario mario;
 	private List<GameObject> gameObjects;
 	private List<GameObject> gameObjectsPending;
 	
@@ -16,8 +18,23 @@ public class GameObjectContainer {
 		gameObjectsPending = new ArrayList<>();
 	}
 	
-	public boolean remove(GameObject obj) {
-		return gameObjects.remove(obj);
+	public void add(Land land) {
+		this.gameObjects.add(land);
+	}
+	
+	public void add(Goomba goomba) {
+		this.gameObjects.add(goomba);
+	}
+	public void add(ExitDoor exit) {
+		this.gameObjects.add(exit);
+	}
+	
+	public void add(Mario mario) {
+		if (this.mario != null) {
+			gameObjects.remove(this.mario);
+		}
+		this.mario = mario;
+		this.gameObjects.add(mario);
 	}
 
 	public void add(GameObject obj) {
@@ -29,7 +46,7 @@ public class GameObjectContainer {
 		
 		for (GameObject obj : gameObjects) {
 			obj.update();
-			if (obj.isAlive()) doInteractions(obj);
+			if (obj.isAlive()) doInteraction(obj);
 		}
 		
 		// añadir los objetos nuevos añadidos en ejecuccion mientras se hace update/action
@@ -49,12 +66,12 @@ public class GameObjectContainer {
 	}
 
 	
-	public boolean addObjectFactory(GameObject obj) {
+	public void addObjectFactory(GameObject obj) {
+		
 		for (GameObject gameObject : gameObjects) {
-			if(gameObject.isSolid() && obj.isInPosition(gameObject)) return false;
+			if(gameObject.isSolid() && obj.isInPosition(gameObject)) return;
 		}
 		this.gameObjects.add(obj);
-		return true;
 	}
 	
 	
@@ -84,14 +101,20 @@ public class GameObjectContainer {
 		return false;
 	}
 	
-	public void doInteractions(GameObject gobj) {
+	public void doInteraction(GameObject gobj) {
 		for (GameObject obj : gameObjects) {
-			gobj.interactWith(obj);			
+			gobj.interactWith(obj);
 			// comprobar que no este zombie
 			if (!gobj.isAlive()) return;
-			if (!obj.isAlive()) return;
-			obj.interactWith(gobj);
-		}//6574
+		}
 	}
 	
+	public void addAction(Action act) {
+		for (GameObject obj : gameObjects) {
+			if (!obj.isSolid() && obj.isAlive()) {
+				// NO hace nada sino es mario.
+				obj.addAction(act);
+			}
+		}
+	}
 }

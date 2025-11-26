@@ -3,7 +3,6 @@ package tp1.logic;
 
 
 import tp1.logic.gameobjects.*;
-import tp1.view.Messages;
 
 
 public class Game implements GameWorld, GameModel, GameStatus{
@@ -34,28 +33,14 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	public boolean parseGameObjectFactory(String objWords[]){
-		// intentamos crear Mario
-		GameObject nm = new Mario();
-		nm = nm.parse(objWords, this);
-		if (nm != null) {
-			if(!gameObjects.addObjectFactory(nm)) return false;
-			nm.addMarioGame();
-			return true;
-		}
-		
 		GameObject gameobject = GameObjectFactory.parse(objWords, this);
 		if (gameobject != null) {
-			if(!gameObjects.addObjectFactory(gameobject)) return false;
+			//gameObjects.addObjectFactory(gameobject);
+			gameobject.add(gameObjects);
 			return true;
 		}else{
 			return false;
 		}
-		
-	}
-	
-	public void addMario(Mario m) {
-		gameObjects.remove(this.mario);
-		this.mario = m;
 	}
 	
 	public void marioExited() {
@@ -115,7 +100,7 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	public void addAction(Action act) {
-		if (act != null) mario.addAction(act); 
+		gameObjects.addAction(act);
 	}
 	
 	public boolean playerWins() {
@@ -144,10 +129,8 @@ public class Game implements GameWorld, GameModel, GameStatus{
 
 	@Override
 	public String toString() {
-		return Messages.GAME_NAME + " " + Messages.VERSION + "\n" + 
-				Messages.REMAINING_TIME.formatted(remainingTime) + "\n" + 
-				Messages.POINTS.formatted(points) + "\n" + 
-				Messages.NUM_LIVES.formatted(lives) + "\n";
+		
+		return "TODO: Hola soy el game";
 	}
 
 	public boolean playerLoses() {
@@ -168,8 +151,8 @@ public class Game implements GameWorld, GameModel, GameStatus{
 	}
 	
 	
-	public void doInteractions(GameObject gobj) {
-		gameObjects.doInteractions(gobj);
+	public void doInteraction(GameObject gobj) {
+		gameObjects.doInteraction(gobj);
 	}
 	
 	
@@ -338,26 +321,33 @@ public class Game implements GameWorld, GameModel, GameStatus{
 		return (this.finish && this.wins);
 	}
 	
+
+	@Override
+	public void clean() {
+		
+		
+	}
+
+	@Override
+	public boolean interactWith() {
+		
+		return false;
+	}
 	
 	public void exit() {
 		finish();
 	}
 	
 	
-	public void addGameObject(GameObject obj) {
-		gameObjects.addPending(obj);
+	// añadir seta desde box
+	public void addMushroom(Position p) {
+		gameObjects.addPending(new MushRoom(this, p.moved(Action.UP)));
 	}
 
 	@Override
-	public void clean() {
-		// TODO Auto-generated method stub
+	public void replaceMario(Mario m) {
 		
-	}
-
-	@Override
-	public boolean interactWith() {
-		// TODO Auto-generated method stub
-		return false;
+		this.mario = m;
 	}
 	
 }

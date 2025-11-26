@@ -1,6 +1,5 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Action;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
@@ -9,8 +8,7 @@ public class MushRoom extends MovingObject {
 
 	public MushRoom(GameWorld game, Position pos) {
 		super(game, pos);
-		this.avanza = Action.RIGHT;
-		//this.avanza = false;
+		this.avanza = false;
 		this.NAME = Messages.MUSHROOM_NAME;
 		this.SHORTCUT = Messages.MUSHROOM_SHORTCUT;
 		
@@ -66,6 +64,7 @@ public class MushRoom extends MovingObject {
 		if (objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
+			
 			MushRoom m = new MushRoom(game,p);
 			
 			// direccion goomba
@@ -73,11 +72,10 @@ public class MushRoom extends MovingObject {
 				// direccion si existe
 				switch (objWords[2].toLowerCase()) {
 				case "right", "r" -> {
-					//m.avanza = false;
-					m.avanza = Action.RIGHT;
+					m.avanza = false;
 				}
 				case "left", "l" -> {
-					m.avanza = Action.LEFT;
+					m.avanza = true;
 				}
 				default -> {return null;}
 				}	

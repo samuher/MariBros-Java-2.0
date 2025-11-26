@@ -37,7 +37,7 @@ public class AddObjectCommand extends AbstractCommand{
 	public Command parse(String[] commandWords) {
 		
 		// comprobamos longitud y ejeccucion del comando deseado
-		if (commandWords.length >= 3 && (commandWords[0].toLowerCase().equals(this.NAME) || commandWords[0].toLowerCase().equals(this.SHORTCUT))) {
+		if (commandWords.length >= 3 && (commandWords[0].toLowerCase().equals(getName()) || commandWords[0].toLowerCase().equals(getShortcut()))) {
 			// preparar objWords para eliminar el comando
 			// 0 = (x,y), 1 = objeto , 2 = atributo (opc), 3 = atributo (opc)
 			this.objWords = Arrays.copyOfRange(commandWords, 1, commandWords.length);

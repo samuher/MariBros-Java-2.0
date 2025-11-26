@@ -3,6 +3,7 @@ package tp1.logic.gameobjects;
 
 import tp1.logic.Action;
 import tp1.logic.ActionList;
+import tp1.logic.GameObjectContainer;
 import tp1.logic.GameWorld;
 import tp1.view.Messages;
 import tp1.logic.Position;
@@ -10,9 +11,9 @@ import tp1.logic.Position;
 public class Mario extends MovingObject{
 	
 	private boolean big = true;
-	//private boolean right = true;
-	//private boolean left = false;
-	//private boolean stop = false;
+	private boolean right = true;
+	private boolean left = false;
+	private boolean stop = false;
 	private boolean cayendo = false;
 	private boolean downstop = false;
 	private ActionList actlist;	
@@ -20,15 +21,14 @@ public class Mario extends MovingObject{
 	public Mario(GameWorld game, Position position) {
 		super(game, position);
 		this.actlist = new ActionList();
-		//this.avanza = false;
-		this.avanza = Action.RIGHT;
+		this.avanza = false;
 	}
 	
 	public Mario() {
 		this.actlist = new ActionList();
 		this.NAME = Messages.MARIO_NAME;
 		this.SHORTCUT = Messages.MARIO_SHORTCUT;
-		this.avanza = Action.RIGHT;
+		this.avanza = false;
 	}
 	
 	public GameObject parse(String objWords[], GameWorld game) {
@@ -51,25 +51,20 @@ public class Mario extends MovingObject{
 			// parse tamaño
 			if(objWords.length > 3) {
 				// small or big si existe
-				m.big = stringtoBig(objWords[3].toLowerCase());
+				switch (objWords[3].toLowerCase()) {
+				case "big", "b" -> {
+					m.big = true;
+				}
+				case "small", "s" -> {
+					m.big = false;
+				}
+				default -> {
+					return null;}
+				}
 			}
 			return m;
 		}
 		return null;
-	}
-	
-	private boolean stringtoBig(String s) {
-		switch (s.toLowerCase()) {
-		case "big", "b" -> {
-			return true;
-		}
-		case "small", "s" -> {
-			return false;
-		}
-		default -> {
-			return false; // a la espera de las excepciones
-		}
-		}
 	}
 	
 	@Override
@@ -84,15 +79,14 @@ public class Mario extends MovingObject{
 			if (actlist.anyActions()) {
 				while(actlist.anyActions()) {
 					actionMovement(actlist.nextAction());
-					game.doInteractions(this);
+					game.doInteraction(this);
 				}	
-				//this.avanza = false;
-				this.avanza = Action.RIGHT;
+				this.avanza = false;
 				return;
 			}
 			//automatico big
 			if(!automaticMovement()) {
-				game.doInteractions(this);
+				game.doInteraction(this);
 				return;
 			}		
 	}
@@ -102,11 +96,10 @@ public class Mario extends MovingObject{
 	private void actionMovement(Action dir) {
 		if(isNextToLateral(dir) || isNextToSolid(dir) || isNextToRoof(dir)) {
 			if(dir == Action.DOWN) {
-				//this.stop = true;
-				//this.left = false;
-				//this.right = false;
+				this.stop = true;
+				this.left = false;
+				this.right = false;
 				this.downstop = true;
-				this.avanza = Action.STOP;
 				return;
 			}
 			lookDirection(dir, true);
@@ -127,55 +120,60 @@ public class Mario extends MovingObject{
 			if(dir == Action.RIGHT) dir = Action.LEFT;
 		}
 		
-		if(dir == Action.DOWN) {
+		if (dir == Action.LEFT) {
+			this.left = true;
+			this.right = false;
+			this.stop = false;
+			this.downstop = false;
+		} else if (dir == Action.RIGHT){
+			this.right = true;
+			this.left = false;
+			this.stop = false;
+			this.downstop = false;
+		} else if (dir == Action.DOWN) {
 			Position suelo = this.pos.moved(Action.DOWN);
 			caida(suelo);
 			return true;
-		}else if (dir == Action.STOP) {
-			//this.stop = true;
+		} else if (dir == Action.STOP) {
+			this.stop = true;
 			this.downstop = true;
-			this.avanza = Action.STOP;
-		} else {
-			this.avanza = dir;
-			this.downstop = false;
 		}
 		return choque;
 	}
-	
 	
 	public boolean automaticMovement() {
 		
 		if (caidaUnitaria(this.pos.moved(Action.DOWN))) {
 			return false;
 		}
-		//Action dir = avanza ? Action.LEFT : Action.RIGHT;
-		if(isNextToLateral(this.avanza) || isNextToSolid(this.avanza) || isNextToRoof(this.avanza)) {
-			//avanza = !avanza;
-			leftToRight(this.avanza);
+		Action dir = avanza ? Action.LEFT : Action.RIGHT;
+		if(isNextToLateral(dir) || isNextToSolid(dir) || isNextToRoof(dir)) {
+			avanza = !avanza;
+			leftToRight(avanza);
 		} else {
-			movimientoUnitario();
+			movimientoUnitario(avanza, downstop, dir);
 		}
 		return true;
 		
 	}
 	
-	
 	//redirect movimientoUnitario
-	protected void movimientoUnitario(Action avanza, Action dir) {
+	protected void movimientoUnitario(boolean avanza, Action dir) {
 		
-		movimientoUnitario(avanza);
+		movimientoUnitario(avanza, downstop, dir);
 	}
 	
-	public void movimientoUnitario() {
+	public void movimientoUnitario(boolean avanza, boolean downstop, Action dir) {
 		if(!this.downstop) {
-			this.pos = this.pos.moved(this.avanza);
-			//leftToRight(avanza);
-			//this.stop = false;
+			this.pos = this.pos.moved(dir);
+			leftToRight(avanza);
+			this.stop = false;
 		}
 	}
 	
-	public void leftToRight(Action dir) {
-		this.avanza = Action.oposite(dir);
+	public void leftToRight(boolean avanza) {
+		this.left = avanza;
+		this.right = !avanza;
 	}
 	
 	public boolean isNextToRoof(Action dir) {
@@ -209,23 +207,30 @@ public class Mario extends MovingObject{
 		if(big) {
 			move(dir);
 		}
-		game.doInteractions(this);
-		move(Action.oposite(dir));
+		game.doInteraction(this);
+		move(oposite(dir));
 		if (big) {
-			move(Action.oposite(dir));
+			move(oposite(dir));
 		}
 	}
 	
+	private Action oposite(Action dir) {
+		if(dir == Action.UP) return Action.DOWN;
+		if(dir == Action.DOWN) return Action.UP;
+		if(dir == Action.RIGHT) return Action.LEFT;
+		if(dir == Action.LEFT) return Action.RIGHT;
+		else return dir;
+	}
+	
+	
 	public String getIcon() {
 		// devuelve el icono, segun su direccion
-		if (avanza == Action.STOP) {
+		if (this.stop) {
 			return Messages.MARIO_STOP; 
-		} else if (avanza == Action.RIGHT) {
+		} else if (this.right) {
 			return Messages.MARIO_RIGHT;
-		} else if (avanza == Action.LEFT) {
+		} else if (this.left) {
 			return Messages.MARIO_LEFT;
-		} else if (avanza == Action.DOWN) {
-			return Messages.MARIO_STOP;
 		}
 		return Messages.MARIO_STOP;
 	}
@@ -278,7 +283,7 @@ public class Mario extends MovingObject{
 			}
 			this.pos = suelo;
 			this.cayendo = true;
-			game.doInteractions(this);
+			game.doInteraction(this);
 			return true;
 		}
 		return false;
@@ -292,16 +297,18 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(Goomba goomba) {
-		if (isAlive()) {
-			goomba.receiveInteraction(this);
-		}
-		if (!cayendo) {
-			if (this.big) {
-				this.big = false;
-			} else {
-				game.marioDead();
-				dead();
-			}	
+		if (goomba.isAlive()) {
+			goomba.receiveInteraction(this);	
+		}else {
+			if (!cayendo) {
+				if (this.big) {
+					this.big = false;
+				} else {
+					game.marioDead();
+					dead();
+				}	
+			}
+			return true;
 		}
 		return true;
 	}
@@ -326,22 +333,28 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(MushRoom mushRoom) {
-		mushRoom.receiveInteraction(this);
-		if (!big) {
-			this.big = true;
+		
+		if (mushRoom.isAlive()) {
+			mushRoom.receiveInteraction(this);
+		}else {
+			if (!big) {
+				this.big = true;
+			}
 		}
 		return true;
 	}
 	
 	@Override
 	public boolean receiveInteraction(Box box) {
-		box.receiveInteraction(this);
+		if(box.isFull()) {
+			box.receiveInteraction(this);
+		}
 		return false;
 	}
 	
-	
-	public void addMarioGame() {
-		game.addMario(this);
+	public void add(GameObjectContainer gameObjects) {
+		gameObjects.add(this);
+		game.replaceMario(this);
 	}
 	
 }

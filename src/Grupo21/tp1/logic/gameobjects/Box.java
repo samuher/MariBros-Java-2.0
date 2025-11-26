@@ -1,6 +1,5 @@
 package tp1.logic.gameobjects;
 
-import tp1.logic.Action;
 import tp1.logic.GameWorld;
 import tp1.logic.Position;
 import tp1.view.Messages;
@@ -8,7 +7,6 @@ import tp1.view.Messages;
 public class Box extends GameObject {
 	
 	private boolean full = true;
-	private final static int pointsAdd = 50;
 
 	public Box(GameWorld game, Position pos) {
 		super(game, pos);
@@ -32,23 +30,24 @@ public class Box extends GameObject {
 		if (objWords[1].toLowerCase().equals(this.NAME)|| objWords[1].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
-			// crea instancia de box 
-			Box b = new Box(game, p);
+			
+			// añadimos el juego
+			this.game = game;
+			// añadimos la posicion 
+			this.pos = p;
 			
 			// diferencia entre full y empty
 			if (objWords.length > 3) {
 				switch (objWords[3]) {
 				case "full", "f" -> {
-					b.full = true;
+					this.full = true;
 				}
 				case "empty", "e" -> {
-					b.full = false;
+					this.full = false;
 				}
 				default -> {return null;}}
 			}
-			
-			
-			return b;
+			return this;
 		}
 		return null;
 	}
@@ -61,10 +60,10 @@ public class Box extends GameObject {
 	
 	@Override
 	public boolean receiveInteraction(Mario m) {
+		
 		if(isFull()) {
-			game.addPoints(pointsAdd);
-			//game.addMushroom(this.pos);
-			game.addGameObject(new MushRoom(game, this.pos.moved(Action.UP)));
+			game.addPoints(50);
+			game.addMushroom(this.pos);
 			this.full = false;
 			m.receiveInteraction(this);		
 		}

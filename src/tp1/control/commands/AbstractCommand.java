@@ -12,30 +12,25 @@ public abstract class AbstractCommand implements Command {
 
 	// Forman parte de atributos de estado
 	private final String name;
-	private final String shorcut;
+	private final String shortcut;
 	private final String details;
 	private final String help;
 	
 	//super()
-	public AbstractCommand(String name, String shorcut, String details, String help) {
+	public AbstractCommand(String name, String shortcut, String details, String help) {
 		this.name = name;
-		this.shorcut = shorcut;
+		this.shortcut = shortcut;
 		this.details = details;
 		this.help = help;
 	}
 
-	protected String getName() { return name; }
-	protected String getShortcut() { return shorcut; }
-	protected String getDetails() { return details; }
-	protected String getHelp() { return help; }
-
 	protected boolean matchCommandName(String name) {
-		return getShortcut().equalsIgnoreCase(name) || 
-			   getName().equalsIgnoreCase(name);
+		return this.shortcut.equalsIgnoreCase(name) || 
+			   this.name.equalsIgnoreCase(name);
 	}
 
 	@Override
 	public String helpText(){
-		return Messages.LINE_TAB.formatted(Messages.COMMAND_HELP_TEXT.formatted(getDetails(), getHelp()));
+		return Messages.LINE_TAB.formatted(Messages.COMMAND_HELP_TEXT.formatted(this.details, this.help));
 	}
 }

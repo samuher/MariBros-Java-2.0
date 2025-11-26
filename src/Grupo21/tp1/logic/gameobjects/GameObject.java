@@ -37,6 +37,9 @@ public abstract class GameObject implements GameItem {
 		return (this.pos.equals(g.pos));
 	}
 	
+	public void addAction(Action act) {
+		// NO hace nada sino es mario.
+	}
 	public boolean isAlive() {return true;};
 	public void dead() {};
 	
@@ -60,6 +63,9 @@ public abstract class GameObject implements GameItem {
 		if(objWords[1].toLowerCase().equals(this.NAME) || objWords[1].toLowerCase().equals(this.SHORTCUT)) {
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
+			// inicializr y devolver
+			this.pos = p;
+			this.game = game;
 			return createInstance(game, p);
 		}
 		return null;
@@ -109,10 +115,6 @@ public abstract class GameObject implements GameItem {
 	public boolean receiveInteraction(Box obj) {
 		
 		return false;
-	}
-	
-	public void addMarioGame() {
-		// solo se sobreescribe en Mario
 	}
 	
 	public void add(GameObjectContainer gameObjects) {

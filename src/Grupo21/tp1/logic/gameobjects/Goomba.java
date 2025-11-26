@@ -26,6 +26,8 @@ public class Goomba extends MovingObject{
 			Position p = Position.parsePosition(objWords[0]);
 			if (p == null) return null;
 			
+			// añadimos el juego		
+			// añadimos la posicion 
 			Goomba g = new Goomba(game, p);
 			
 			// direccion goomba
@@ -33,12 +35,10 @@ public class Goomba extends MovingObject{
 				// direccion si existe
 				switch (objWords[2].toLowerCase()) {
 				case "right", "r" -> {
-					//&g.avanza = false;
-					g.avanza = Action.RIGHT;
+					g.avanza = false;
 				}
 				case "left", "l" -> {
-					//g.avanza = true;
-					g.avanza = Action.LEFT;
+					g.avanza = true;
 				}
 				default -> {return null;}
 			}
@@ -79,15 +79,17 @@ public class Goomba extends MovingObject{
 	}
 	
 	
+	
 	public boolean isDead() {
 		//return this.dead;
 		return !isAlive();
 	}
 	
 	public boolean receiveInteraction(Mario other) {
-		if (isAlive()) {
+		if (isAlive() && other.isAlive()) {
 			game.addPoints(100);
 			dead();
+			other.receiveInteraction(this);
 		}
 		return true;
 	}
