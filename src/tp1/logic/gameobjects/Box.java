@@ -92,4 +92,16 @@ public class Box extends GameObject {
 		}
 		return canInteract;
 	}
+
+	@Override
+	public void dead() {
+		return;
+	}
+
+	@Override
+	public void update() {
+		return;
+	}
+	
+	
 }

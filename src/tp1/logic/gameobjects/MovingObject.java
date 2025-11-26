@@ -19,10 +19,7 @@ public abstract class MovingObject extends GameObject {
 	}
 
 	@Override
-	public String getIcon() {
-		
-		return null;
-	}
+	public abstract String getIcon();
 	
 	public boolean isAlive() {return alive;}
 	public void dead(){

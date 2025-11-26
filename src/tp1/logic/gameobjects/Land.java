@@ -9,7 +9,6 @@ public class Land extends GameObject{
 	
 	public Land(Position position) {
 		super(position);
-		this.NAME = "land";
 	}
 	
 	public Land(GameWorld game, Position pos) {
@@ -33,14 +32,6 @@ public class Land extends GameObject{
 		
 	@Override
 	public boolean interactWith(GameItem item) {
-		/*
-		boolean canInteract = item.isInPosition(this.pos);
-		if(canInteract) {
-			item.receiveInteraction(this);
-			return false;
-		}
-		return canInteract;
-		*/
 		return false;
 	}
 
@@ -53,6 +44,16 @@ public class Land extends GameObject{
 	@Override
 	protected GameObject createInstance(GameWorld game, Position pos) {
 		return new Land(game, pos);
+	}
+
+	@Override
+	public void dead() {
+		return;
+	}
+
+	@Override
+	public void update() {
+		return;
 	}
 	
 }

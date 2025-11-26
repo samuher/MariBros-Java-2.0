@@ -53,6 +53,7 @@ public class Mario extends MovingObject{
 				// small or big si existe
 				m.big = stringtoBig(objWords[3].toLowerCase());
 			}
+			
 			return m;
 		}
 		return null;
@@ -231,7 +232,9 @@ public class Mario extends MovingObject{
 	}
 	
 	public String toString() {
-		return null;
+		return "Mario [pos=" + pos + ", big=" + big + 
+				", avanza=" + avanza + ", cayendo=" 
+				+ cayendo + "]";
 	}
 	
 	public boolean isInPosition (Position p) {
@@ -292,16 +295,19 @@ public class Mario extends MovingObject{
 	
 	@Override
 	public boolean receiveInteraction(Goomba goomba) {
+		
+		goomba.dead();
+		game.addPoints(100);
+		
 		if (isAlive()) {
-			goomba.receiveInteraction(this);
-		}
-		if (!cayendo) {
-			if (this.big) {
-				this.big = false;
-			} else {
-				game.marioDead();
-				dead();
-			}	
+			if (!cayendo) {
+				if (this.big) {
+					this.big = false;
+				} else {
+					game.marioDead();
+					dead();
+				}	
+			}
 		}
 		return true;
 	}

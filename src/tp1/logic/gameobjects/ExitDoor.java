@@ -62,5 +62,15 @@ public class ExitDoor extends GameObject{
 		}
 		return canInteract;
 	}
+
+	@Override
+	public void dead() {
+		return;
+	}
+
+	@Override
+	public void update() {
+		return;
+	}
 	
 }

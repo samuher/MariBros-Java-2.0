@@ -38,14 +38,10 @@ public abstract class GameObject implements GameItem {
 	}
 	
 	public boolean isAlive() {return true;};
-	public void dead() {};
 	
-	
-	// public boolean isSolid()
-	public void update() {
-		
-	}
-	
+	// abstractas
+	public abstract void dead();
+	public abstract void update();
 	public abstract String getIcon();
 
 	// Not mandatory but recommended
