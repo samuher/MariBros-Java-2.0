@@ -3,6 +3,7 @@ package tp1.control.commands;
 import java.util.Arrays;
 import java.util.List;
 
+import tp1.exceptions.CommandParseException;
 import tp1.view.Messages;
 
 //Se crean los comandos
@@ -19,12 +20,14 @@ public class CommandGenerator {
 			
 	);
 
-	public static Command parse(String[] commandWords) {		
+	public static Command parse(String[] commandWords) throws CommandParseException {		
+		Command parsed = null;
 		for (Command c: AVAILABLE_COMMANDS) {
 			
-			Command parsed = c.parse(commandWords);
+			parsed = c.parse(commandWords);
 			if(parsed != null) return parsed;
 		}
+		if(parsed == null) throw new CommandParseException(Messages.UNKNOWN_COMMAND.formatted(commandWords[0]));
 		return null;
 	}
 		
